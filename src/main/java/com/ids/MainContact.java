@@ -25,7 +25,7 @@ public class MainContact {
 	private boolean g = true;
 
 	//http://localhost:1000/swagger-ui.html
-	//IDS DATA
+
 	/*
 	 drop table commande_article_commandes;drop table client_adress_livs;drop table client_commandes;drop table article_commande; drop table adress_liv;drop table commande;drop table client;
 	 */
