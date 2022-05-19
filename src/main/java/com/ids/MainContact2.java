@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ids.data.utils.ApplicationStarter;
 import com.ids.entity.AdressLiv;
 import com.ids.entity.ArticleCommande;
 import com.ids.entity.Commande;
@@ -17,20 +15,16 @@ import com.ids.repository.ClientRepository;
 import com.ids.repository.CommandeRepository;
 import com.ids.service.ClientService;
 
-import lombok.RequiredArgsConstructor;
-
-@SpringBootApplication
-@RequiredArgsConstructor
-public class MainContact {
+//@SpringBootApplication
+//@RequiredArgsConstructor
+public class MainContact2 {
 	private boolean g = true;
 
-	//http://localhost:1000/swagger-ui.html
 	//IDS DATA
 	/*
-	 drop table commande_article_commandes;drop table client_adress_livs;drop table client_commandes;drop table article_commande; drop table adress_liv;drop table commande;drop table client;
-	 */
+	 drop table commande_article_commandes;drop table client_adress_livs;drop table client_commandes;drop table article_commande; drop table adress_liv;drop table commande;drop table client;*/
 	public static void main(String[] args) {
-		ApplicationStarter.Main(args, MainContact.class);
+		//	ApplicationStarter.Main(args, MainContact2.class);
 	}
 
 	//@Bean
@@ -40,13 +34,13 @@ public class MainContact {
 		return a -> {
 			if (clientRepository.findAll().size() == 0)
 				clientRepository.saveAll(service.init());
-			/************************************************************************/
 			new java.util.Timer().schedule(new java.util.TimerTask() {
 				@Override
 				public void run() {
 					try {
-						if (commandeRepository.findAll().size() == 0) {
+						if (commandeRepository.findAll().size() == 0 && g) {
 							clientRepository.findAll().forEach(l -> {
+								List<Commande> lcm = new ArrayList<>();
 								for (int i = 0; i < 3; i++) {
 									int k = rn(7, 8000);
 									Commande cm = new Commande();
@@ -55,10 +49,13 @@ public class MainContact {
 									cm.setAmount(k * 2);
 									cm.setIdClient(l.getId());
 									commandeRepository.save(cm);
+									lcm.add(cm);
 								}
+								//Client cl = clientRepository.findById(UUID.fromString(l)).get();
+								//	l.setCommandes(lcm);
+								clientRepository.save(l);
 							});
 						}
-						/********************************************************************************************************/
 						if (adressLivRepository.findAll().size() == 0 && g) {
 							String[] countr = new String[] { "maroc#rabat", "maroc#casa", "maroc#fes", "maroc#oujda",
 									"maroc#tanger", "maroc#titouane", "maroc#araiche", "maroc#marakesh",
@@ -77,7 +74,6 @@ public class MainContact {
 									al.setCountry(tab[0]);
 									al.setCity(tab[1]);
 									al.setAdress(i + " rue de la liberté " + tab[1] + " " + tab[0]);
-									al.setIdClient(cl.getId());
 									adressLivRepository.save(al);
 									lav.add(al);
 								}
@@ -85,11 +81,11 @@ public class MainContact {
 								clientRepository.save(cl);
 							});
 						}
-						/****************************************************************************************/
-						if (articleCommandeRepository.findAll().size() == 0) {
+						if (articleCommandeRepository.findAll().size() == 0 && g) {
 							String[] countr = new String[] { "pc", "tablette", "ecran", "machine a laver",
 									"smarte phone", "tv", "frigirateur" };
 							commandeRepository.findAll().forEach(cl -> {
+								List<ArticleCommande> lav = new ArrayList<>();
 								for (int i = 0; i < 3; i++) {
 									ArticleCommande al = new ArticleCommande();
 									al.setDesign(countr[rn(0, countr.length)]);
@@ -98,7 +94,10 @@ public class MainContact {
 									al.setPortion("***");
 									al.setIdCommande(cl.getId());
 									articleCommandeRepository.save(al);
+									lav.add(al);
 								}
+								//cl.setArticleCommandes(lav);
+								commandeRepository.save(cl);
 							});
 						}
 					} catch (Exception e) {
@@ -107,7 +106,6 @@ public class MainContact {
 				}
 			}, 1000);
 			System.out.println("done ..... !");
-			/************************************************************************/
 
 		};
 	}
