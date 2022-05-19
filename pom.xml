@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.ids</groupId>
 		<artifactId>parent-ms</artifactId>
-		<version>2.0.2-SNAPSHOT</version>
+		<version>2.0.5-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 	<artifactId>contact-ms</artifactId>
@@ -13,12 +13,7 @@
 	<description>contact-ms</description>
 	<url>https://innov-ds.com</url>
 	<dependencies>
-		   <dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>1.6.8</version>
-   </dependency>
-
+	
 
 	</dependencies>
 	<developers>
@@ -50,4 +45,5 @@
 			</plugin>
         </plugins>
     </build>
+    
 </project>
