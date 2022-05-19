@@ -33,3 +33,4 @@ build/
 ### CUSTOM ###
 application.pid
 .DS_Store
+*.ini
