@@ -64,7 +64,7 @@ spring:
         page-parameter: page
         size-parameter: size
   datasource:
-    url: jdbc:postgresql://localhost:5432/gescom2?gssEncMode=disable
+    url: jdbc:postgresql://localhost:5432/gescom?gssEncMode=disable
     username: postgres
     password: nori
     hikari:
