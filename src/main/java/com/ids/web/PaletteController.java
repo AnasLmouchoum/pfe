@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ids.data.web.AbstractCrudController;
 import com.ids.entity.Palette;
 import com.ids.repository.PaletteRepository;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.AllArgsConstructor;
 
@@ -23,14 +26,16 @@ public class PaletteController extends AbstractCrudController<Palette,UUID> {
 	
 	private PaletteRepository pr;
 	
-	@GetMapping("/{idClient}")
-	public void getByClient(@PathVariable UUID idClient){
+	@GetMapping("client/{idClient}")
+	public List<Palette> getByClient(@PathVariable UUID idClient){
 		List<Palette> all = pr.findAll();
+		List<Palette> list = new ArrayList<Palette>();
 		for(int i=0;i<all.size();i++) {
-			if(all.get(i).getIdClient() == idClient) {
-				System.out.println(all.get(i));
+			if(all.get(i).getIdClient().equals(idClient)) {
+				list.add(all.get(i));
 			}
 		}
+		return list;
 	}
 
 }
