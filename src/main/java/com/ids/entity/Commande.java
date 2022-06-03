@@ -25,14 +25,13 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @Where(clause = "deleted = false")
 public class Commande extends AuditableEntityId<UUID> {
-	private Date date;
+	
+
+	private static final long serialVersionUID = 1L;
+	private Date date_Commande;
 	private String season;
+	private Long nBC;
 	private double amount;
-	/*@ManyToOne
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Client client;*/
 	private UUID idClient;
 	private String adrLiv;
-	/*	@OneToMany
-		private List<ArticleCommande> articleCommandes;*/
 }

@@ -51,7 +51,7 @@ public class MainContact {
 								for (int i = 0; i < 3; i++) {
 									int k = rn(7, 8000);
 									Commande cm = new Commande();
-									cm.setDate(new Date());
+									cm.setDate_Commande(new Date());
 									cm.setSeason("saison " + k);
 									cm.setAmount(k * 2);
 									cm.setIdClient(l.getId());

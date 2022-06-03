@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommandeController extends AbstractCrudController<Commande, UUID> {
 	private CommandeRepository repository;
-	private CommandeService service;
+//	private CommandeService service;
 
 	@GetMapping("/allcoms")
 	public List<Commande> all() {

@@ -3,10 +3,13 @@ package com.ids.entity;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
-import com.ids.data.entity.EntityUuid;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ids.data.entity.AuditableEntityId;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,13 +26,17 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @Entity
 @Where(clause = "deleted = false")
-public class ArticleCommande extends EntityUuid {
-	
+public class MatiereArticle extends AuditableEntityId<UUID> {
+
 	private static final long serialVersionUID = 1L;
-	private String design;
-	private long qte;
-	private String portion;
-	private double pu;
-	private UUID idCommande;
-	private UUID idArticlee;
+
+	private Long quantite;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Article article;
+
+	//	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	private MatierePremiere matiere;
 }
