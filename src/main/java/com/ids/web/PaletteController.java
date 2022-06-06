@@ -28,14 +28,18 @@ public class PaletteController extends AbstractCrudController<Palette,UUID> {
 	
 	@GetMapping("client/{idClient}")
 	public List<Palette> getByClient(@PathVariable UUID idClient){
-		List<Palette> all = pr.findAll();
-		List<Palette> list = new ArrayList<Palette>();
+		return pr.findByIdClient(idClient);
+	}
+	
+	@GetMapping("/numPalette/{idClient}")
+	public List getNumPallete(@PathVariable UUID idClient){
+		List<Palette> all = pr.findByIdClient(idClient);
+		List palette = new ArrayList();
 		for(int i=0;i<all.size();i++) {
-			if(all.get(i).getIdClient().equals(idClient)) {
-				list.add(all.get(i));
-			}
+			palette.add(all.get(i).getNummero_Palette());
 		}
-		return list;
+		
+		return palette;
 	}
 
 }

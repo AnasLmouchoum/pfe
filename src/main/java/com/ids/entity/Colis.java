@@ -35,12 +35,14 @@ public class Colis extends EntityUuid {
 	private int codeArticle;
 	private UUID idClient;
 	private String designation;
-	private int Quantite;
-	private int numCommande;
+	private int quantite;
+	private int nCommande;
 	private String saison;
 	private String portion;
 	private int nColisDe;
 	private int nColisA;
+	
+	private boolean inPalette;
 	
 	@ManyToOne()
 	private Palette palette;
