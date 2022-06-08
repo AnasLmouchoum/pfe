@@ -1,23 +1,29 @@
 package com.ids.entity;
 
 import javax.persistence.Entity;
+
+import org.hibernate.annotations.Where;
+
 import com.ids.data.entity.EntityUuid;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import lombok.AllArgsConstructor;
 
 @SuperBuilder
-@Setter
 @Getter
+@Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Entity
-public class Fournisseur extends EntityUuid{
-public static final long serialVersionUID=1l;
+@Where(clause = "deleted = false")
+public class Fournisseur extends EntityUuid {
+	public static final long serialVersionUID = 1l;
+	private String design;
 	private String raisonSociale;
 	private String contact;
 	private String tel;

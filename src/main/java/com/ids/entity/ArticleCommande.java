@@ -24,9 +24,13 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Where(clause = "deleted = false")
 public class ArticleCommande extends EntityUuid {
+
+	private static final long serialVersionUID = 1L;
 	private String design;
 	private long qte;
 	private String portion;
 	private double pu;
 	private UUID idCommande;
+	private UUID idArticlee;
+
 }

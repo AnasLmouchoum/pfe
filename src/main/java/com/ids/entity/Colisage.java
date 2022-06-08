@@ -1,6 +1,6 @@
 package com.ids.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -11,26 +11,26 @@ import com.ids.data.entity.AuditableEntityId;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@RequiredArgsConstructor
-@AllArgsConstructor
-@ToString(callSuper = true)
 @Entity
+@ToString(callSuper = true)
 @Where(clause = "deleted = false")
-public class Commande extends AuditableEntityId<UUID> {
+public class Colisage extends AuditableEntityId<UUID> {
 
 	private static final long serialVersionUID = 1L;
-	private Date date;
-	private String season;
-	private Long nBC;
-	private double amount;
 	private UUID idClient;
-	private String adrLiv;
+	private Date date_colisage;
+	private double pois_brut;
+	private int nombre_palettes;
+	private double pois_net;
+
 }

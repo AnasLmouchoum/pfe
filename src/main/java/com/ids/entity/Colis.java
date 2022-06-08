@@ -1,13 +1,13 @@
 package com.ids.entity;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
-import com.ids.data.entity.AuditableEntityId;
+import com.ids.data.entity.EntityUuid;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,13 +24,23 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @Entity
 @Where(clause = "deleted = false")
-public class Commande extends AuditableEntityId<UUID> {
+public class Colis extends EntityUuid {
 
 	private static final long serialVersionUID = 1L;
-	private Date date;
-	private String season;
-	private Long nBC;
-	private double amount;
+	private int codeArticle;
 	private UUID idClient;
-	private String adrLiv;
+	private String designation;
+	private int quantite;
+	private int nCommande;
+	private String saison;
+	private String portion;
+	private int nColisDe;
+	private int nColisA;
+	private UUID idArticle;
+	private UUID idCommande;
+
+	private boolean inPalette;
+
+	@ManyToOne
+	private Palette palette;
 }

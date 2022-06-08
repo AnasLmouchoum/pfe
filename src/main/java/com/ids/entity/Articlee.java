@@ -1,9 +1,12 @@
 package com.ids.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
@@ -24,13 +27,20 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @Entity
 @Where(clause = "deleted = false")
-public class Commande extends AuditableEntityId<UUID> {
+public class Articlee extends AuditableEntityId<UUID> {
 
 	private static final long serialVersionUID = 1L;
+	private String codeArt;
+	private String designation;
+	private String prixUnit;
+	private String poids;
+	private String codeBarre;
 	private Date date;
-	private String season;
-	private Long nBC;
-	private double amount;
+
+	private UUID idFamilleArticle;
+	private UUID idFournisseur;
 	private UUID idClient;
-	private String adrLiv;
+
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<MatiereArticle> articleMatieres;
 }

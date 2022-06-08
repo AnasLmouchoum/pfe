@@ -2,10 +2,13 @@ package com.ids.service;
 
 import org.springframework.stereotype.Service;
 
+import com.ids.data.annotation.TransactionalService;
+
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@TransactionalService
 public class CommandeService {
 	/*private CommandeRepository comandDao;
 	private ClientRepository clientDao;
