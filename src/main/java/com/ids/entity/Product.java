@@ -44,5 +44,4 @@ public class Product extends AuditableEntityId<UUID> {
 	private UUID idCommande;
 	private UUID idClient;
 	private UUID idArticle;
-	private UUID idArticleCommande;
 }
