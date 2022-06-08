@@ -703,3 +703,94 @@ export const coco0: Coco = {
 	path: "",
 	qte: 0,
 };
+//************************************************************ */
+//************************************************************ */
+//********************Colisage************************* */
+export interface Colisage {
+	id:String,
+	idClient:String,
+	  date_colisage:String,
+	  pois_brut: number,
+	  nombre_palettes:number,
+	  pois_net:number,
+	}
+	export const colisage0:Colisage = {
+	  id:"",
+	  idClient:"",
+	  date_colisage:new Date().toISOString().slice(0, 10),
+	  pois_brut: 0,
+	  nombre_palettes:0,
+	  pois_net:0,
+  
+	}
+	export interface ColisageJson {
+	  constent:Colisage[]
+	}
+
+   //************************************************************ */
+  //************************************************************ */
+  //********************Colis************************* */
+  export interface Colis {
+	id:String,
+	codeArticle:number,
+	designation:String,
+	quantite:number,
+	ncommande:number,
+	saison:number,
+	portion:String,
+	ncolisA:number,
+	ncolisDe:number,
+	idClient:String
+ }
+ export const colis0:Colis = {
+   id:"",
+   codeArticle:0,
+   designation:"",
+   quantite:0,
+   ncommande:0,
+   saison:0,
+   portion:"",
+   ncolisA:0,
+   ncolisDe:0,
+   idClient:""
+
+ }
+
+ export interface ColisJson {
+   constent:Colis[]
+ }
+
+ //************************************************************ */
+  //************************************************************ */
+  //********************Palette************************* */
+  export interface Palette {
+    id:string,
+    nummero_Palette:number,
+    remarque:String,
+    nombre_colis: number,
+    idClient:String
+  }
+  export const paletteM:Palette = {
+    id:"-1",
+    nummero_Palette:11,
+    remarque:"xxxxxxxxx",
+    nombre_colis: 20,
+    idClient:"",
+  }
+  export const palette0:Palette = {
+    id:"",
+    nummero_Palette:0,
+    remarque:"",
+    nombre_colis: 20,
+    idClient:""
+  }
+  export interface PaletteJson {
+    constent:Palette[]
+  }
+  export type OpenPaletteProp={
+    data:PaletteJson
+    refetch:()=>void
+    save:()=>void
+    edit:()=>void
+  }
+

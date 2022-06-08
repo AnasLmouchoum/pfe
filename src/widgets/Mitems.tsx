@@ -63,6 +63,7 @@ const Mitems = ({ archive, del, edit, obj, update, ...props }: menuProp) => {
       text: "Supprimer",
       action: () => {
         del(obj.id);
+        
       },
     },
     {

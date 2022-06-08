@@ -157,7 +157,7 @@ const ListClientManager1 = () => {
                       }} */
 											del={() => {
 												//@ts-ignore
-												del.current(client.id, client.design);
+												del.current(p.id)
 											}}
 											edit={() => {
 												FormAsEdit(client);

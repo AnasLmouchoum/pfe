@@ -4,8 +4,6 @@ import { Action, combineReducers, configureStore, StoreEnhancer, ThunkAction } f
 import counterReducer from 'features/counter/counterSlice';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
-import { crudColis } from './../components/colisage/rtk/rtk_colisage';
 import customOfflineConfig from './offline';
 import { crudAdressLiv } from './rtk/RtkAdressLiv';
 import { crudArticle } from './rtk/rtkArticle';
@@ -29,6 +27,9 @@ import { crudTransporteur } from './rtk/rtkTransporteur';
 import { crudType } from './rtk/rtkType';
 import { crudUnitMeasure } from './rtk/rtkUnitMeasure';
 import { crudVille } from './rtk/rtkVille';
+import { crudColis } from './rtk/rtk_colis';
+import { crudColisage } from './rtk/rtk_colisage';
+import { crudPalette } from './rtk/rtk_palette';
 
 const {
 	middleware: offlineMiddleware,
@@ -72,6 +73,8 @@ export function makeStore() {
 		[crudPayementMode.reducerPath]: crudPayementMode.reducer,
 		[crudColis.reducerPath]: crudColis.reducer,
 		[crudGeneric.reducerPath]: crudGeneric.reducer,
+		[crudPalette.reducerPath]: crudPalette.reducer,
+		[crudColisage.reducerPath]: crudColisage.reducer,
 	});
 	/*
 	 */
@@ -110,6 +113,8 @@ export function makeStore() {
 				.concat([crudArticleClient.middleware, offlineMiddleware])
 				.concat([crudPayementMode.middleware, offlineMiddleware])
 				.concat([crudColis.middleware, offlineMiddleware])
+				.concat([crudPalette.middleware, offlineMiddleware])
+				.concat([crudColisage.middleware, offlineMiddleware])
 				.concat([crudGeneric.middleware, offlineMiddleware]),
 	});
 	return store;

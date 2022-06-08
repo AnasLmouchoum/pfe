@@ -233,7 +233,27 @@ const FormDecharge = ({ decharge }: FormDechargeProps, ref: Ref<void>) => {
                     <Table.td>{decharge.date}</Table.td>
 
                     <Table.td className="cursor-pointer">
-                      <Mitems menu={menu(decharge)} />
+                      <Mitems 
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(client.id, client.design);
+                        }}
+                        /*   restore={() => {
+                          //@ts-ignore
+                          restore.current(client.id,client.design);
+                        }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(client.id);
+                        }}
+                        edit={() => {
+                          FormAsEdit(client);
+                        }}
+                        obj={client}
+                        update={() => {
+                          FormAsUpdate(client);
+                        }} 
+                        />
                     </Table.td>
                   </tr>
                 );

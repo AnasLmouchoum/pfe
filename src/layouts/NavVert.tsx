@@ -86,15 +86,15 @@ const menuVert = [
         route.pathname == "/manager/purchase/InputOutputHistory",
       sous: [],
     },
-    /* {
-        id: 11,
-        icon: "home",
-        text: "test",
-        link: "/Test",
-        active: route.pathname == "/Test",
+    {
+        id: COLISAGE_MANAGER,
+        icon: "shopping-bag",
+        text: "Gestion de colisage",
+        link: "/colisage/GestionColisage",
+        active: route.pathname == "/colisage/GestionColisage",
         sous: []
-      },
-      {
+    },
+      /*{
         id: 12,
         icon: "home",
         text: "liste des icons",
