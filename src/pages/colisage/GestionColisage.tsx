@@ -15,6 +15,9 @@ import { openColisage } from 'config/rtk/rtk_colisage';
 function GestionColisge():JSX.Element {
   const ClientToOpen: any = openClients();
     const ClientJson: ClientJson = ClientToOpen.data.content
+    const ColisToOpen:any = openColisage()
+    // const saveColis = ColisToOpen.save; 
+    const refetchColis = ColisToOpen.refetch
     const [estAjt,setEstAjt] = useState(false);
     const [showColis,setShowColis] = useState(false);
     const [estModifier,setModifier] = useState(false)

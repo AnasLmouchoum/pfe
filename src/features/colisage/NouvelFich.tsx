@@ -12,8 +12,9 @@ import { Client, ClientJson, Colis, colis0, ColisJson } from 'tools/types';
 type NouvelUtilisateurProps={
     setEstAjt:(b:boolean)=>void
     ClientJson:ClientJson
+    refetchColis:()=>void
 }
-function NouvelFich({setEstAjt,ClientJson}:NouvelUtilisateurProps) {
+function NouvelFich({setEstAjt,ClientJson,refetchColis}:NouvelUtilisateurProps) {
 
     const ColisToOpen:any = openColisage()
     const colisJson: ColisJson = ColisToOpen.data;
@@ -21,7 +22,7 @@ function NouvelFich({setEstAjt,ClientJson}:NouvelUtilisateurProps) {
     const onsubmit = (data:Colis) =>{
         saveColis(data)
         setEstAjt(false)
-        
+        refetchColis
     }
     
     
