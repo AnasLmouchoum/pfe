@@ -1,6 +1,5 @@
 package com.ids.entity;
 
-import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,9 +24,11 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @Where(clause = "deleted = false")
 public class Palette extends AuditableEntityId<UUID> {
+
 	private static final long serialVersionUID = 1L;
 	private int nummero_Palette;
 	private String remarque;
 	private int nombre_colis;
 	private UUID idClient;
+
 }
