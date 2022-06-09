@@ -10,7 +10,7 @@ import Pagin from 'widgets/Pagin';
 import Bcyan from 'widgets/Bcyan';
 import axios from 'axios';
 import { Client, ClientJson, Colisage, ColisageJson  } from 'tools/types';
-import { openColisage } from 'config/rtk/rtk_colisage';
+import { openColisage } from 'config/rtk/rtkColisage';
 import Mitems from 'widgets/Mitems';
 import Action from 'widgets/Action';
 import { update } from 'lodash';

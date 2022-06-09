@@ -4,7 +4,7 @@ import { XIcon } from '@heroicons/react/solid';
 import { Field, Form } from 'widgets';
 import Bsave from 'widgets/Bsave';
 import Bcancel from 'widgets/Bcancel';
-import { openColisage } from 'config/rtk/rtk_colisage';
+import { openColisage } from 'config/rtk/rtkColisage';
 import { Client, ClientJson, Colis, colis0, ColisJson } from 'tools/types';
 // import { Client, ClientJson, Colis, colis0, ColisJson } from '../tools/types';
 // import { openClients } from '../rtk/rtk_client';

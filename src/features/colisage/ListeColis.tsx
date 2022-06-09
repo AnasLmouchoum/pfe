@@ -4,7 +4,7 @@ import Table from 'widgets/Table'
 import AnnulationDesCommandes from './AnnulationDesCommande'
 import AffectationDesColis from './AffectationDesColis'
 import { Colis, Colisage, ColisJson } from 'tools/types'
-import { openColis } from 'config/rtk/rtk_colis'
+import { openColis } from 'config/rtk/rtkColis'
 // import { Colisage, ColisJson , Colis } from 'config/rtk/rtk_colisage'
 // import { openColis } from '../rtk/rtk_colis'
 

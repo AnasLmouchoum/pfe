@@ -27,9 +27,10 @@ import { crudTransporteur } from './rtk/rtkTransporteur';
 import { crudType } from './rtk/rtkType';
 import { crudUnitMeasure } from './rtk/rtkUnitMeasure';
 import { crudVille } from './rtk/rtkVille';
-import { crudColis } from './rtk/rtk_colis';
-import { crudColisage } from './rtk/rtk_colisage';
-import { crudPalette } from './rtk/rtk_palette';
+import { crudColis } from './rtk/rtkColis';
+import { crudColisage } from './rtk/rtkColisage';
+import { crudPalette } from './rtk/rtkPalette';
+import { crudProduct } from './rtk/RtkProduct';
 
 const {
 	middleware: offlineMiddleware,
@@ -74,6 +75,7 @@ export function makeStore() {
 		[crudColis.reducerPath]: crudColis.reducer,
 		[crudGeneric.reducerPath]: crudGeneric.reducer,
 		[crudPalette.reducerPath]: crudPalette.reducer,
+		[crudProduct.reducerPath]: crudProduct.reducer,
 		[crudColisage.reducerPath]: crudColisage.reducer,
 	});
 	/*
@@ -115,6 +117,7 @@ export function makeStore() {
 				.concat([crudColis.middleware, offlineMiddleware])
 				.concat([crudPalette.middleware, offlineMiddleware])
 				.concat([crudColisage.middleware, offlineMiddleware])
+				.concat([crudProduct.middleware, offlineMiddleware])
 				.concat([crudGeneric.middleware, offlineMiddleware]),
 	});
 	return store;

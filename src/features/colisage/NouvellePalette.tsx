@@ -4,7 +4,7 @@ import Bsave from 'widgets/Bsave';
 import Bcancel from 'widgets/Bcancel';
 // import { Colis, Palette, palette0 } from '../tools/types';
 import Modal from 'widgets/Modal';
-import { openPalette } from 'config/rtk/rtk_palette';
+import { openPalette } from 'config/rtk/rtkPalette';
 import { Colis, Palette, palette0  } from 'tools/types';
 // import { openPalette } from '../rtk/rtk_palette';
 type NouvellePaletteProps={

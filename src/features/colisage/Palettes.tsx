@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { openPalette } from 'config/rtk/rtk_palette'
+import { openPalette } from 'config/rtk/rtkPalette'
 import React, { useEffect, useState } from 'react'
 import { Colis, Palette, PaletteJson } from 'tools/types'
 import { Button } from 'widgets'

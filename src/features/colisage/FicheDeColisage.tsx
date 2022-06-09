@@ -7,7 +7,7 @@ import Bcyan from 'widgets/Bcyan';
 import Bcancel from 'widgets/Bcancel';
 import Bsave from 'widgets/Bsave';
 
-import { openColisage } from 'config/rtk/rtk_colisage';
+import { openColisage } from 'config/rtk/rtkColisage';
 import Palettes from './Palettes';
 import ListeColis from './ListeColis';
 import ListeDesCommandesPrete from './ListeDesCommandesPrete';

@@ -103,3 +103,9 @@ export const openArticles = (): OpenArticleProp => {
   const out: OpenArticleProp = { data, refetch, save, edit };
   return out;
 };
+export const openOneArticle =(idArticle: string):OpenArticleProp =>{
+  const { data = [], refetch } = useFetchOneArticleQuery(idArticle);
+  //@ts-ignore
+  const out:OpenArticleProp={data, refetch}
+  return out;
+}

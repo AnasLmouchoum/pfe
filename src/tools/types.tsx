@@ -112,22 +112,45 @@ export const articleCommande0: ArticleCommande = {
 };
 
 export const arc0= articleCommande0;
-export interface ArticleJson {
-	content: Article[];
-}
+//------------------------------------------
+  //------------------ARTICLE-----------------
+  export interface ArticleJson{
+    content:Article[]
+  }
+  export interface Article {
+    id: string
+    codeArt: string
+    designation: string
+    prixUnit: string
+    idClient: string
+    poids: string
+    idFournisseur: string
+    idFamilleArticle: string
+    codeBarre: string
+    date: Date;
+    articleMatieres: ArticleMatiere[]
+  }
+  export const art0: Article = {
+    id: "",
+    codeArt: "",
+    designation: "",
+    poids: "",
+    prixUnit: "",
+    idFamilleArticle: "",
+    idClient: "",
+    idFournisseur: "",
+    codeBarre: "",
+    date: new Date(),
+    articleMatieres: [],
+  }
 
-export interface Article extends IdsObject {
-	nomenclature: string;
-	tauxPertes: number;
-}
-
-export const article0: Article = {
-	id: "",
-	design: "",
-	nomenclature: "",
-	tauxPertes: 0,
-	path: "",
-};
+// export const article0: Article = {
+// 	id: "",
+// 	design: "",
+// 	nomenclature: "",
+// 	tauxPertes: 0,
+// 	path: "",
+// };
 
 export interface UnitMeasureJson {
 	content: UnitMeasure[];
@@ -438,7 +461,11 @@ export const fournisseur0: Fournisseur = {
 	matiere: [],
 	path: "",
 };
+export interface FournisseurJson {
+    content: Fournisseur[]
+  }
 export const f0=fournisseur0;
+
 //************************************************************ */
 //************************************************************ */
 //*******************CommandeFournsieeur********************** */
@@ -477,6 +504,29 @@ export const getFournisseur = (
 	});
 	return apr;
 };
+  //------------------------------------------------
+  //--------------MATIERE---------------------------
+  export interface MatiereJson {
+    content: Matiere[]
+  }
+  export interface Matiere {
+    id: string
+    codeMat: string
+    designation: string
+    unitMesure: string
+    stock: string
+    prixUnit: string
+    idFournisseur: string
+  }
+  export const mat0: Matiere = {
+    id: "",
+    codeMat: "",
+    designation: "",
+    unitMesure: "",
+    stock: "",
+    prixUnit: "",
+    idFournisseur: "",
+  }
 //************************************************************ */
 //************************************************************ */
 //********************MatierePremiere************************* */
@@ -793,4 +843,87 @@ export interface Colisage {
     save:()=>void
     edit:()=>void
   }
-
+//----------------------------------------------------
+//------------------FAMILLE---------------------------
+export interface FamilleArticleJson {
+	content: FamilleArticle[];
+  }
+  export interface FamilleArticle {
+	id: string;
+	design: string;
+	nomenclature: string;
+	tauxPertes: string;
+  }
+  export const famArt0: FamilleArticle = {
+	id: "",
+	design: "",
+	nomenclature: "",
+	tauxPertes: "",
+  }
+//-----------------------------------------------
+  //-------------------PRODUCT---------------------
+  export interface ProductJson{
+    content:Product[]
+  }
+  export interface Product {
+    id: string
+    num: string
+    commeFait: boolean
+    idArticleCommande: string;
+    idCommande: string
+    idClient: string
+    idArticle: string
+    portion: string
+    quantite: string
+    // quantiteAFab: string
+    dateProd: Date
+  }
+  export const pro0: Product = {
+    id: "",
+    num: "",
+    commeFait: false,
+    idArticleCommande: "",
+    idCommande: "",
+    idClient: "",
+    idArticle: "",
+    quantite: "",
+    //quantiteAFab: "",
+    portion: "",
+    dateProd: new Date(),
+  }
+//----------------------------------------------------
+//------------------FAMILLE---------------------------
+export interface CalculProductJson {
+	content: CalculProduct[];
+  }
+  export interface CalculProduct {
+	idArticlee: string;
+	idCommande: string;
+	portion: string;
+	qteTotal: string;
+	qteProduit: string;
+  }
+  export const cp0: CalculProduct = {
+	idArticlee: "",
+	idCommande: "",
+	portion: "",
+	qteTotal: "",
+	qteProduit: "",
+  }
+    //------------------------------------------
+  //------------MATIERE-ARTICLE---------------
+  export interface ArticleMatiereJson {
+    content: ArticleMatiereJson[];
+  }
+  export interface ArticleMatiere {
+    id: string;
+    matiere: Matiere;
+    quantite: string;
+    article: Article;
+  }
+  export const artMat0: ArticleMatiere = {
+    id: "",
+    matiere: mat0,
+    quantite: "",
+    article: art0,
+  }

@@ -5,7 +5,7 @@ import FicheDeColisage from 'features/colisage/FicheDeColisage';
 import NouvelFich from 'features/colisage/NouvelFich'
 import { ClientJson, colis0 } from 'tools/types';
 import { openClients } from 'config/rtk/RtkClient';
-import { openColisage } from 'config/rtk/rtk_colisage';
+import { openColisage } from 'config/rtk/rtkColisage';
 
 // import NouvelPalette from 'components/manager/colisage/NouvellePalette';
 
@@ -27,7 +27,7 @@ function GestionColisge():JSX.Element {
          { !estAjt && !showColis && <ListColisage setEstAjt={setEstAjt}  setShowColis={setShowColis}   setModifier={setModifier} setColis={setColis} ClientJson={ClientJson}  />
         
       }
-      { estAjt && !showColis && <NouvelFich setEstAjt={setEstAjt} ClientJson={ClientJson}   />
+      { estAjt && !showColis && <NouvelFich setEstAjt={setEstAjt} ClientJson={ClientJson}  refetchColis={refetchColis}  />
 
       }
       { showColis && !estAjt && <FicheDeColisage setShowColis={setShowColis}  estModifier={estModifier} setModifier={setModifier} colis={colis} setColis={setColis} ClientJson={ClientJson} />

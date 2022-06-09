@@ -1,20 +1,38 @@
 import { PlusIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import axios from 'axios'
+import { OpenArticleProp, openArticles } from 'config/rtk/rtkArticle'
+import { OpenCommandeProp, openCommandes } from 'config/rtk/RtkCommande'
+import React, { useEffect, useState } from 'react'
+import { Article, ArticleJson, Commande, CommandeJson } from 'tools/types'
 import Table from 'widgets/Table'
+// import { OpenArticleProp, openArticles } from '../rtk/RtkArticle'
+// import { OpenCommandeProp, openCommandes } from '../rtk/RtkCommande'
+// import { Article, ArticleJson, Commande, CommandeJson } from '../tools/types'
 import GestionColisCommande from './GestionColisCommande'
 
+//@ts-ignore
 function ListeDesCommandesPrete({showColisCmd,setShowColisCmd,colis}) {
-    const [listPret,setListPret] = useState([{
-        code:1,
-        designation:"vvvvvvv",
-        pois_brut:500,
-        qntTot:100,
-        qnt_rest:100,
-        nCmd:5,
-        saison:4,
-        portion:"Maroc",
-        packaging:20
-    }])
+    
+    //*******************************//
+    //************ARTICLE************//
+    const ArticlesToOpen: OpenArticleProp = openArticles();
+    const ArticleJson: ArticleJson = ArticlesToOpen.data;
+    //@ts-ignore
+    const Articles: Article[] = ArticleJson.content;
+    //*******************************//
+    //************ARTICLE************//
+    const [ProductsDone, setProductsDone] = useState([])
+    useEffect(() => {
+    axios.get('http://localhost:1000/api/v1/productsDone').then(resp => {
+        setProductsDone(resp.data)
+    })
+    }, [])
+    //*******************************//
+    //************COMMANDE***********//
+    const CommandesToOpen: OpenCommandeProp = openCommandes();
+    const CommandesJson: CommandeJson = CommandesToOpen.data
+    const Commandes: Commande[] = CommandesJson.content
+
   return (
     <div className=''>
         <fieldset className=' border-2 rounded-xl'>
@@ -35,18 +53,22 @@ function ListeDesCommandesPrete({showColisCmd,setShowColisCmd,colis}) {
                         <Table.th className=' top-0 z-10    py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 '></Table.th>
                     </Table.tr>}
             >
-                {listPret.map((p: any) => {
+                {ProductsDone.map((p: any) => {
+                        console.log("This is Article")
+                        console.log(Articles)
+                        console.log(p)
+                        if(colis.idClient == p.idClient)
                         return (
-                            <Table.tr key={p.code}  >
-                                <Table.td>{p.code}</Table.td>
-                                <Table.td>{p.designation}</Table.td>
+                            <Table.tr key={p.id}  >
+                                <Table.td>{Articles?.map(a => {if(a.id === p.idArticle){return a.codeArt}})}</Table.td>
+                                <Table.td>{Articles?.map(a => {if(a.id === p.idArticle){return a.designation}})}</Table.td>
                                 {/* <Table.td>{p.pois_brud}</Table.td> */}
-                                <Table.td>{p.qntTot}</Table.td>
-                                <Table.td>{p.qnt_rest}</Table.td>
-                                <Table.td>{p.nCmd}</Table.td>
-                                <Table.td>{p.saison}</Table.td>
+                                <Table.td>{p.sum}</Table.td>
+                                <Table.td>{0}</Table.td>
+                                <Table.td>{Commandes?.map(c => {if(c.id === p.idCommande){return c.nbc}})}</Table.td>
+                                <Table.td>{Commandes?.map(c => {if(c.id === p.idCommande){return c.season}})}</Table.td>
                                 <Table.td>{p.portion}</Table.td>
-                                <Table.td>{p.packaging}</Table.td>
+                                <Table.td>{20}</Table.td>
                                 <Table.td className='cursor-pointer'>
                                     <PlusIcon className='w-7 h-7 border-2 rounded-full border-black text-black ' onClick={()=>setShowColisCmd(true)} />
                                     <GestionColisCommande showColisCmd={showColisCmd} setShowColisCmd={setShowColisCmd} colis={colis}  />

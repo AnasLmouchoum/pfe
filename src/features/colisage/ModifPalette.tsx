@@ -7,7 +7,7 @@ import Bcancel from 'widgets/Bcancel';
 import { Palette, paletteM } from 'tools/types';
 import Modal from 'widgets/Modal';
 import Table from 'widgets/Table';
-import { openPalette } from 'config/rtk/rtk_palette';
+import { openPalette } from 'config/rtk/rtkPalette';
 // import { Palette, palette0 } from '../tools/types';
 // import { openPalette } from '../rtk/rtk_palette';
 type NouvellePaletteProps={
