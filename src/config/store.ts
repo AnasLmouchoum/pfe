@@ -1,25 +1,32 @@
 import { createOffline } from '@redux-offline/redux-offline';
 import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
 import { Action, combineReducers, configureStore, StoreEnhancer, ThunkAction } from '@reduxjs/toolkit';
+import { crudArticle } from 'components/gestionProduction/rtk/RtkArticle';
+import { crudArticleCommande } from 'components/gestionProduction/rtk/RtkArticleCommande';
+import { crudCalculProduct } from 'components/gestionProduction/rtk/RtkCalculProduct';
+import { crudClient } from 'components/gestionProduction/rtk/RtkClient';
+import { crudCommande } from 'components/gestionProduction/rtk/RtkCommande';
+import { crudFamilleArticle } from 'components/gestionProduction/rtk/RtkFamilleArticle';
+import { crudFournisseur } from 'components/gestionProduction/rtk/RtkFournisseur';
+import { crudMatiere } from 'components/gestionProduction/rtk/RtkMatiere';
+import { crudProduct } from 'components/gestionProduction/rtk/RtkProduct';
 import counterReducer from 'features/counter/counterSlice';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { crudColis } from './../components/colisage/rtk/rtk_colisage';
 import customOfflineConfig from './offline';
 import { crudAdressLiv } from './rtk/RtkAdressLiv';
-import { crudArticle } from './rtk/rtkArticle';
 import { crudArticleClient } from './rtk/RtkArticleClient';
-import { crudArticleCommande } from './rtk/RtkArticleCommande';
 import { crudBureauDouane } from './rtk/rtkBureauDouane';
-import { crudClient } from './rtk/RtkClient';
-import { crudCommande } from './rtk/RtkCommande';
+import { crudColis } from './rtk/rtkColis';
+import { crudColisage } from './rtk/rtkColisage';
+import { crudColisPalette } from './rtk/rtkColisPalette';
 import { crudDeclarant } from './rtk/rtkDeclarant';
 import { crudDevise } from './rtk/rtkDevise';
 import { crudDocument } from './rtk/rtkDocument';
-import { crudFournisseur } from './rtk/rtkFournisseur';
 import { crudGeneric } from './rtk/rtkGen';
 import { crudIncoterm } from './rtk/rtkIncoterm';
+import { crudPalette } from './rtk/rtkPalette';
 import { crudPayementMode } from './rtk/rtkPayementMode';
 import { crudPays } from './rtk/rtkPays';
 import { crudRawMaterial } from './rtk/rtkRawMaterial';
@@ -49,7 +56,7 @@ const persistConfig = {
 export function makeStore() {
 	const rootReducer = combineReducers({
 		counter: counterReducer,
-		[crudFournisseur.reducerPath]: crudFournisseur.reducer,
+		// [crudFournisseur.reducerPath]: crudFournisseur.reducer,
 		[crudVille.reducerPath]: crudVille.reducer,
 		[crudType.reducerPath]: crudType.reducer,
 		[crudTransporteur.reducerPath]: crudTransporteur.reducer,
@@ -57,21 +64,34 @@ export function makeStore() {
 		[crudPays.reducerPath]: crudPays.reducer,
 		[crudDocument.reducerPath]: crudDocument.reducer,
 		[crudDevise.reducerPath]: crudDevise.reducer,
-		[crudCommande.reducerPath]: crudCommande.reducer,
+		// [crudCommande.reducerPath]: crudCommande.reducer,
 		[crudBureauDouane.reducerPath]: crudBureauDouane.reducer,
-		[crudArticle.reducerPath]: crudArticle.reducer,
+		// [crudArticle.reducerPath]: crudArticle.reducer,
 		[crudRegimeDouanier.reducerPath]: crudRegimeDouanier.reducer,
 		[crudRawMaterial.reducerPath]: crudRawMaterial.reducer,
 		[crudDeclarant.reducerPath]: crudDeclarant.reducer,
 		[crudIncoterm.reducerPath]: crudIncoterm.reducer,
 		[crudUnitMeasure.reducerPath]: crudUnitMeasure.reducer,
-		[crudClient.reducerPath]: crudClient.reducer,
+		// [crudClient.reducerPath]: crudClient.reducer,
 		[crudAdressLiv.reducerPath]: crudAdressLiv.reducer,
-		[crudArticleCommande.reducerPath]: crudArticleCommande.reducer,
+		// [crudArticleCommande.reducerPath]: crudArticleCommande.reducer,
 		[crudArticleClient.reducerPath]: crudArticleClient.reducer,
 		[crudPayementMode.reducerPath]: crudPayementMode.reducer,
+		[crudColisage.reducerPath]: crudColisage.reducer,
 		[crudColis.reducerPath]: crudColis.reducer,
+		[crudPalette.reducerPath]: crudPalette.reducer,
+		[crudColisPalette.reducerPath]: crudColisPalette.reducer,
 		[crudGeneric.reducerPath]: crudGeneric.reducer,
+
+		[crudProduct.reducerPath]: crudProduct.reducer,
+		[crudArticle.reducerPath]: crudArticle.reducer,
+		[crudMatiere.reducerPath]: crudMatiere.reducer,
+		[crudClient.reducerPath]: crudClient.reducer,
+		[crudFournisseur.reducerPath]: crudFournisseur.reducer,
+		[crudFamilleArticle.reducerPath]: crudFamilleArticle.reducer,
+		[crudCommande.reducerPath]: crudCommande.reducer,
+		[crudArticleCommande.reducerPath]: crudArticleCommande.reducer,
+		[crudCalculProduct.reducerPath]: crudCalculProduct.reducer,
 	});
 	/*
 	 */
@@ -109,7 +129,10 @@ export function makeStore() {
 				.concat([crudArticleCommande.middleware, offlineMiddleware])
 				.concat([crudArticleClient.middleware, offlineMiddleware])
 				.concat([crudPayementMode.middleware, offlineMiddleware])
+				.concat([crudColisage.middleware, offlineMiddleware])
 				.concat([crudColis.middleware, offlineMiddleware])
+				.concat([crudPalette.middleware, offlineMiddleware])
+				.concat([crudColisPalette.middleware, offlineMiddleware])
 				.concat([crudGeneric.middleware, offlineMiddleware]),
 	});
 	return store;

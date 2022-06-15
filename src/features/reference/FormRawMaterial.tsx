@@ -1,3 +1,5 @@
+import { XIcon } from '@heroicons/react/solid';
+import { raw } from '@storybook/react';
 import { openFamilleF, OpenRawMaterialProp, openRawMaterials } from 'config/rtk/rtkRawMaterial';
 import { openUnitF } from 'config/rtk/rtkUnitMeasure';
 import React, { forwardRef, Ref, useEffect, useRef, useState } from 'react';
@@ -9,6 +11,7 @@ import Bcancel from 'widgets/Bcancel';
 import Bsave from 'widgets/Bsave';
 import BsavEndNew from 'widgets/BsavEndNew';
 import MitemsRef from 'widgets/MitemsRef';
+import Modal from 'widgets/Modal';
 import ModalS from 'widgets/ModalS';
 import Pagin from 'widgets/Pagin';
 import Required from 'widgets/Required';
@@ -27,16 +30,18 @@ const FormRawMaterial = (
 	const refetchRawMaterial: () => void = rawMaterialsToOpen.refetch;
 	const saveRawMaterial = rawMaterialsToOpen.save;
 	const editRawMaterial = rawMaterialsToOpen.edit;
-	const tabUnit: UnitMeasure[] = openUnitF().data.content;
-	const Unit = tabUnit?.map((d) => d.symbole);
-	const tabFamille: RawMaterial[] = openFamilleF().data.content;
-	const Famille = tabFamille?.map((d) => d.design);
+	// const tabUnit: UnitMeasure[] = openUnitF().data.content;
+	// const Unit = tabUnit?.map((d) => d.symbole);
+	const Unit = ["m", "m²", "m³", "mm", "mm²", "mm³", "kg", "g", "mg"];
 	const [page, setPage] = useState(0);
 	const loadPage = (p: number) => {
 		setPage(p);
 		refetchRawMaterial();
+		refRaw();
 	};
-
+	const tabFamille: RawMaterial[] = openFamilleF(page).data.content;
+	const refRaw = openFamilleF(page).refetch;
+	const Famille = tabFamille?.map((d) => d.design);
 	//const { data = [], isFetching, refetch } = usePaginationRawMaterialsQuery(0);
 	//useFetchRawMaterialsQuery();
 	const [rawMaterial1, setRawMaterial1] = useState<RawMaterial>(rawMaterial0);
@@ -85,6 +90,9 @@ const FormRawMaterial = (
 	};
 	const void_ = () => {};
 
+	const [recherche, setRecherche] = useState('');
+	const [isRecherche, setIsRecherch] = useState(false);
+
 	return (
 		<>
 			{!form && (
@@ -96,6 +104,7 @@ const FormRawMaterial = (
 						type='Famille Matière Première'
 						ref={del}
 						action={DEL}
+						refetch={refetchRawMaterial}
 					/>
 					<Action
 						id=''
@@ -104,46 +113,33 @@ const FormRawMaterial = (
 						type='Famille Matière Première'
 						ref={archive}
 						action={ARCHIVE}
+						refetch={refetchRawMaterial}
 					/>
-					<Action
-						id=''
-						path='rawMaterials'
-						design=''
-						type='Famille Matière Première'
-						ref={restore}
-						action={RESTORE}
-					/>
-					<h1>Familles Matière première</h1>
+					<h1 className='py-2'>Familles Matière première</h1>
 					<div className='float-left w-full'>
 						<button
-							className='bg-sky-900 p-3 text-white rounded border border-cyan-900py-2 px-4 border rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-left'
+							className='bg-[#2d2e2e] p-3 text-white rounded border border-cyan-900py-2 px-4 shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-left'
 							onClick={() => {
 								setDisabled(false);
 								open(rawMaterial0);
 							}}>
 							Nouvelle Famille Matière Première
 						</button>
-						<div className='float-right'>
-							<button className='bg-white float-left border border-[#ddd] border-r-0 p-3 rounded-l-lg'>
-								<svg
-									className='w-6 h-6'
-									fill='none'
-									stroke='currentColor'
-									viewBox='0 0 24 24'
-									xmlns='http://www.w3.org/2000/svg'>
-									<path
-										stroke-linecap='round'
-										stroke-linejoin='round'
-										stroke-width='2'
-										d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
-								</svg>
-							</button>
-							<input
-								type='text'
-								className='py-3 border outline-[#ddd] border-[#ddd] float-left border-l-0 rounded-r-lg w-96'
-								placeholder='Recherche'
-							/>
-							{/* <button>icon</button> */}
+						<div className='w-full'>
+							<div className='float-right'>
+								<button className='bg-white float-left border border-[#ddd] border-r-0 p-3 rounded-l-lg' onClick={() => {if(recherche != ""){ setIsRecherch(true); }}}>
+									<svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+									</svg>
+								</button>
+								<input type="text" value={recherche} className='py-3 border outline-[#ddd] border-[#ddd] float-left border-l-0 w-96' placeholder='Recherche' onChange={(e) => {setRecherche(e.target.value);if(e.target.value == ''){setRecherche(''); setIsRecherch(false)}}}/>
+								<button className='bg-white float-left border border-[#ddd] border-l-0 p-2 rounded-r-lg' onClick={() => {setIsRecherch(false);setRecherche('');}}>
+								<XIcon
+									className='w-8 text-[#C1BFBF] group-hover:text-gray-500'
+									aria-hidden='true'
+								/>
+								</button>
+							</div>
 						</div>
 					</div>
 					<Table
@@ -160,34 +156,69 @@ const FormRawMaterial = (
 									Taux de perte
 								</th>
 								<th className=' top-0 z-10    py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900'>
-									Famille
+									Unité de mesure
 								</th>
+								{/* <th className=' top-0 z-10    py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900'>
+									Famille
+								</th> */}
 								<th></th>
 							</tr>
 						}>
-						{
-							//@ts-ignore
-							rawMaterials?.map((rawMaterial: RawMaterial) => {
+						{!isRecherche &&
+							tabFamille?.map((rawMaterial: RawMaterial) => {
 								return (
 									//@ts-ignore
-									<tr key={rawMaterial.id}>
+									<tr className='cursor-pointer h-20 text-xl' key={rawMaterial.id}>
 										<Table.td>{rawMaterial.design}</Table.td>
 										<Table.td>{rawMaterial.nomenclature}</Table.td>
 										<Table.td>
 											{rawMaterial.tauxPertes}
 											{"%"}
 										</Table.td>
-										<Table.td>{rawMaterial.family}</Table.td>
+										{/* <Table.td>{rawMaterial.family}</Table.td> */}
+										<Table.td>{rawMaterial.measureUnit}</Table.td>
 										<Table.td className='cursor-pointer'>
 											<MitemsRef
 												archive={() => {
 													//@ts-ignore
 													archive.current(rawMaterial.id, rawMaterial.design);
 												}}
-												/*   restore={() => {
-                        //@ts-ignore
-                        restore.current(client.id,client.design);
-                      }} */
+												del={() => {
+													//@ts-ignore
+													del.current(rawMaterial.id, rawMaterial.design);
+												}}
+												obj={rawMaterial}
+												update={() => {
+													FormAsUpdate(rawMaterial);
+												}}
+											/>
+										</Table.td>
+									</tr>
+								);
+							})
+						}
+						{isRecherche &&
+							tabFamille?.map((rawMaterial: RawMaterial) => {
+							if(recherche.toLocaleLowerCase() == rawMaterial.design.toLocaleLowerCase() ||
+								recherche.toLocaleLowerCase() == rawMaterial.nomenclature.toLocaleLowerCase() ||
+								recherche.toLocaleLowerCase() == rawMaterial.measureUnit.toLocaleLowerCase())
+								return (
+									//@ts-ignore
+									<tr className='cursor-pointer h-20 text-xl' key={rawMaterial.id}>
+										<Table.td>{rawMaterial.design}</Table.td>
+										<Table.td>{rawMaterial.nomenclature}</Table.td>
+										<Table.td>
+											{rawMaterial.tauxPertes}
+											{"%"}
+										</Table.td>
+										{/* <Table.td>{rawMaterial.family}</Table.td> */}
+										<Table.td>{rawMaterial.measureUnit}</Table.td>
+										<Table.td className='cursor-pointer'>
+											<MitemsRef
+												archive={() => {
+													//@ts-ignore
+													archive.current(rawMaterial.id, rawMaterial.design);
+												}}
 												del={() => {
 													//@ts-ignore
 													del.current(rawMaterial.id, rawMaterial.design);
@@ -206,13 +237,14 @@ const FormRawMaterial = (
 					<Pagin
 						load={loadPage}
 						max={rawMaterials?.length}
-						visible={rawMaterials?.length > 0 ? true : false}
+						visible={rawMaterials?.length > 0}
 					/>
 				</section>
 			)}
 
-			<ModalS
-				modal={true}
+			<Modal
+				//modal={true}
+				format={4}
 				show={show}
 				title={
 					rawMaterial1.id == ""
@@ -230,14 +262,21 @@ const FormRawMaterial = (
 								? editRawMaterial
 								: void_
 						}>
-						<div className=' float-left w-1/2'>
+						{/* <div className=' float-left w-1/2'>
 							<Field
 								label={<Required msg='Désignation' />}
 								name='design'
 								disabled={disabled} //required={true}
 							/>
-						</div>
+						</div> */}
 						<div className='float-left w-full'>
+							<div className=' float-left w-1/2'>
+								<Field
+									label={<Required msg='Désignation' />}
+									name='design'
+									disabled={disabled} //required={true}
+								/>
+							</div>
 							<div className='float-left w-1/2'>
 								<Field
 									label={<Required msg='Nomenclature' />}
@@ -245,7 +284,7 @@ const FormRawMaterial = (
 									disabled={disabled} //required={true}
 								/>
 							</div>
-							<div className='float-right w-1/2'>
+							{/* <div className='float-right w-1/2'>
 								<Field
 									label='Famille Mère'
 									name='family'
@@ -253,7 +292,7 @@ const FormRawMaterial = (
 									as='select'
 									disabled={disabled}
 								/>
-							</div>
+							</div> */}
 						</div>
 						<div className='float-left w-full'>
 							<div className='float-left w-1/2'>
@@ -273,7 +312,7 @@ const FormRawMaterial = (
 								/>
 							</div>
 						</div>
-						<div className='mt-5 b-ajust-r'>
+						<div className='mt-8 b-ajust-r'>
 							<Bsave
 								className='float-right'
 								onClick={() => {
@@ -296,14 +335,14 @@ const FormRawMaterial = (
 						</div>
 					</Form>
 					<Bcancel
-						className='float-right mt-5 b-ajust'
+						className='float-right mt-8 b-ajust'
 						onClick={() => {
 							setDisabled(true);
 							setShow(false);
 						}}
 					/>
 				</div>
-			</ModalS>
+			</Modal>
 		</>
 	);
 };

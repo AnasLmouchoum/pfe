@@ -1,10 +1,8 @@
-import { useAddFournisseurMutation, useEditFournisseurMutation } from 'config/rtk';
-import { openDevises } from 'config/rtk/rtkDevise';
-import { openIncoterms } from 'config/rtk/rtkIncoterm';
-import { openPayementModes } from 'config/rtk/rtkPayementMode';
+// import { useAddFournisseurMutation, useEditFournisseurMutation } from 'config/rtk';
+import { useAddFournisseurMutation, useEditFournisseurMutation } from 'components/gestionProduction/rtk/RtkFournisseur';
 import React, { useState } from 'react';
 import { REQUEST_EDIT, REQUEST_SAVE } from 'tools/consts';
-import { Devise, Fournisseur, Incoterm, PayementMode } from 'tools/types';
+import { Devise, Fournisseur } from 'tools/types';
 import { Field, Form } from 'widgets';
 import Avatar from 'widgets/Avatar';
 import Bcancel from 'widgets/Bcancel';
@@ -32,12 +30,15 @@ const FormFournisseurManager = ({
 }: FormFournisseurManagerProp) => {
 	const [save] = useAddFournisseurMutation();
 	const [edit] = useEditFournisseurMutation();
-	const tabDevises: Devise[] = openDevises(0).data.content;
-	const devises: string[] = tabDevises?.map((d) => d.symbole);
-	const tabIncoterms: Incoterm[] = openIncoterms().data.content;
-	const tabPayementModes: PayementMode[] = openPayementModes().data.content;
-	const incoterms = tabIncoterms?.map((d) => d.code);
-	const payementModes = tabPayementModes?.map((d) => d.code);
+	// const tabDevises: Devise[] = openDevises(0).data.content;
+	// const devises: string[] = tabDevises?.map((d) => d.symbole);
+	const devises: string[] = ["", "DH", "USD", "EUR"];
+	// const tabIncoterms: Incoterm[] = openIncoterms().data.content;
+	// const incoterms = tabIncoterms?.map((d) => d.code);
+	const incoterms: string[] = ["", "EXW", "FCA", "CPT", "CIP", "DPU", "DAP", "DDP"];
+	// const tabPayementModes: PayementMode[] = openPayementModes().data.content;
+	// const payementModes = tabPayementModes?.map((d) => d.code);
+	const payementModes: string[] = ["","Par chèque", "Par carte bancaire", "Par espèces", "En ligne"];
 	const onSubmit =
 		request == REQUEST_SAVE ? save : request == REQUEST_EDIT ? edit : undefined;
 	const [disabled, setDisabled] = useState(disable);
@@ -45,7 +46,7 @@ const FormFournisseurManager = ({
 		<Section>
 			<Xclose close={closed} />
 			<Title msg='fournisseur' id={fournisseur.id} edit={disabled} />
-			<div className='text-xs'>
+			<div className='text-xs'> {/*@ts-ignore*/}
 				<Form defaultValues={fournisseur} onSubmit={onSubmit}>
 					<div className='float-left w-5/6'>
 						<div className='float-left w-1/2'>
@@ -60,7 +61,7 @@ const FormFournisseurManager = ({
 							<Field label='Email' name='email' disabled={disabled} />
 							<Field
 								label={<Required msg='Adresse' />}
-								name='adresse'
+								name='adressse'
 								as='textarea'
 								disabled={disabled}
 							/>
@@ -134,9 +135,9 @@ const FormFournisseurManager = ({
 					}}
 				/>
 			)}
-			{fournisseur.id != "" && (
+			{/* {fournisseur.id != "" && (
 				<ListCommandeFournisseur fournisseur={fournisseur} />
-			)}
+			)} */}
 		</Section>
 	);
 };

@@ -53,12 +53,12 @@ const Layout = ({ children }: LayoutProps) => {
 	const isBeta = false;
 	const block = () => {
 		return (
-			<section className='bg-slate-100 float-left w-full'>
-				<div className='w-1/6 float-left'>
+			<section className='bg-slate-100 float-left w-full '>
+				<div className='w-1/6 float-left fixed h-full bg-[#2d2e2e]'>
 					{!isBeta && <NavVert updateSel={updateSel} />}
 					{isBeta && <NavVertBeta updateSel={updateSel} />}
 				</div>
-				<div className=' py-6 sm:px-6 lg:px-8 w-5/6 float-left'>{children}</div>
+				<div className=' py-6 sm:px-6 lg:px-8 w-5/6 float-right'>{children}</div>
 			</section>
 		);
 	};

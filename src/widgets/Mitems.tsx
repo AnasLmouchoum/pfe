@@ -75,22 +75,22 @@ const Mitems = ({ archive, del, edit, obj, update, ...props }: menuProp) => {
 				archive(obj.id);
 			},
 		},
-		{
-			icon: (
-				<ReplyIcon
-					className='mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500'
-					aria-hidden='true'
-				/>
-			),
-			text: "Restorer",
-			action: () => {
-				//restore(obj.id);
-			},
-		},
+		// {
+		// 	icon: (
+		// 		<ReplyIcon
+		// 			className='mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500'
+		// 			aria-hidden='true'
+		// 		/>
+		// 	),
+		// 	text: "Restorer",
+		// 	action: () => {
+		// 		//restore(obj.id);
+		// 	},
+		// },
 	];
 	return (
 		<>
-			<Menu as='div' className='relative inline-block text-left z-50'>
+			<Menu as='div' className='relative inline-block text-left'>{/*z-50*/}
 				<div>
 					<Menu.Button className='inline-flex justify-center w-full  px-4 py-2 bg-transparent text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'>
 						<DotsVerticalIcon className='h-5 w-5' aria-hidden='true' />

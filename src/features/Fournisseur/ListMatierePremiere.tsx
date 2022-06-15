@@ -35,7 +35,7 @@ const ListMatierePremiere = ({ fournisseur }: ListFournisseursProps) => {
 			/>
 
 			<Table
-				className='tab-list float-left w-full mt-2'
+				className='tab-list float-left w-full mt-8 tab-list'
 				thead={
 					<tr>
 						<Table.th>Code MP</Table.th>
@@ -48,14 +48,14 @@ const ListMatierePremiere = ({ fournisseur }: ListFournisseursProps) => {
 				}>
 				{" "}
 				{data?.map((m: MatierePremiere) => (
-					<tr key={m.id}>
+					<Table.tr className='cursor-pointer h-20 text-xl' key={m.id}>
 						<Table.td>{m.id}</Table.td>
 						<Table.td>{}</Table.td>
 						<Table.td>{m.prix}</Table.td>
 						<Table.td>{fournisseur.design}</Table.td>
 						<Table.td>{m.familleMatierePremiere}</Table.td>
 						<Table.td></Table.td>
-					</tr>
+					</Table.tr>
 				))}
 			</Table>
 		</>

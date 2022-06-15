@@ -103,8 +103,8 @@ export const openRawMaterials = (): OpenRawMaterialProp => {
   const out: OpenRawMaterialProp = { data, refetch, save, edit };
   return out;
 };
-export const openFamilleF = (): OpenRawMaterialProp => {
-  const { data = [], refetch } = usePaginationRawMaterialsQuery(0);
+export const openFamilleF = (page: number): OpenRawMaterialProp => {
+  const { data = [], refetch } = usePaginationRawMaterialsQuery(page);
   const [save] = useAddRawMaterialMutation();
   const [edit] = useEditRawMaterialMutation();
   //@ts-ignore

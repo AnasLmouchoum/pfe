@@ -45,7 +45,7 @@ const FormRoleManager = (
     >
       <Form defaultValues={role0} onSubmit={onSubmit}>
         <div className="float-left w-full">
-          <Field label="Désignation" name="design" disabled={disabled} />
+          <Field label="Désignation" name="designation" disabled={disabled} />
           <fieldset className="border border-[#ddd]/80 p-5 rounded-md">
             <legend className="p-5">Fonctionnalités</legend>
             <div className="float-left w-full">

@@ -409,7 +409,7 @@ export interface Fournisseur extends IdsObject {
 	contact: string;
 	tel: string;
 	email: string;
-	adresse: string;
+	adressse: string;
 	modeDeReglements: string;
 	incoterm: string;
 	devise: string;
@@ -427,7 +427,7 @@ export const fournisseur0: Fournisseur = {
 	contact: "",
 	tel: "",
 	email: "",
-	adresse: "",
+	adressse: "",
 	modeDeReglements: "",
 	incoterm: "",
 	devise: "",
@@ -704,3 +704,124 @@ export const coco0: Coco = {
 	path: "",
 	qte: 0,
 };
+
+//************************************************************ */
+//************************************************************ */
+//********************Colisage************************* */
+export interface Colisage {
+	id:String,
+	idClient:String,
+	date_colisage:String,
+	pois_brut: number,
+	nombre_palettes:number,
+	pois_net:number,
+	}
+	export const colisage0:Colisage = {
+	  id:"",
+	  idClient:"",
+	  date_colisage:new Date().toISOString().slice(0, 10),
+	  pois_brut: 0,
+	  nombre_palettes:0,
+	  pois_net:0,
+  
+	}
+	export interface ColisageJson {
+	  content:Colisage[]
+	}
+
+   //************************************************************ */
+  //************************************************************ */
+  //********************Colis************************* */
+  export interface Colis {
+	id:String;
+	codeArticle:number;
+	designation:String;
+	quantite:number;
+	ncommande:number;
+	saison:number;
+	portion:String;
+	ncolisDe:number;
+	ncolisA:number;
+	idClient:String
+	packing: number;
+	idArticle: string;
+	idCommande: string;
+	idColisage: string;
+	inPalette: boolean;
+ }
+ export const colis0:Colis = {
+   id:"",
+   codeArticle:0,
+   designation:"",
+   quantite:0,
+   ncommande:0,
+   saison:0,
+   portion:"",
+   //@ts-ignore
+   ncolisDe:"",
+   //@ts-ignore
+   ncolisA:"",
+   idClient:"",
+   packing: 20,
+   idArticle: "",
+   idCommande: "",
+   idColisage: "",
+   inPalette: false,
+ }
+
+ export interface ColisJson {
+   content:Colis[]
+ }
+
+ //************************************************************ */
+  //************************************************************ */
+  //********************Palette************************* */
+  export interface Palette {
+    id:string,
+    nummero_Palette:number,
+    remarque:String,
+    nombre_colis: number,
+    idClient:String
+  }
+  export const paletteM:Palette = {
+    id:"-1",
+    nummero_Palette:11,
+    remarque:"xxxxxxxxx",
+    nombre_colis: 20,
+    idClient:"",
+  }
+  export const palette0:Palette = {
+    id:"",
+	//@ts-ignore
+    nummero_Palette:"",
+    remarque:"",
+	//@ts-ignore
+    nombre_colis: "",
+    idClient:""
+  }
+  export interface PaletteJson {
+    content:Palette[]
+  }
+  export type OpenPaletteProp={
+    data:PaletteJson
+    refetch:()=>void
+    save:()=>void
+    edit:()=>void
+  }
+
+  //----------------------------
+  export interface ColisPalette {
+	id: string;
+	idPalette: string;
+	idClient: string;
+  }
+
+  export const colPal0: ColisPalette = {
+	id: "",
+	idPalette: "",
+	idClient:"",
+  }
+
+  export interface ColisPaletteJson {
+	content: ColisPalette[];
+  }

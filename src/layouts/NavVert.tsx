@@ -21,6 +21,7 @@ import {
     UNIT_MEASURE,
     VENDOR_MANAGER,
     VILLE_MANAGER,
+    GEST_PRODUCTION,
 } from 'tools/consts';
 import Icon from 'widgets/Icon';
 
@@ -44,17 +45,17 @@ const menuVert = [
       active: route.pathname == "/",
       sous: [],
     },
-    {
-      id: CLIENT_MANAGER,
-      icon: "user-circle",
-      text: "Gestion Clients",
-      link: "/manager/client/ClientManager",
-      active:
-        route.pathname == "/manager/client/ClientManager" ||
-        route.pathname == "/manager/client/CommandeClientManager" ||
-        route.pathname == "/manager/client/SoldeCommandeClientManager",
-      sous: [],
-    },
+    // {
+    //   id: CLIENT_MANAGER,
+    //   icon: "user-circle",
+    //   text: "Gestion Clients",
+    //   link: "/manager/client/ClientManager",
+    //   active:
+    //     route.pathname == "/manager/client/ClientManager" ||
+    //     route.pathname == "/manager/client/CommandeClientManager" ||
+    //     route.pathname == "/manager/client/SoldeCommandeClientManager",
+    //   sous: [],
+    // },
     {
       id: VENDOR_MANAGER,
       icon: "truck",
@@ -74,18 +75,39 @@ const menuVert = [
         active: route.pathname == "/gestionutilisateur/GestionUtilisateur",
         sous:[]
       }, */
+    // {
+    //   id: PURCHASE_MANAGER,
+    //   icon: "shopping-bag",
+    //   text: "Gestion Achats",
+    //   link: "/manager/purchase/Reception",
+    //   active:
+    //     route.pathname == "/manager/purchase/Reception" ||
+    //     route.pathname == "/manager/purchase/RightOfReturn" ||
+    //     route.pathname == "/manager/purchase/StockStatus" ||
+    //     route.pathname == "/manager/purchase/InputOutputHistory",
+    //   sous: [],
+    // },
+
     {
-      id: PURCHASE_MANAGER,
+      id: GEST_PRODUCTION,
       icon: "shopping-bag",
-      text: "Gestion Achats",
-      link: "/manager/purchase/Reception",
+      text: "Gestion Productions",
+      link: "/manager/production/FicheProduction",
       active:
-        route.pathname == "/manager/purchase/Reception" ||
-        route.pathname == "/manager/purchase/RightOfReturn" ||
-        route.pathname == "/manager/purchase/StockStatus" ||
-        route.pathname == "/manager/purchase/InputOutputHistory",
+        route.pathname == "/manager/production/FicheProduction" ||
+        route.pathname == "/manager/production/Articles" ||
+        route.pathname == "/manager/production/HistoriqueProduction",
       sous: [],
     },
+    {
+      id: COLISAGE_MANAGER,
+      icon: "save",
+      text: "Gestion de colisage",
+      link: "/manager/colisage/GestionColisage",
+      active: route.pathname == "/manager/colisage/GestionColisage",
+      sous: []
+    },
+
     /* {
         id: 11,
         icon: "home",
@@ -106,30 +128,31 @@ const menuVert = [
       id: 13,
       icon: "table",
       text: "Gestion des Tables",
-      link: "/reference/unitMeasure/NewUnitMeasure",
+      // link: "/reference/unitMeasure/NewUnitMeasure",
+      link: "/reference/article/NewArticle",
       active:
-        route.pathname == "/reference/unitMeasure/NewUnitMeasure" ||
+        // route.pathname == "/reference/unitMeasure/NewUnitMeasure" ||
         route.pathname == "/reference/article/NewArticle" ||
         route.pathname == "/reference/rawMaterial/NewRawMaterial" ||
-        route.pathname == "/reference/bureauDouane/NewBureauDouane" ||
-        route.pathname == "/reference/regimeDouanier/NewRegimeDouanier" ||
-        route.pathname == "/reference/payementMode/NewPayementMode" ||
-        route.pathname == "/reference/incoterm/NewIncoterm" ||
-        route.pathname == "/reference/declarant/NewDeclarant" ||
-        route.pathname == "/reference2/Transporteur" ||
-        route.pathname == "/reference2/Document" ||
-        route.pathname == "/reference2/Devise" ||
-        route.pathname == "/reference2/Pays" ||
-        route.pathname == "/reference2/Ville" ||
-        route.pathname == "/reference2/Type" ||
+        // route.pathname == "/reference/bureauDouane/NewBureauDouane" ||
+        // route.pathname == "/reference/regimeDouanier/NewRegimeDouanier" ||
+        // route.pathname == "/reference/payementMode/NewPayementMode" ||
+        // route.pathname == "/reference/incoterm/NewIncoterm" ||
+        // route.pathname == "/reference/declarant/NewDeclarant" ||
+        // route.pathname == "/reference2/Transporteur" ||
+        // route.pathname == "/reference2/Document" ||
+        // route.pathname == "/reference2/Devise" ||
+        // route.pathname == "/reference2/Pays" ||
+        // route.pathname == "/reference2/Ville" ||
+        // route.pathname == "/reference2/Type" ||
         route.pathname == "/reference2/Role",
       sous: [
-        {
-          id: UNIT_MEASURE,
-          text: "Unités de Mesure",
-          link: "/reference/unitMeasure/NewUnitMeasure",
-          active: route.pathname == "/reference/unitMeasure/NewUnitMeasure",
-        },
+        // {
+        //   id: UNIT_MEASURE,
+        //   text: "Unités de Mesure",
+        //   link: "/reference/unitMeasure/NewUnitMeasure",
+        //   active: route.pathname == "/reference/unitMeasure/NewUnitMeasure",
+        // },
         {
           id: FAMILLE_ARTICLE,
           text: "Familles Article",
@@ -142,79 +165,79 @@ const menuVert = [
           link: "/reference/rawMaterial/NewRawMaterial",
           active: route.pathname == "/reference/rawMaterial/NewRawMaterial",
         },
-        {
-          id: BUREAU_DOUANE,
-          text: "Bureaux de Douane",
-          link: "/reference/bureauDouane/NewBureauDouane",
-          active: route.pathname == "/reference/bureauDouane/NewBureauDouane",
-        },
-        {
-          id: REGIME_DOUANIER,
-          text: "Régimes Douaniers",
-          link: "/reference/regimeDouanier/NewRegimeDouanier",
-          active:
-            route.pathname == "/reference/regimeDouanier/NewRegimeDouanier",
-        },
-        {
-          id: MODE_PAYEMENT,
-          text: "Mode De Réglement",
-          link: "/reference/payementMode/NewPayementMode",
-          active: route.pathname == "/reference/payementMode/NewPayementMode",
-        },
-        {
-          id: INCOTERM_GES,
-          text: "Incoterms",
-          link: "/reference/incoterm/NewIncoterm",
-          active: route.pathname == "/reference/incoterm/NewIncoterm",
-        },
-        {
-          id: DECLARANT_GES,
-          text: "Déclarants",
-          link: "/reference/declarant/NewDeclarant",
-          active: route.pathname == "/reference/declarant/NewDeclarant",
-        },
-        {
-          id: TRANSPORTEUR_MANAGER,
-          text: "Transporteurs",
-          link: "/reference2/Transporteur",
-          active: route.pathname == "/reference2/Transporteur",
-        },
-        {
-          id: DOCUMENT_MANAGER,
-          text: "Documents",
-          link: "/reference2/Document",
-          active: route.pathname == "/reference2/Document",
-        },
-        {
-          id: DEVISE_MANAGER,
-          text: "Devises",
-          link: "/reference2/Devise",
-          active: route.pathname == "/reference2/Devise",
-        },
-        {
-          id: PAYS_MANAGER,
-          text: "Pays",
-          link: "/reference2/Pays",
-          active: route.pathname == "/reference2/Pays",
-        },
-        {
-          id: VILLE_MANAGER,
-          text: "Villes",
-          link: "/reference2/Ville",
-          active: route.pathname == "/reference2/Ville",
-        },
-        {
-          id: TYPE_MANAGER,
-          text: "Types En-Têtes",
-          link: "/reference2/Type",
-          active: route.pathname == "/reference2/Type",
-        },
-        {
-          id: ROLE_MANAGER,
-          text: "Rôles",
-          link: "/reference2/Role",
-          active: route.pathname == "/reference2/Role",
-        },
+        // {
+        //   id: BUREAU_DOUANE,
+        //   text: "Bureaux de Douane",
+        //   link: "/reference/bureauDouane/NewBureauDouane",
+        //   active: route.pathname == "/reference/bureauDouane/NewBureauDouane",
+        // },
+        // {
+        //   id: REGIME_DOUANIER,
+        //   text: "Régimes Douaniers",
+        //   link: "/reference/regimeDouanier/NewRegimeDouanier",
+        //   active:
+        //     route.pathname == "/reference/regimeDouanier/NewRegimeDouanier",
+        // },
+        // {
+        //   id: MODE_PAYEMENT,
+        //   text: "Mode De Réglement",
+        //   link: "/reference/payementMode/NewPayementMode",
+        //   active: route.pathname == "/reference/payementMode/NewPayementMode",
+        // },
+        // {
+        //   id: INCOTERM_GES,
+        //   text: "Incoterms",
+        //   link: "/reference/incoterm/NewIncoterm",
+        //   active: route.pathname == "/reference/incoterm/NewIncoterm",
+        // },
+        // {
+        //   id: DECLARANT_GES,
+        //   text: "Déclarants",
+        //   link: "/reference/declarant/NewDeclarant",
+        //   active: route.pathname == "/reference/declarant/NewDeclarant",
+        // },
+        // {
+        //   id: TRANSPORTEUR_MANAGER,
+        //   text: "Transporteurs",
+        //   link: "/reference2/Transporteur",
+        //   active: route.pathname == "/reference2/Transporteur",
+        // },
+        // {
+        //   id: DOCUMENT_MANAGER,
+        //   text: "Documents",
+        //   link: "/reference2/Document",
+        //   active: route.pathname == "/reference2/Document",
+        // },
+        // {
+        //   id: DEVISE_MANAGER,
+        //   text: "Devises",
+        //   link: "/reference2/Devise",
+        //   active: route.pathname == "/reference2/Devise",
+        // },
+        // {
+        //   id: PAYS_MANAGER,
+        //   text: "Pays",
+        //   link: "/reference2/Pays",
+        //   active: route.pathname == "/reference2/Pays",
+        // },
+        // {
+        //   id: VILLE_MANAGER,
+        //   text: "Villes",
+        //   link: "/reference2/Ville",
+        //   active: route.pathname == "/reference2/Ville",
+        // },
+        // {
+        //   id: TYPE_MANAGER,
+        //   text: "Types En-Têtes",
+        //   link: "/reference2/Type",
+        //   active: route.pathname == "/reference2/Type",
+        // },
+        // {
+        //   id: ROLE_MANAGER,
+        //   text: "Rôles",
+        //   link: "/reference2/Role",
+        //   active: route.pathname == "/reference2/Role",
+        // },
       ],
     },
   ];
@@ -222,8 +245,8 @@ const menuVert = [
 	
 	useEffect(() => {});
 	return (
-		<>
-			<ul className='nav-horiz bg-[#2B5173] h-full'>
+		<div>
+			<ul className='nav-horiz bg-[#2d2e2e] h-full object-fill'>
 				<h2 className='bg-[#000] bg-opacity-10 text-[#fff] w-full float-left py-2.5'>
 					GESTION COMMERCIAL{" "}
 				</h2>
@@ -263,7 +286,7 @@ const menuVert = [
 										onClick={() => updateSel(sItem.id)}>
 										<Link href={sItem.link}>
 											<a>
-												<span className='text'>{sItem.text}</span>
+												<span className='text bold'>{sItem.text}</span>
 											</a>
 										</Link>
 									</li>
@@ -272,11 +295,11 @@ const menuVert = [
 						)}
 					</li>
 				))}
-				<div className='w-full flex justify-center py-5 float-left'>
-					<img src='/images/logo-4.png' alt='' />
+				<div className='w-full flex justify-center py-5 float-left mt-44'>
+					<img src='/images/logo.png' alt='' />
 				</div>
 			</ul>
-		</>
+		</div>
 	);
 };
 

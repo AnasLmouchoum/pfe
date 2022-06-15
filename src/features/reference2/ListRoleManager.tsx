@@ -48,6 +48,7 @@ function ListRoleManager() {
           type="Rôle"
           ref={archive}
           action={ARCHIVE}
+          refetch={refetch}
         />
         <Action
           id=""
@@ -56,6 +57,7 @@ function ListRoleManager() {
           type="Rôle"
           ref={restore}
           action={RESTORE}
+          refetch={refetch}
         />
         <h1>Rôles</h1>
         <div className="float-left w-full">
@@ -99,7 +101,7 @@ function ListRoleManager() {
           {roles?.map((Role) => (
             <tr key={Role.id}>
               <Table.td>
-                <span>{Role.design}</span>
+                <span>{Role.designation}</span>
               </Table.td>
               <Table.td>
                 <span>{Role.nbrUtilisateur}</span>

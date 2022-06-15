@@ -6,7 +6,7 @@ export const LABEL = -1;
 export const REQUEST_SAVE = 4;
 export const REQUEST_EDIT = 5;
 export const REQUEST_DELETE = 6;
-export const PAGE_SIZE = 30000;
+export const PAGE_SIZE = 4;
 
 export const PAYMENT_CHOICE = [" ", "CHECK", "ESPECE", "CARTE"];
 export const ICOTERM = [" ", "CTP", "CIP", "DAP", "DDP"];
@@ -38,6 +38,8 @@ export const UNIT_MEASURE = 19;
 export const FAMILLE_ARTICLE = 20;
 export const FAMILLE_MATIERE_PREMIERE = 21;
 export const BUREAU_DOUANE = 22;
+
+export const GEST_PRODUCTION = 12;
 
 export const TRANSPORTEUR_MANAGER = 23;
 export const DOCUMENT_MANAGER = 24;

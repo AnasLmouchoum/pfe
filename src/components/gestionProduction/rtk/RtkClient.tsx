@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { PAGE_SIZE } from "tools/consts";
-import { Client, ClientJson } from "../tools/types";
-import { useDeleteColisMutation } from "./rtk_colisage";
+import { Client, ClientJson } from 'components/gestionProduction/types';
 
 export const crudClient = createApi({
   reducerPath: "crud-client",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:1000/api/v1",
+    baseUrl:"http://localhost:1000/api/v1",
     prepareHeaders(headers) {
       return headers;
     },
@@ -14,12 +13,12 @@ export const crudClient = createApi({
   tagTypes: ["Client", "UNAUTHORIZED", "UNKNOWN_ERROR"],
   endpoints(builder) {
     return {
-      /***************************/
-      /*******Article******************/
-      /***************************/
+         /*****************************************************************************/
+      /**********************Article*******************************************************/
+      /*****************************************************************************/
       fetchClients: builder.query<Client[], number | void>({
-        query: () => `/clients/all`,
-      }),
+        query: () => `/clients`,
+     }),
       paginationClients: builder.query<Client[], number | void>({
         query: (page) => `/clients?page=${page}&size=${PAGE_SIZE}`,
       }),
@@ -32,9 +31,9 @@ export const crudClient = createApi({
           method: "POST",
           body,
         }),
-      }),
+     }),
       editClient: builder.mutation<
-        Client,
+      Client,
         Partial<Client> & Pick<Client, "id">
       >({
         query: (body) => ({
@@ -43,7 +42,10 @@ export const crudClient = createApi({
           body,
         }),
       }),
-      deleteClient: builder.mutation<{ success: boolean; id: String }, number>({
+      deleteClient: builder.mutation<
+        { success: boolean; id: String },
+        number
+      >({
         //@ts-ignore
         query(id: String) {
           //  if (confirm(`do you want delete Commande number ${id.id} ?`))
@@ -54,9 +56,9 @@ export const crudClient = createApi({
           };
           // else return
         },
-      }),
+       }),
       archiveClient: builder.mutation<
-        Client,
+      Client,
         Partial<Client> & Pick<Client, "id">
       >({
         query: (id) => ({
@@ -65,7 +67,7 @@ export const crudClient = createApi({
         }),
       }),
       restoreClient: builder.mutation<
-        Client,
+      Client,
         Partial<Client> & Pick<Client, "id">
       >({
         query: (id) => ({
@@ -78,8 +80,8 @@ export const crudClient = createApi({
 });
 
 export const {
-  /******Article*************/
-  /*******************/
+  /*****************Article**************************************/
+  /*******************************************************/
   useFetchClientsQuery,
   usePaginationClientsQuery,
   useFetchOneClientQuery,
@@ -90,18 +92,18 @@ export const {
   useRestoreClientMutation,
 } = crudClient;
 
-export type OpenClientProp = {
-  data: ClientJson;
-  refetch: () => void;
-  save: () => void;
-  edit: () => void;
-};
+export type OpenClientProp={
+  data:ClientJson
+  refetch:()=>void
+  save:()=>void
+  edit:()=>void
+}
 
-export const openClients = (): OpenClientProp => {
-  const { data = [], refetch } = useFetchClientsQuery();
-  const [save] = useAddClientMutation();
-  const [edit] = useEditClientMutation();
-  //@ts-ignore
-  const out: OpenClientProp = { data, refetch, save, edit };
-  return out;
-};
+export const openClients =():OpenClientProp =>{
+    const { data = [], refetch } = useFetchClientsQuery();
+    const [save]=useAddClientMutation();
+    const [edit]=useEditClientMutation();
+    //@ts-ignore
+    const out:OpenClientProp={data,refetch,save,edit}
+    return out;
+}

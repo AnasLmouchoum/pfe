@@ -25,9 +25,10 @@ type ArchiveClientPorp = {
   action: number;
   design: string;
   type: string;
+  refetch?: any;
 };
 const Archive = (
-  { id, design, type, path, action }: ArchiveClientPorp,
+  { id, design, type, path, action, refetch }: ArchiveClientPorp,
   ref: Ref<void>
 ) => {
   const [id0, setId0] = useState(id);
@@ -46,17 +47,18 @@ const Archive = (
     ref.current = openModal;
   });
   const archiveTemp = () => {
-    let act =
+    // let act =
       action == ARCHIVE
-        ? "archive"
+        ? /*"archive"*/ axios.patch("http://localhost:1000/api/v1/"+path+"/" + id0 + "/archive").then(() => { })
         : action == RESTORE
-        ? "restore"
+        ? /*"restore"*/ axios.patch("http://localhost:1000/api/v1/"+path+"/" + id0 + "/restore").then(() => { })
         : action == DEL
-        ? "del"
+        ? /*"del"*/ axios.delete("http://localhost:1000/api/v1/"+path+"/" + id0).then(() => { })
         : "";
-    axios
-      .patch(process.env.NEXT_PUBLIC_URL + "/" + path + "/" + id0 + "/" + act)
-      .then(() => {});
+        refetch()
+    // axios
+    //   .patch(process.env.NEXT_PUBLIC_URL + "/" + path + "/" + id0 + "/" + act)
+    //   .then(() => {});
   };
   const style = "float-right mt-5 b-ajust-r bg-rose-900 border-rose-800";
   let verbe =

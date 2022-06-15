@@ -7,7 +7,7 @@ type PaginProps = {
   max: number;
 };
 const Pagin = ({ load, visible, max }: PaginProps) => {
-  const visible1: boolean = false;
+  const visible1: boolean = true;
   const [init, setInit] = useState(0);
   const [page, setPage] = useState(init);
   let size: number = PAGE_SIZE;
@@ -65,6 +65,7 @@ const Pagin = ({ load, visible, max }: PaginProps) => {
             <li>
               <button
                 onClick={() => run(init + 1)}
+                // disabled={init == maxInit}
                 className={
                   "py-2 px-3 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" +
                   (page == init + 1
@@ -78,6 +79,7 @@ const Pagin = ({ load, visible, max }: PaginProps) => {
             <li>
               <button
                 onClick={() => run(init + 2)}
+                // disabled={init == maxInit}
                 aria-current="page"
                 className={
                   "py-2 px-3 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" +
@@ -92,6 +94,7 @@ const Pagin = ({ load, visible, max }: PaginProps) => {
             <li>
               <button
                 onClick={() => run(init + 3)}
+                // disabled={init == maxInit}
                 className={
                   "py-2 px-3 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" +
                   (page == init + 3
@@ -105,6 +108,7 @@ const Pagin = ({ load, visible, max }: PaginProps) => {
             <li>
               <button
                 onClick={() => run(init + 4)}
+                // disabled={init == maxInit}
                 className={
                   "py-2 px-3 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" +
                   (page == init + 4

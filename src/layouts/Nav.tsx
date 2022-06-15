@@ -87,80 +87,108 @@ export default function Nav({ selected, loading }: NavProps) {
       current: route.pathname == "/manager/vendor/VendorManager",
       visible:
         route.pathname == "/manager/vendor/VendorManager" ||
-        route.pathname == "/manager/vendor/CommandeVendor" ||
-        route.pathname == "/manager/vendor/RawMaterielManager" ||
-        route.pathname == "/manager/vendor/CommandeVendorManager",
+        // route.pathname == "/manager/vendor/CommandeVendor" ||
+        route.pathname == "/manager/vendor/RawMaterielManager" ,
+        // route.pathname == "/manager/vendor/CommandeVendorManager",
     },
-    {
-      name: "Commandes Fournisseur",
-      href: "/manager/vendor/CommandeVendor",
-      current: route.pathname == "/manager/vendor/CommandeVendor",
-      visible:
-        route.pathname == "/manager/vendor/VendorManager" ||
-        route.pathname == "/manager/vendor/CommandeVendor" ||
-        route.pathname == "/manager/vendor/RawMaterielManager" ||
-        route.pathname == "/manager/vendor/CommandeVendorManager",
-    },
+    // {
+    //   name: "Commandes Fournisseur",
+    //   href: "/manager/vendor/CommandeVendor",
+    //   current: route.pathname == "/manager/vendor/CommandeVendor",
+    //   visible:
+    //     route.pathname == "/manager/vendor/VendorManager" ||
+    //     route.pathname == "/manager/vendor/CommandeVendor" ||
+    //     route.pathname == "/manager/vendor/RawMaterielManager" ||
+    //     route.pathname == "/manager/vendor/CommandeVendorManager",
+    // },
     {
       name: "Matières premières",
       href: "/manager/vendor/RawMaterielManager",
       current: route.pathname == "/manager/vendor/RawMaterielManager",
       visible:
-        route.pathname == "/manager/vendor/VendorManager" ||
-        route.pathname == "/manager/vendor/CommandeVendor" ||
-        route.pathname == "/manager/vendor/RawMaterielManager" ||
-        route.pathname == "/manager/vendor/CommandeVendorManager",
+      route.pathname == "/manager/vendor/VendorManager" ||
+      // route.pathname == "/manager/vendor/CommandeVendor" ||
+      route.pathname == "/manager/vendor/RawMaterielManager" ,
+      // route.pathname == "/manager/vendor/CommandeVendorManager",
     },
-    {
-      name: "Générer Commandes Fournisseur",
-      href: "/manager/vendor/CommandeVendorManager",
-      current: route.pathname == "/manager/vendor/CommandeVendorManager",
-      visible:
-        route.pathname == "/manager/vendor/VendorManager" ||
-        route.pathname == "/manager/vendor/CommandeVendor" ||
-        route.pathname == "/manager/vendor/RawMaterielManager" ||
-        route.pathname == "/manager/vendor/CommandeVendorManager",
-    },
+    // {
+    //   name: "Générer Commandes Fournisseur",
+    //   href: "/manager/vendor/CommandeVendorManager",
+    //   current: route.pathname == "/manager/vendor/CommandeVendorManager",
+    //   visible:
+    //     route.pathname == "/manager/vendor/VendorManager" ||
+    //     route.pathname == "/manager/vendor/CommandeVendor" ||
+    //     route.pathname == "/manager/vendor/RawMaterielManager" ||
+    //     route.pathname == "/manager/vendor/CommandeVendorManager",
+    // },
+
+    // {
+    //   name: "Réception",
+    //   href: "/manager/purchase/Reception",
+    //   current: route.pathname == "/manager/purchase/Reception",
+    //   visible:
+    //     route.pathname == "/manager/purchase/Reception" ||
+    //     route.pathname == "/manager/purchase/RightOfReturn" ||
+    //     route.pathname == "/manager/purchase/StockStatus" ||
+    //     route.pathname == "/manager/purchase/InputOutputHistory",
+    // },
+    // {
+    //   name: "Bon de retour",
+    //   href: "/manager/purchase/RightOfReturn",
+    //   current: route.pathname == "/manager/purchase/RightOfReturn",
+    //   visible:
+    //     route.pathname == "/manager/purchase/Reception" ||
+    //     route.pathname == "/manager/purchase/RightOfReturn" ||
+    //     route.pathname == "/manager/purchase/StockStatus" ||
+    //     route.pathname == "/manager/purchase/InputOutputHistory",
+    // },
+    // {
+    //   name: "état du stock",
+    //   href: "/manager/purchase/StockStatus",
+    //   current: route.pathname == "/manager/purchase/StockStatus",
+    //   visible:
+    //     route.pathname == "/manager/purchase/Reception" ||
+    //     route.pathname == "/manager/purchase/RightOfReturn" ||
+    //     route.pathname == "/manager/purchase/StockStatus" ||
+    //     route.pathname == "/manager/purchase/InputOutputHistory",
+    // },
+    // {
+    //   name: "historique des entrées sorties",
+    //   href: "/manager/purchase/InputOutputHistory",
+    //   current: route.pathname == "/manager/purchase/InputOutputHistory",
+    //   visible:
+    //     route.pathname == "/manager/purchase/Reception" ||
+    //     route.pathname == "/manager/purchase/RightOfReturn" ||
+    //     route.pathname == "/manager/purchase/StockStatus" ||
+    //     route.pathname == "/manager/purchase/InputOutputHistory",
+    // },
 
     {
-      name: "Réception",
-      href: "/manager/purchase/Reception",
-      current: route.pathname == "/manager/purchase/Reception",
+      name: "Fiches production",
+      href: "/manager/production/FicheProduction",
+      current: route.pathname == "/manager/production/FicheProduction",
       visible:
-        route.pathname == "/manager/purchase/Reception" ||
-        route.pathname == "/manager/purchase/RightOfReturn" ||
-        route.pathname == "/manager/purchase/StockStatus" ||
-        route.pathname == "/manager/purchase/InputOutputHistory",
+        route.pathname == "/manager/production/FicheProduction" ||
+        route.pathname == "/manager/production/Articles" ||
+        route.pathname == "/manager/production/HistoriqueProduction",
     },
     {
-      name: "Bon de retour",
-      href: "/manager/purchase/RightOfReturn",
-      current: route.pathname == "/manager/purchase/RightOfReturn",
+      name: "Articles",
+      href: "/manager/production/Articles",
+      current: route.pathname == "/manager/production/Articles",
       visible:
-        route.pathname == "/manager/purchase/Reception" ||
-        route.pathname == "/manager/purchase/RightOfReturn" ||
-        route.pathname == "/manager/purchase/StockStatus" ||
-        route.pathname == "/manager/purchase/InputOutputHistory",
+        route.pathname == "/manager/production/FicheProduction" ||
+        route.pathname == "/manager/production/Articles" ||
+        route.pathname == "/manager/production/HistoriqueProduction",
     },
     {
-      name: "état du stock",
-      href: "/manager/purchase/StockStatus",
-      current: route.pathname == "/manager/purchase/StockStatus",
+      name: "Historique production",
+      href: "/manager/production/HistoriqueProduction",
+      current: route.pathname == "/manager/production/HistoriqueProduction",
       visible:
-        route.pathname == "/manager/purchase/Reception" ||
-        route.pathname == "/manager/purchase/RightOfReturn" ||
-        route.pathname == "/manager/purchase/StockStatus" ||
-        route.pathname == "/manager/purchase/InputOutputHistory",
-    },
-    {
-      name: "historique des entrées sorties",
-      href: "/manager/purchase/InputOutputHistory",
-      current: route.pathname == "/manager/purchase/InputOutputHistory",
-      visible:
-        route.pathname == "/manager/purchase/Reception" ||
-        route.pathname == "/manager/purchase/RightOfReturn" ||
-        route.pathname == "/manager/purchase/StockStatus" ||
-        route.pathname == "/manager/purchase/InputOutputHistory",
+        route.pathname == "/manager/production/FicheProduction" ||
+        route.pathname == "/manager/production/Articles" ||
+        route.pathname == "/manager/production/HistoriqueProduction",
     },
   ];
 

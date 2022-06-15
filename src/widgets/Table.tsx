@@ -36,7 +36,7 @@ const Td = ({ className, action = false, ...props }: TdProps) => {
       className={classNames(
         className,
         { "relative text-right font-medium sm:pr-6": action },
-        "whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell"
+        "whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell"
       )}
     />
   );
