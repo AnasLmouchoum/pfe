@@ -32,6 +32,7 @@ type NavProps = {
 };
 export default function Nav({ selected, loading }: NavProps) {
   const { data: session, status } = useSession();
+  console.log(session)
   //@ts-ignore
   const [user, setUser] = useState<UserSession>(session?.user);
   const route = useRouter();
@@ -163,8 +164,10 @@ export default function Nav({ selected, loading }: NavProps) {
         route.pathname == "/manager/purchase/InputOutputHistory",
     },
   ];
-
   return (
+   
+      
+    
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
@@ -210,15 +213,6 @@ export default function Nav({ selected, loading }: NavProps) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/*   <button
-                  type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
-
-                {/* Profile dropdown */}
                 <span className="float-right mr-2">{user?.name}</span>
                 <Menu as="div" className="ml-3 relative">
                   <div>
@@ -244,7 +238,7 @@ export default function Nav({ selected, loading }: NavProps) {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/profile"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -254,28 +248,7 @@ export default function Nav({ selected, loading }: NavProps) {
                           </a>
                         )}
                       </Menu.Item>
-                      {!session && (
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="/api/auth/signin"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                              onClick={(e: any) => {
-                                //api/auth/signin
-                                e.preventDefault();
-                                //signIn("keycloak")
-                                signIn("keycloak");
-                              }}
-                            >
-                              sign in
-                            </a>
-                          )}
-                        </Menu.Item>
-                      )}
-                      {session && (
+                      { (
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -285,13 +258,7 @@ export default function Nav({ selected, loading }: NavProps) {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                               onClick={(e: any) => {
-                                //      e.preventDefault()
-                                // signOut()
-                                /*  logout()
-                            setTimeout(() => {
-                              window.location.href='/'
-                            }, 500);*/
-                                signOut({ callbackUrl: "/", redirect: true });
+                                signOut({ callbackUrl: "/login", redirect: true });
                               }}
                             >
                               Sign out
@@ -330,4 +297,5 @@ export default function Nav({ selected, loading }: NavProps) {
       )}
     </Disclosure>
   );
+
 }

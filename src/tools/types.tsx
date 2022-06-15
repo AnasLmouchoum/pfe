@@ -602,34 +602,27 @@ export const getlc0 = (
 	};
 };
 export interface Users {
-	id: number;
 	nom: string;
+	genre:String;
 	prenom: string;
 	password: string;
-	username: string;
-	first_name: string;
-	last_name: string;
-	tele: string;
+	phone: string;
 	img: string;
 	email: string;
-	phone: string;
-	role: string[];
+	role: string;
 }
-export const users0: Users = {
-	id: -1,
+export const user0: Users = {
 	nom: "",
 	prenom: "",
 	password: "",
-	username: "",
-	first_name: "",
-	last_name: "",
-	tele: "",
+	genre:"",
+	// username: "",
 	img: "",
 	email: "",
 	phone: "",
-	role: [],
+	role: "",
 };
-export const u0=users0;
+export const u0=user0;
 export interface AccessUser {
 	manageGroupMembership: boolean;
 	view: boolean;
@@ -645,36 +638,31 @@ export const access0: AccessUser = {
 	manage: true,
 };
 export interface User extends IdsObject {
-	createdTimestamp: number;
-	username: string;
-	enabled: boolean;
-	totp: boolean;
-	emailVerified: boolean;
-	firstName: string;
-	lastName: string;
+	
+
+	prenom: string;
+	nom: string;
 	email: string;
 	disableableCredentialTypes: any[];
 	requiredActions: any[];
 	notBefore: number;
 	access: AccessUser;
 }
-export const user0: User = {
-	id: "",
-	createdTimestamp: 0,
-	username: "",
-	enabled: true,
-	totp: false,
-	emailVerified: false,
-	firstName: "",
-	lastName: "",
-	email: "",
-	disableableCredentialTypes: [],
-	requiredActions: [],
-	notBefore: 0,
-	access: access0,
-	design: "",
-	path: "",
-};
+// export const user0: User = {
+// 	id: "",
+// 	enabled: true,
+// 	totp: false,
+// 	emailVerified: false,
+// 	firstName: "",
+// 	lastName: "",
+// 	email: "",
+// 	disableableCredentialTypes: [],
+// 	requiredActions: [],
+// 	notBefore: 0,
+// 	access: access0,
+// 	design: "",
+// 	path: "",
+// };
 export interface UserSession {
 	name: string;
 	email: string;
@@ -927,3 +915,5 @@ export interface CalculProductJson {
     quantite: "",
     article: art0,
   }
+      //------------------------------------------
+  //------------MATIERE-ARTICLE---------------

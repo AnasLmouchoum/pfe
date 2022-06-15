@@ -19,6 +19,7 @@ import {
     TRANSPORTEUR_MANAGER,
     TYPE_MANAGER,
     UNIT_MEASURE,
+    USER_MANAGER,
     VENDOR_MANAGER,
     VILLE_MANAGER,
 } from 'tools/consts';
@@ -67,13 +68,13 @@ const menuVert = [
         route.pathname == "/manager/vendor/CommandeVendorManager",
       sous: [],
     },
-    /* {id:USER_MANAGER,
+   {id:USER_MANAGER,
         icon: "user-circle",
         text: "Gestion Utilisateur",
         link: "/gestionutilisateur/GestionUtilisateur",
         active: route.pathname == "/gestionutilisateur/GestionUtilisateur",
         sous:[]
-      }, */
+      },
     {
       id: PURCHASE_MANAGER,
       icon: "shopping-bag",
@@ -222,8 +223,8 @@ const menuVert = [
 	
 	useEffect(() => {});
 	return (
-		<>
-			<ul className='nav-horiz bg-[#2B5173] h-full'>
+		<div >
+			<ul className='nav-horiz bg-[#2B5173] h-full object-fill'>
 				<h2 className='bg-[#000] bg-opacity-10 text-[#fff] w-full float-left py-2.5'>
 					GESTION COMMERCIAL{" "}
 				</h2>
@@ -272,11 +273,11 @@ const menuVert = [
 						)}
 					</li>
 				))}
-				<div className='w-full flex justify-center py-5 float-left'>
+				<div className='w-full flex justify-center py-5 float-left mt-60'>
 					<img src='/images/logo-4.png' alt='' />
 				</div>
 			</ul>
-		</>
+		</div>
 	);
 };
 

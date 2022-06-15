@@ -24,6 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
   //status = authenticated
   //status = loading
   //console.log("jwt = " + session?.accessToken + " , status = " + status);
+  
   const [loading, setLoading] = useState(true);
   const securePage = async () => {
     const session = await getSession();
@@ -32,7 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
     } else {
       setLoading(false);
       setTimeout(() => {
-        //   signIn("keycloak")
+          signIn("credentials")
       }, 200);
     }
     //   const token = await getToken()
@@ -41,7 +42,7 @@ const Layout = ({ children }: LayoutProps) => {
   const securePage2 = async () => {
     const session = await getSession();
     if (!session) {
-      signIn("keycloak");
+      signIn("credentials");
     }
   };
 
@@ -53,7 +54,7 @@ const Layout = ({ children }: LayoutProps) => {
   const block = () => {
     return (
       <section className="bg-slate-100 float-left w-full">
-        <div className="w-1/6 float-left">
+        <div className="w-1/6 float-left sticky top-16 h-96 ">
           <NavVert updateSel={updateSel} />
         </div>
         <div className=" py-6 sm:px-6 lg:px-8 w-5/6 float-left">{children}</div>

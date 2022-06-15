@@ -1,64 +1,47 @@
+// import Login from "components/login/login";
+import Login from "components/login/Login";
+import MDPoublier from "components/login/MDPoublier";
+import Register from "components/login/Register";
+import { signIn } from "next-auth/react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useState } from "react";
+import { Field, Form, Image, Link } from "widgets";
+import Bsave from "widgets/Bsave";
 
 export default function ThemeForm() {
-  return (
-    <div className="lg:flex max-w-5xl min-h-screen mx-auto p-6 py-10">
-      <div className="flex flex-col items-center lg: lg:flex-row lg:space-x-10">
-        <div className="lg:mb-12 flex-1 lg:text-left text-center">
-          <img
-            src="/images/logo.png"
-            alt=""
-            className="lg:mx-0 lg:w-52 mx-auto w-40"
-          />
-          <p className="font-medium lg:mx-0 md:text-2xl mt-6 mx-auto sm:w-3/4 text-xl">
-            {" "}
-            Connect with friends and the world around you on Socialite.
-          </p>
-        </div>
-        <div className="lg:mt-0 lg:w-96 md:w-1/2 sm:w-2/3 mt-10 w-full">
-          <form className="p-6 space-y-4 relative bg-white shadow-lg rounded-lg">
-            <input
-              type="email"
-              placeholder="Email or Phone Number"
-              className="with-border"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="with-border"
-            />
-            <button
-              type="button"
-              className="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full"
-            >
-              Log In
-            </button>
-            <a href="#" className="text-blue-500 text-center block">
-              {" "}
-              Forgot Password?{" "}
-            </a>
-            <hr className="pb-3.5" />
-            <div className="flex">
-              <a
-                href="#register"
-                type="button"
-                className="bg-green-600 hover:bg-green-500 hover:text-white font-semibold py-3 px-5 rounded-md text-center text-white mx-auto"
-                uk-toggle
-              >
-                Create New Account
-              </a>
-            </div>
-          </form>
+  const styling = {
+    // backgroundImage: `url('/images/login.png')`,
+    width:"100%",
+    height:"100%",
+    objectFit: "cover"
+}
+  const [mdpOublier,setMDPOublier] = useState(false)
+  // const [register,setRegister] = useState(false)
 
-          <div className="mt-8 text-center text-sm">
-            {" "}
-            <a href="#" className="font-semibold hover:underline">
-              {" "}
-              Create a Page{" "}
-            </a>{" "}
-            for a celebrity, band or business{" "}
+
+  return (
+    <div className="">
+      <div className="grid grid-cols-2 absolute top-0 bottom-0 ">
+        <div className=" relative col-span-1 h-full object-fill">
+          <div className="absolute left-0 right-0 top-20 flex justify-center">
+            <img 
+              src="/images/logo-4.png"
+              alt=""
+              className="object-none object-center "
+            />
           </div>
+          
+          <img
+            src="/images/login.png"
+            alt=""
+            className=" object-cover h-full w-full  "
+            // style={styling}
+          />
         </div>
+        { !mdpOublier  && <Login setMDPOublier={setMDPOublier}   />}
+        { mdpOublier  && <MDPoublier setMDPOublier={setMDPOublier}  />}
+        {/* {  register && <Register setRegister={setRegister} />} */}
+        
       </div>
     </div>
   );
