@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Section from "../../widgets/Section";
-import { SearchIcon } from "@heroicons/react/solid";
+import { SearchIcon, XIcon } from "@heroicons/react/solid";
 import Table from "widgets/Table";
 import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from 'tools/consts';
 import {
@@ -53,6 +53,13 @@ function ListUtilisateur({
     refetchUser();
     // refetch();
   };
+
+  const openToUsers = openUsers()
+  const DataUsers = openToUsers.data.content;
+
+  const [recherche, setRecherche] = useState('');
+  const [isRecherche, setIsRecherch] = useState(false);
+
   // const myTimeout = setTimeout(myGreeting, 100);
 
   // function myGreeting() {
@@ -88,94 +95,63 @@ function ListUtilisateur({
 };
 const del = useRef(null);
 const edit = useRef(null);
+const archive = useRef(null);
 const update = useRef(null);
 
-  //sdfsdf
-  // const menu = (user: any): MenuItems[] => {
-  //   return [
-  //     {
-  //       icon: (
-  //         <ClipboardListIcon
-  //           className="mr-3 h-8 w-8 text-green-300 group-hover:text-gray-500"
-  //           aria-hidden="true"
-  //         />
-  //       ),
-  //       text: "Détail",
-  //       action: () => {
-  //         // console.log(user)
-  //         FromDetails(user);
-  //       },
-  //     },
-  //     {
-  //       icon: (
-  //         <PencilAltIcon
-  //           className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-  //           aria-hidden="true"
-  //         />
-  //       ),
-  //       text: "Modifier",
-  //       action: () => {
-  //         FormAsUpdate(user);
-  //       },
-  //     },
-  //     {
-  //       icon: (
-  //         <TrashIcon
-  //           className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-  //           aria-hidden="true"
-  //         />
-  //       ),
-  //       text: "Supprimer",
-  //       action: () => {
-  //         deleteProduct(user);
-  //       },
-  //     },
-  //   ];
-  // };
+
   return (
     <Section>
          <Action
 						id=''
-						path='user'
+						path='users'
 						design=''
-						type='user'
+						type="l'utilisateur"
 						ref={del}
 						action={DEL}
+            refetch={refetchUser}
 					/>
           <Action
 						id=''
-						path='user'
+						path='users'
 						design=''
-						type='user'
-						ref={edit}
-						action={REQUEST_EDIT}
+						type="l'utilisateur"
+						ref={archive}
+						action={ARCHIVE}
+            refetch={refetchUser}
 					/>
           <Action
+						id=''
+						path='users'
+						design=''
+						type="l'utilisateur"
+						ref={edit}
+						action={REQUEST_EDIT}
+            refetch={refetchUser}
+					/>
+          {/* <Action
 						id=''
 						path='colisage'
 						design=''
 						type='colisage'
 						ref={update}
 						action={REQUEST_SAVE}
-					/>
+					/> */}
       <div className="">
-        <div className="grid grid-cols-6 justify-start">
-          <div className="col-span-4">
-            {/* <button
-              className="h-10 w-40   rounded-md bg-gray-800 text-white float-left  "
-              onClick={() => setEstAjt(true)}
-            >
-              Nouvel Utilisateur
-            </button> */}
-            <Bcyan label="Nouvel Utilisateur" onClick={() => setEstAjt(true)} className="" />
-          </div>
-          <div className="relative text-zinc-400 flex items-center col-span-2">
-            <SearchIcon className="w-7 h-7 absolute ml-1 " />
-            <input
-              type="text"
-              placeholder="Recherche"
-              className="pl-8 w-full"
-            />
+        <div className="float-left w-full">
+        <button className='bg-[#2d2e2e] p-3 text-white border-cyan-900py-2 px-4 border rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 float-left' onClick={() => setEstAjt(true)}>Nouvelle Utilisateur</button>
+          <div className='float-right'>
+              <button className='bg-white float-left border border-[#ddd] border-r-0 p-3 rounded-l-lg' onClick={() => {if(recherche != ""){ setIsRecherch(true) }}}>
+                  <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+              </button>
+              <input type="text" value={recherche} className='py-3 border outline-[#ddd] border-[#ddd] float-left border-l-0 w-96' placeholder='Recherche' onChange={(e) => {setRecherche(e.target.value);if(e.target.value == ''){setRecherche(''); setIsRecherch(false)}}}/>
+              <button className='bg-white float-left border border-[#ddd] border-l-0 p-2 rounded-r-lg' onClick={() => {setIsRecherch(false);setRecherche('');}}>
+                <XIcon
+                  className='w-8 text-[#C1BFBF] group-hover:text-gray-500'
+                  aria-hidden='true'
+                />
+              </button>
           </div>
         </div>
 
@@ -197,7 +173,8 @@ const update = useRef(null);
             </Table.tr>
           }
         >
-          {listUser?.map((p: any) => {
+          {!isRecherche &&
+          listUser?.map((p: any) => {
             return (
               <Table.tr key={p.id} className="cursor-pointer">
                 <Table.td onDoubleClick={()=>FromDetails(p)}>
@@ -224,14 +201,67 @@ const update = useRef(null);
                 <Mitems 
                                      archive={() => {
                                       //@ts-ignore
-                                      // archive.current(client.id, client.design);
+                                      archive.current(p.id, p.nom+" "+p.prenom);
                                     }}
-                                    /*   restore={() => {
-                                      //@ts-ignore
-                                      restore.current(client.id,client.design);
-                                    }} */
                                     del={() => {
-                                      deleteUser(p.id)
+                                      // deleteUser(p.id)
+                                      //@ts-ignore
+                                      del.current(p.id, p.nom+" "+p.prenom)
+                                    }}
+                                    edit={() => {
+                                      FromDetails(p)
+                                    }}
+                                    obj={p}
+                                    update={() => {
+                                      FormAsUpdate(p)
+                                      
+                                    }}
+                                      
+                                  />
+                </Table.td>
+              </Table.tr>
+            );
+          })}
+          {isRecherche &&
+          listUser?.map((p: any) => {
+          if(recherche.toLocaleLowerCase() == p.nom.toLocaleLowerCase() ||
+            recherche.toLocaleLowerCase() == p.prenom.toLocaleLowerCase() ||
+            recherche.toLocaleLowerCase() == p.role.toLocaleLowerCase() || 
+            recherche.toLocaleLowerCase() == p.email.toLocaleLowerCase() || recherche == p.phone ||
+            recherche.toLocaleLowerCase() == p.nom.toLocaleLowerCase()+" "+p.prenom.toLocaleLowerCase() ||
+            recherche.toLocaleLowerCase() == p.prenom.toLocaleLowerCase()+" "+p.nom.toLocaleLowerCase())
+            return (
+              <Table.tr key={p.id} className="cursor-pointer">
+                <Table.td onDoubleClick={()=>FromDetails(p)}>
+                  <figure>
+                    <img
+                      src={p.image ? p.image : "/images/empty-avatar.png"}
+                      alt=""
+                    />
+                    <figcaption>
+                      <span>{p.nom+" "+p.prenom}</span>
+                      &nbsp;&nbsp;
+                    </figcaption>
+                  </figure>
+                </Table.td>
+                <Table.td onDoubleClick={()=>FromDetails(p)}>
+                  <p>{p.email}</p>
+                  <br />
+                  <p>{p.phone}</p>
+                </Table.td>
+                <Table.td onDoubleClick={()=>FromDetails(p)}>
+                  <p>{p.role}</p>
+                </Table.td>
+                <Table.td className="cursor-pointer">
+                <Mitems 
+                                     archive={() => {
+                                      //@ts-ignore
+                                      archive.current(p.id, p.nom+" "+p.prenom);
+                                    }}
+                                    del={() => {
+                                      // deleteUser(p.id)
+                                      //@ts-ignore
+                                      del.current(p.id, p.nom+" "+p.prenom)
                                     }}
                                     edit={() => {
                                       FromDetails(p)

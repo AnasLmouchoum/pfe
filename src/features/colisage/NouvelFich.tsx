@@ -25,7 +25,9 @@ function NouvelFich({setEstAjt,Client,refetchColis}:NouvelUtilisateurProps) {
     const onsubmit = (data:Colis) =>{
         saveColis(data);
         setEstAjt(false);
-        refetchColis();
+        setTimeout(() => {
+            refetchColis();
+        }, 500);
     }
     
     

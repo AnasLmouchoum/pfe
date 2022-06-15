@@ -133,14 +133,16 @@ export const openUsers = (): OpenClientProp => {
   const out: OpenClientProp = { data, refetch, save, edit };
   return out;
 };
-// export const openPaginationClients = (page: number): OpenClientProp => {
-//   const { data = [], refetch } = usePaginationClientsQuery(page);
-//   const [save] = useAddClientMutation();
-//   const [edit] = useEditClientMutation();
-//   //@ts-ignore
-//   const out: OpenClientProp = { data, refetch, save, edit };
-//   return out;
-// };
+
+export const openPaginationUsers = (page: number): OpenClientProp => {
+  const { data = [], refetch } = usePaginationUsersQuery(page);
+  const [save] = useAddUsersMutation();
+  const [edit] = useEditUsersMutation();
+  //@ts-ignore
+  const out: OpenClientProp = { data, refetch, save, edit };
+  return out;
+};
+
 export const openOneUser = (id: string): OpenClientProp => {
   const { data = [], refetch } = useFetchOneUsersQuery(id);
   const [save] = useAddUsersMutation();

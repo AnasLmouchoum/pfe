@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import ListUtilisateur from "components/profile/ListUtilisateur";
-import { User, Users } from "tools/types";
 import NouvelUtilisateur from "components/profile/NouvelUtilisateur";
 import ConsulterUtilisateur from "components/profile/ConsulterUtilisateur";
-import { openUsers } from "config/rtk/RtkUser";
+import { openPaginationUsers, openUsers } from "config/rtk/RtkUser";
 
 function GestionUtilisateur(): JSX.Element {
   const [estAjt, setEstAjt] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [estModifier, setModifier] = useState(false);
   const [user, setUser] = useState({});
-  const openToUser = openUsers()
+  // const openToUser = openUsers()
+  // const listUser = openToUser.data.content;
+
+  const [page, setPage] = useState(0);
+  // const openToUsers = openUsers()
+  // const DataUsers = openToUsers.data.content;
+  // console.log(DataUsers)
+  const loadPage = (p: number) => {
+    setPage(p);
+    refetchUser();
+    // refetch();
+  };
+  const openToUser = openPaginationUsers(page)
   const listUser = openToUser.data.content;
+  console.log(listUser)
   const refetchUser = openToUser.refetch;
 
   return (

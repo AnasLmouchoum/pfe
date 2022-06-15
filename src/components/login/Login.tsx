@@ -17,7 +17,7 @@ function Login({setMDPOublier}:LoginProps) {
         signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"})
     }
   return (
-    <div className=" col-span-1">
+    <div className="col-span-1">
     <div className="grid justify-center grid-rows-2">
         <div className="mt-32 mb-1 text-center w-full">
           <h1 className="text-blue-900 text-5xl font-bold">GESTION COMMERCIAL</h1>
@@ -50,7 +50,7 @@ function Login({setMDPOublier}:LoginProps) {
             <p className="cursor-pointer   float-right text-yellow-700 " onClick={()=>setMDPOublier(true)}>Mot de passe oublié ?</p>
           </div>
           <div className="grid  justify-center ">
-            <Bsave onClick={submit} type="button"     className="    " />
+            <Bsave onClick={submit} type="button" className="    " />
           </div>
           
           {/* <p className="text-center mt-10 text-yellow-700 cursor-pointer " onClick={()=>setRegister(true)}>Register</p> */}

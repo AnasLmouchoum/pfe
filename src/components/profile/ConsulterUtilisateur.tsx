@@ -41,7 +41,7 @@ function ConsulterUtilisateur({
       <Form defaultValues={user} onSubmit={onSubmit}>
         <div className="grid grid-rows-6">
           <div className="row-span-1">
-            <p className="float-left">Détail d'utilisateur</p>
+            <h1 className="float-left">Détail d'utilisateur</h1>
             <XIcon
               className="w-6 h-6 float-right cursor-pointer"
               onClick={() => {setShowUser(false);refetchUser();}}
@@ -49,19 +49,8 @@ function ConsulterUtilisateur({
           </div>
           <div className="grid grid-cols-6 row-span-4">
             <div className="col-span-5">
-              <div className="my-5">
-                <Field 
-                    label="Genre"
-                    name="genre"
-                    as="select"
-                    // optionKeyName="id"
-                    optionLabelName="genre"
-                    options={["","Homme","Femme"]}
-                    className="w-96"
-                    disabled={!estModifier}       
-                />
-              </div>
-              <div className="flex my-5 ">
+
+              <div className="flex my-7 ">
                 <div className="flex items-center">
                   <Field 
                     label="nom"  
@@ -82,7 +71,7 @@ function ConsulterUtilisateur({
                     />
                 </div>
               </div>
-              <div className="flex my-5">
+              <div className="flex my-7">
                 <div className="flex items-center my-5">
                   <Field 
                     label="Rôle"
@@ -106,8 +95,20 @@ function ConsulterUtilisateur({
                     />
                 </div>
               </div>
-              <div className="flex my-5">
-                <div className="flex items-center  ">
+              <div className="flex my-7">
+                <div className="flex items-center">
+                  <Field 
+                      label="Genre"
+                      name="genre"
+                      as="select"
+                      // optionKeyName="id"
+                      optionLabelName="genre"
+                      options={["","Homme","Femme"]}
+                      className="w-96"
+                      disabled={!estModifier}       
+                  />
+                </div>
+                <div className="flex items-center ml-5 ">
 
                   <Field 
                     label="Téléphone"  

@@ -86,7 +86,7 @@ function ListColisage({setEstAjt,setShowColis,setModifier,setColis,Client}:ListU
 						id=''
 						path='colisage'
 						design=''
-						type='colisage'
+						type='le colisage'
 						ref={del}
 						action={DEL}
             refetch={refetchColisage}
@@ -95,7 +95,7 @@ function ListColisage({setEstAjt,setShowColis,setModifier,setColis,Client}:ListU
 						id=''
 						path='colisage'
 						design=''
-						type='colisage'
+						type='le colisage'
 						ref={archive}
 						action={ARCHIVE}
             refetch={refetchColisage}
@@ -171,13 +171,10 @@ function ListColisage({setEstAjt,setShowColis,setModifier,setColis,Client}:ListU
                                       //@ts-ignore
                                       archive.current(p.id, (page*2+page)+i+1);
                                     }}
-                                    /*   restore={() => {
-                                      //@ts-ignore
-                                      restore.current(client.id,client.design);
-                                    }} */
                                     del={() => {
                                       //@ts-ignore
-                                      deleteColisage(p.id)
+                                      del.current(p.id, (page*2+page)+i+1);
+                                      // deleteColisage(p.id)
                                     }}
                                     edit={() => {
                                       FromDetails(p)
@@ -208,13 +205,10 @@ function ListColisage({setEstAjt,setShowColis,setModifier,setColis,Client}:ListU
                                       //@ts-ignore
                                       archive.current(p.id, (page*2+page)+i+1);
                                     }}
-                                    /*   restore={() => {
-                                      //@ts-ignore
-                                      restore.current(client.id,client.design);
-                                    }} */
                                     del={() => {
                                       //@ts-ignore
-                                      deleteColisage(p.id)
+                                      del.current(p.id, (page*2+page)+i+1);
+                                      // deleteColisage(p.id)
                                     }}
                                     edit={() => {
                                       FromDetails(p)
