@@ -2,6 +2,7 @@ package com.ids.web;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,12 @@ public class ProductController extends AbstractCrudController<Product, UUID> {
 	@GetMapping("/idarticle/{idArticle}")
 	public List<Product> ByIdArticle(@PathVariable UUID idArticle) {
 		return repository.findByIdArticle(idArticle);
+	}
+
+	@GetMapping("/notDone")
+	public List<Product> getNotDone() {
+		List<Product> products = repository.findAll();
+		return products.stream().filter(p -> p.getCommeFait() == false).collect(Collectors.toList());
 	}
 
 }

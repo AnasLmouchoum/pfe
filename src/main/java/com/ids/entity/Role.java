@@ -2,6 +2,8 @@ package com.ids.entity;
 
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.Where;
+
 import com.ids.data.entity.EntityUuid;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.experimental.SuperBuilder;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
+@Where(clause = "deleted = false and archived = false")
 @Entity
 public class Role extends EntityUuid {
 	private static final long serialVersionUID = 1L;

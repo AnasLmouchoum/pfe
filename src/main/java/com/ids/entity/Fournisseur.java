@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = false and archived = false")
 public class Fournisseur extends EntityUuid {
 	public static final long serialVersionUID = 1l;
 	private String design;

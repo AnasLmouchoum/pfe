@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Entity
 @ToString(callSuper = true)
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = false and archived = false")
 public class Colisage extends AuditableEntityId<UUID> {
 
 	private static final long serialVersionUID = 1L;

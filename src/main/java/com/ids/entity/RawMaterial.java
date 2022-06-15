@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @ToString(callSuper = true)
 @Entity
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = false and archived = false")
 public class RawMaterial extends EntityUuid {
 
 	private static final long serialVersionUID = 1L;

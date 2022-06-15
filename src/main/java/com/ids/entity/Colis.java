@@ -3,7 +3,6 @@ package com.ids.entity;
 import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Where;
 
@@ -38,9 +37,10 @@ public class Colis extends EntityUuid {
 	private int nColisA;
 	private UUID idArticle;
 	private UUID idCommande;
+	private UUID idColisage;
 
 	private boolean inPalette;
-
-	@ManyToOne
-	private Palette palette;
+	//
+	//	@ManyToOne
+	//	private Palette palette;
 }
