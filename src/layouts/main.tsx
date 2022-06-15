@@ -33,6 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
 			setLoading(false);
 			setTimeout(() => {
 				//   signIn("keycloak")
+				signIn("credentials")
 			}, 200);
 		}
 		//   const token = await getToken()
@@ -41,7 +42,8 @@ const Layout = ({ children }: LayoutProps) => {
 	const securePage2 = async () => {
 		const session = await getSession();
 		if (!session) {
-			signIn("keycloak");
+			// signIn("keycloak");
+			signIn("credentials");
 		}
 	};
 
@@ -55,8 +57,8 @@ const Layout = ({ children }: LayoutProps) => {
 		return (
 			<section className='bg-slate-100 float-left w-full '>
 				<div className='w-1/6 float-left fixed h-full bg-[#2d2e2e]'>
-					{!isBeta && <NavVert updateSel={updateSel} />}
-					{isBeta && <NavVertBeta updateSel={updateSel} />}
+					<NavVert updateSel={updateSel} />
+					{/* {isBeta && <NavVertBeta updateSel={updateSel} />} */}
 				</div>
 				<div className=' py-6 sm:px-6 lg:px-8 w-5/6 float-right'>{children}</div>
 			</section>

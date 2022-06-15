@@ -555,31 +555,35 @@ export const getlc0 = (
 export interface Users {
 	id: number;
 	nom: string;
+	genre:string;
 	prenom: string;
 	password: string;
-	username: string;
-	first_name: string;
-	last_name: string;
-	tele: string;
+	phone: string;
 	img: string;
 	email: string;
-	phone: string;
-	role: string[];
+	role: string;
 }
 export const users0: Users = {
 	id: -1,
 	nom: "",
 	prenom: "",
+	genre: "",
 	password: "",
-	username: "",
-	first_name: "",
-	last_name: "",
-	tele: "",
 	img: "",
 	email: "",
 	phone: "",
-	role: [],
+	role: "",
 };
+export interface User extends IdsObject {
+	
+	prenom: string;
+	nom: string;
+	email: string;
+	disableableCredentialTypes: any[];
+	requiredActions: any[];
+	notBefore: number;
+	access: AccessUser;
+}
 export const u0 = users0;
 export interface AccessUser {
 	manageGroupMembership: boolean;
@@ -595,29 +599,11 @@ export const access0: AccessUser = {
 	impersonate: true,
 	manage: true,
 };
-export interface User extends IdsObject {
-	createdTimestamp: number;
-	username: string;
-	enabled: boolean;
-	totp: boolean;
-	emailVerified: boolean;
-	firstName: string;
-	lastName: string;
-	email: string;
-	disableableCredentialTypes: any[];
-	requiredActions: any[];
-	notBefore: number;
-	access: AccessUser;
-}
+
 export const user0: User = {
 	id: "",
-	createdTimestamp: 0,
-	username: "",
-	enabled: true,
-	totp: false,
-	emailVerified: false,
-	firstName: "",
-	lastName: "",
+	nom: "",
+	prenom: "",
 	email: "",
 	disableableCredentialTypes: [],
 	requiredActions: [],

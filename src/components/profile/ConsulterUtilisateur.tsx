@@ -1,193 +1,121 @@
 import React, { useState, useEffect } from "react";
 import Section from "../../widgets/Section";
-import { SearchIcon, XIcon } from "@heroicons/react/solid";
+import {  XIcon } from "@heroicons/react/solid";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
-import { ROLE, URL_API_SEC } from "tools/consts";
-import { ClipboardListIcon } from "@heroicons/react/solid";
-import NavTabs from "widgets/NavTabs";
-import { MenuNavTabs } from "widgets/TypeWidgets";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { u0, Users } from "tools/types";
+import { Field, Form } from "widgets";
+import Bcyan from "widgets/Bcyan";
+import Bcancel from "widgets/Bcancel";
+import Bsave from "widgets/Bsave";
+import { openOneUser } from "config/rtk/RtkUser";
 type ConsulterUtilisateurProps = {
   setShowUser: (b: boolean) => void;
   estModifier: boolean;
   setModifier: (b: boolean) => void;
-  username: string;
+  user: any;
+  refetchUser:()=>void
+  setUser:(b:boolean)=>void
 };
 
 function ConsulterUtilisateur({
   setShowUser,
   estModifier,
   setModifier,
-  username,
+  user,
+  setUser,
+  refetchUser
 }: ConsulterUtilisateurProps) {
-  const { register, handleSubmit } = useForm();
-  const [user, setUser] = useState<Users>(u0);
-  const onSubmit = (data: any) => console.log(data);
-  useEffect(() => {
-    axios.get(URL_API_SEC + "/user/" + username).then((rep) => {
-      setUser(rep.data);
-      console.log(rep.data);
-    });
-  }, []);
-
-  const tabs: MenuNavTabs[] = [
-    {
-      id: -1,
-      name: (
-        <>
-          <ClipboardListIcon className="" aria-hidden="true" />
-          <span className="">Commandes Clients</span>
-        </>
-      ),
-      featured: (
-        <div className="w-full h-full">
-          <div className="relative text-zinc-400 flex items-center  col-span-2 w-full">
-            <div className="float-right m-10 w-35">
-              <SearchIcon className="w-7 h-7 absolute m-2 " />
-              <input type="text" placeholder="Recherche" className="pl-8 " />
-            </div>
-          </div>
-        </div>
-      ),
-    },
-  ];
+  const openToOneClient = openOneUser(user?.id)
+  const editUsers = openToOneClient.edit
+  const onSubmit = (data: any) => {
+    setModifier(false)
+    editUsers(data)
+    setUser(data)
+    for(let i=0;i<20;i++){
+      console.log("Refetch 100")
+      
+    }
+  }
+  
   return (
     <Section>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Form defaultValues={user} onSubmit={onSubmit}>
         <div className="grid grid-rows-6">
           <div className="row-span-1">
             <p className="float-left">Détail d'utilisateur</p>
             <XIcon
               className="w-6 h-6 float-right cursor-pointer"
-              onClick={() => setShowUser(false)}
+              onClick={() => {setShowUser(false);refetchUser();}}
             />
           </div>
           <div className="grid grid-cols-6 row-span-4">
             <div className="col-span-5">
               <div className="my-5">
-                <div className="w-1/2  grid grid-cols-3">
-                  <label className=" ">Genre</label>
-                  <div className="  ">
-                    <label>
-                      <input
-                        name="genre"
-                        value="h"
-                        type="radio"
-                        className="mr-1"
-                        disabled={!estModifier}
-                        checked={true}
-                      />
-                      Homme
-                    </label>
-                  </div>
-                  <div className=" ">
-                    <label>
-                      <input
-                        name="genre"
-                        value="f"
-                        type="radio"
-                        className="mr-1"
-                        disabled={!estModifier}
-                      />
-                      Femme
-                    </label>
-                  </div>
-                </div>
+                <Field 
+                    label="Genre"
+                    name="genre"
+                    as="select"
+                    // optionKeyName="id"
+                    optionLabelName="genre"
+                    options={["","Homme","Femme"]}
+                    className="w-96"
+                    disabled={!estModifier}       
+                />
               </div>
               <div className="flex my-5 ">
                 <div className="flex items-center">
-                  <label className="w-56">Nom</label>
-                  <div className=" ">
-                    <input
-                      type="text"
-                      className=""
-                      disabled={!estModifier}
-                      {...register("nom")}
-                      value={user.first_name}
+                  <Field 
+                    label="nom"  
+                    name="nom" 
+                    type="text"  
+                    className="w-96"
+                    disabled={!estModifier}
                     />
-                  </div>
                 </div>
+                 
                 <div className="flex items-center ml-5">
-                  <label className="w-44">Prénom</label>
-                  <div className=" ">
-                    <input
-                      type="text"
-                      className=""
-                      disabled={!estModifier}
-                      {...register("prenom")}
-                      value={user.last_name}
+                  <Field 
+                    label="prénom"  
+                    name="prenom" 
+                    type="text"  
+                    className="w-96"
+                    disabled={!estModifier}
                     />
-                  </div>
                 </div>
               </div>
               <div className="flex my-5">
                 <div className="flex items-center my-5">
-                  <label className="formbuilder-select-label w-56">Rôle</label>
-                  <select
-                    className="w-52"
+                  <Field 
+                    label="Rôle"
+                    name="role"
+                    as="select"
+                    // optionKeyName="id"
+                    // optionLabelName="design"
+                    options={["","Admin","User","Manager"]}
+                    className="w-96"
                     disabled={!estModifier}
-                    {...register("role")}
-                  >
-                    {ROLE.map((val) => (
-                      <option value={val}>{val}</option>
-                    ))}
-                  </select>
+                            
+                />
                 </div>
                 <div className="flex items-center ml-5">
-                  <label className="w-44">Email</label>
-                  <div className=" ">
-                    <input
-                      type="text"
-                      className=""
-                      disabled={!estModifier}
-                      {...register("email")}
-                      value={user.email}
+                  <Field 
+                    label="email"  
+                    name="email" 
+                    type="text"  
+                    className="w-96" 
+                    disabled={!estModifier}
                     />
-                  </div>
                 </div>
               </div>
               <div className="flex my-5">
                 <div className="flex items-center  ">
-                  <label className="formbuilder-select-label w-56">
-                    Téléphone
-                  </label>
-                  <div className=" ">
-                    <input
-                      type="text"
-                      className=""
-                      disabled={!estModifier}
-                      {...register("phone")}
-                      value={user.tele}
+
+                  <Field 
+                    label="Téléphone"  
+                    name="phone" 
+                    type="text"  
+                    className="w-96"
+                    disabled={!estModifier}
                     />
-                  </div>
-                </div>
-              </div>
-              <div className="">
-                <label className=""></label>
-                <div className="">
-                  <div className="my-5">
-                    <label>
-                      <input
-                        value="option-1"
-                        type="checkbox"
-                        className="mr-5"
-                        disabled={!estModifier}
-                      />
-                      Créer un lien de du profile automatiquement
-                    </label>
-                  </div>
-                  <div className="my-5">
-                    <label>
-                      <input
-                        type="checkbox"
-                        className="mr-5"
-                        disabled={!estModifier}
-                      />
-                      Automatise l'utilisateur d'acceder au systeme
-                    </label>
-                  </div>
                 </div>
               </div>
             </div>
@@ -195,8 +123,7 @@ function ConsulterUtilisateur({
               <div className=" justify-center col-span-2">
                 <div className="grid justify-center">
                   <div className="w-40 h-40  block mt-10">
-                    <img /*"src={(user.image)?user.image:"/images/empty-avatar.png"}"*/
-                    />
+                  <img src="/images/empty-avatar.png" />
                   </div>
                   <div className="text-sm text-gray-600 ">
                     <label
@@ -222,37 +149,18 @@ function ConsulterUtilisateur({
           <div className="row-span-1">
             {!estModifier && (
               <div className="">
-                <button
-                  className="h-12 w-40  mb-10  rounded-md bg-gray-800 text-white float-right mr-28 "
-                  onClick={() => setModifier(true)}
-                >
-                  Modifier
-                </button>
+                <Bcyan label="Modifier" onClick={() => setModifier(true)} className="float-right mr-28" />
               </div>
             )}
             {estModifier && (
               <div className="">
-                <button
-                  className="h-12 w-40  mb-10 rounded-md bg-gray-800 text-white float-right mr-28 "
-                  onClick={() => setModifier(false)}
-                >
-                  Annuler
-                </button>
-                <button
-                  className="h-12 w-40  mb-10 rounded-md bg-gray-800 text-white float-right mr-10 "
-                  type="submit"
-                  onClick={() => setModifier(false)}
-                >
-                  Sauvgarder
-                </button>
+                <Bcancel label="Annuler" onClick={() => setModifier(false)} className="float-right mr-28" />
+                <Bsave /*onClick={() => setModifier(false)}*/ type="submit" className="float-right mr-10" />
               </div>
             )}
           </div>
         </div>
-        <div>
-          <NavTabs tab={tabs}></NavTabs>
-        </div>
-      </form>
+      </Form>
     </Section>
   );
 }

@@ -272,7 +272,7 @@ export default function Nav({ selected, loading }: NavProps) {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/profile"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -282,7 +282,7 @@ export default function Nav({ selected, loading }: NavProps) {
                           </a>
                         )}
                       </Menu.Item>
-                      {!session && (
+                      {/* {!session && (
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -302,8 +302,8 @@ export default function Nav({ selected, loading }: NavProps) {
                             </a>
                           )}
                         </Menu.Item>
-                      )}
-                      {session && (
+                      )} */}
+                      {/*session &&*/ (
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -319,7 +319,7 @@ export default function Nav({ selected, loading }: NavProps) {
                             setTimeout(() => {
                               window.location.href='/'
                             }, 500);*/
-                                signOut({ callbackUrl: "/", redirect: true });
+                                signOut({ callbackUrl: "/login", redirect: true });
                               }}
                             >
                               Sign out

@@ -1,97 +1,103 @@
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetToken } from "config/GetToken";
-import { useSession } from "next-auth/react";
+import { UserConfig } from "next-i18next";
 import { PAGE_SIZE } from "tools/consts";
-import { User } from "tools/types";
+import {
+  AdressLiv,
+  Article,
+  ArticleCommande,
+  BureauDouane,
+  Client,
+  Commande,
+  PayementMode,
+  RawMaterial,
+  RegimeDouanier,
+  Declarant,
+  Incoterm,
+  UnitMeasure,
+  Devise,
+  Pays,
+  Transporteur,
+  Ville,
+  Role,
+  Type,
+  Document,
+  CommandeFournisseur,
+  Fournisseur,
+  LigneDeCommande,
+  MatierePremiere,
+  ClientJson,
+  User,
+  Users,
+} from "tools/types";
 
 export const crudUser = createApi({
-  reducerPath: "crud-User",
+  reducerPath: "crud-user",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4002/admin/realms/gescom",
+    baseUrl: process.env.NEXT_PUBLIC_URL,
     prepareHeaders(headers) {
-      headers.set("Content-Type", "application/x-www-form-urlencoded");
-      headers.set(
-        "Authorization",
-        "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWZmFhYldKcjJXb0hTY3JMbDBQUU5laGo1d2JSQTVRbDZfTnY3WTBXOS1zIn0.eyJleHAiOjE2NTM4MTkyNzcsImlhdCI6MTY1MzM4NzI3NywiYXV0aF90aW1lIjoxNjUzMzg3Mjc3LCJqdGkiOiI5NTc1ZmY2NS1hYTVmLTRkYTMtYmQ3MS1kYWJmZTA2NGFhMGMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwMDIvcmVhbG1zL2dlc2NvbSIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYnJva2VyIiwiYWNjb3VudCJdLCJzdWIiOiJlZGQxZjJmMS04MzBiLTQxOWQtODUzOC03NjJkNjI4OTc3MjciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiMTA4NGM2ODYtZTViMC00OGEzLTk3MDEtYmUwOTRmYjc3NzYzIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWxlYXJuIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsidmlldy1pZGVudGl0eS1wcm92aWRlcnMiLCJ2aWV3LXJlYWxtIiwibWFuYWdlLWlkZW50aXR5LXByb3ZpZGVycyIsImltcGVyc29uYXRpb24iLCJyZWFsbS1hZG1pbiIsImNyZWF0ZS1jbGllbnQiLCJtYW5hZ2UtdXNlcnMiLCJxdWVyeS1yZWFsbXMiLCJ2aWV3LWF1dGhvcml6YXRpb24iLCJxdWVyeS1jbGllbnRzIiwicXVlcnktdXNlcnMiLCJtYW5hZ2UtZXZlbnRzIiwibWFuYWdlLXJlYWxtIiwidmlldy1ldmVudHMiLCJ2aWV3LXVzZXJzIiwidmlldy1jbGllbnRzIiwibWFuYWdlLWF1dGhvcml6YXRpb24iLCJtYW5hZ2UtY2xpZW50cyIsInF1ZXJ5LWdyb3VwcyJdfSwiYnJva2VyIjp7InJvbGVzIjpbInJlYWQtdG9rZW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJ2aWV3LWFwcGxpY2F0aW9ucyIsInZpZXctY29uc2VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwiZGVsZXRlLWFjY291bnQiLCJtYW5hZ2UtY29uc2VudCIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIxMDg0YzY4Ni1lNWIwLTQ4YTMtOTcwMS1iZTA5NGZiNzc3NjMiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJheW91YiBib3VyYWQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhQHkiLCJnaXZlbl9uYW1lIjoiYXlvdWIiLCJmYW1pbHlfbmFtZSI6ImJvdXJhZCIsImVtYWlsIjoiYUB5In0.KiLZ0DcLU-HqibtGy16XdPp6XCGxVBIMDdflHmZx0wYZy1KWbMK9PNgeeaoXmngkaKvh643ETLK3JOUd6kNP9LTYA43o8JhJBOjcCxt6luuA5D1V0fc95eBkzqDZdD8JSmjdYUBZbzzoa-kB9gpeM-sU_MVGfvlH4SrsouInGzEn6tocxeUKSYoKJAMj-Wplczn6PXNjVSd0fUbP8K9WPqop98Aq1D6r7d9BURXvyYgc2q9cSUIIVk19rYJ8JPgADltG0bND2PHOtks93VqqfZA88erVmksrB6djnakZwD60ksq9BFWMo_2NvClD0lpxsplxhRQv4oSwHErvfHFhMg"
-      );
-      headers.set("Access-Control-Allow-Origin", "*");
-      // const { data: token, status } = useSession()
-      /*  const jwtProm=GetToken()
-     jwtProm.then((jwt:string)=>{
-      if (jwt) {
-        headers.set('authorization', `Bearer ${jwt}`)
-      }
-     },
-     (error)=>{
-console.log("errrr ="+error)
-     }) */
-      //  console.log("jwt2 = "+token?.accessToken)
       return headers;
     },
-    /*  prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState<any,any,any>).auth?.token
-  
-      // If we have a token set in state, let's assume that we should be passing it.
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
-  
-      return headers
-    }, */
   }),
   tagTypes: ["User", "UNAUTHORIZED", "UNKNOWN_ERROR"],
-
   endpoints(builder) {
     return {
       /*****************************************************************************/
-      /*********************************User**************************************/
+      /*********************************CLIENT**************************************/
       /*****************************************************************************/
-      fetchUsers: builder.query<User[], void>({
-        query: () => ({
-          url: `/users`,
-          responseHandler: (response) => response.text(), // This is the same as passing 'text'
-        }),
+      fetchUsers: builder.query<Users, void>({
+        query: () => `/users`,
       }),
       paginationUsers: builder.query<User[], number>({
-        query: (page) => `/Users?page=${page}&size=${PAGE_SIZE}`,
+        query: (page) => `/users?page=${page}&size=${PAGE_SIZE}`,
       }),
-      fetchOneUser: builder.query<User, string>({
-        query: (id) => `/Users/${id}`,
+      fetchOneUsers: builder.query<User, string>({
+        query: (id) => `/users/${id}`,
       }),
-      addUser: builder.mutation<User, Partial<User>>({
+      fetchOneUsersByEmail: builder.query<User, string>({
+        query: (email) => `/users/byEmail/${email}`,
+      }),
+      addUsers: builder.mutation<User, Partial<User>>({
         query: (body) => ({
-          url: "/Users",
+          url: "/users",
           method: "POST",
           body,
         }),
       }),
-      editUser: builder.mutation<User, Partial<User> & Pick<User, "id">>({
+      editUsers: builder.mutation<
+        User,
+        Partial<User> & Pick<User, "id">
+      >({
         query: (body) => ({
-          url: `/Users/${body.id}`,
+          url: `/users/${body.id}`,
           method: "PUT",
           body,
         }),
       }),
-      deleteUser: builder.mutation<{ success: boolean; id: number }, number>({
+      deleteUsers: builder.mutation<{ success: boolean; id: number }, number>({
         //@ts-ignore
         query(id: Num) {
-          //  if (confirm(`do you want delete User number ${id.id} ?`))
+          //  if (confirm(`do you want delete Client number ${id.id} ?`))
           return {
-            url: `/Users/${id.id}`,
+            url: `/users/${id.id}`,
             method: "DELETE",
           };
         },
       }),
-      archiveUser: builder.mutation<User, Partial<User> & Pick<User, "id">>({
+      archiveUsers: builder.mutation<
+        Client,
+        Partial<Client> & Pick<Client, "id">
+      >({
         query: (id) => ({
-          url: `/Users/${id}/archive`,
+          url: `/users/${id}/archive`,
           method: "PUT",
         }),
       }),
-      restoreUser: builder.mutation<User, Partial<User> & Pick<User, "id">>({
+      restoreUsers: builder.mutation<
+        Client,
+        Partial<Client> & Pick<Client, "id">
+      >({
         query: (id) => ({
-          url: `/Users/${id}/restore`,
+          url: `/users/${id}/restore`,
           method: "PUT",
         }),
       }),
@@ -101,31 +107,54 @@ console.log("errrr ="+error)
 /***********useMaMethodAfficjageQuery********************************************/
 /***********useMaMethodeOperationMutaion*****************************************/
 export const {
-  /******************User********************************/
+  /******************CLIENT********************************/
   /*******************************************************/
   useFetchUsersQuery,
   usePaginationUsersQuery,
-  useFetchOneUserQuery,
-  useAddUserMutation,
-  useEditUserMutation,
-  useDeleteUserMutation,
-  useArchiveUserMutation,
-  useRestoreUserMutation,
+  useFetchOneUsersQuery,
+  useFetchOneUsersByEmailQuery,
+  useAddUsersMutation,
+  useEditUsersMutation,
+  useDeleteUsersMutation,
+  useArchiveUsersMutation,
+  useRestoreUsersMutation,
 } = crudUser;
-export type OpenUserProp = {
-  data: User[];
+export type OpenClientProp = {
+  data: ClientJson;
   refetch: () => void;
   save: () => void;
   edit: () => void;
 };
-export const openUsers = (): OpenUserProp => {
-  const { data: token, status } = useSession();
-
-  console.log("jwt3 = " + token);
+export const openUsers = (): OpenClientProp => {
   const { data = [], refetch } = useFetchUsersQuery();
-  const [save] = useAddUserMutation();
-  const [edit] = useEditUserMutation();
+  const [save] = useAddUsersMutation();
+  const [edit] = useEditUsersMutation();
   //@ts-ignore
-  const out: OpenUserProp = { data, refetch, save, edit };
+  const out: OpenClientProp = { data, refetch, save, edit };
   return out;
 };
+// export const openPaginationClients = (page: number): OpenClientProp => {
+//   const { data = [], refetch } = usePaginationClientsQuery(page);
+//   const [save] = useAddClientMutation();
+//   const [edit] = useEditClientMutation();
+//   //@ts-ignore
+//   const out: OpenClientProp = { data, refetch, save, edit };
+//   return out;
+// };
+export const openOneUser = (id: string): OpenClientProp => {
+  const { data = [], refetch } = useFetchOneUsersQuery(id);
+  const [save] = useAddUsersMutation();
+  const [edit] = useEditUsersMutation();
+  //@ts-ignore
+  const out: OpenClientProp = { data, refetch, save, edit };
+  return out;
+};
+export const openOneUserByEmail = (email: string): OpenClientProp => {
+  const { data = [], refetch } = useFetchOneUsersByEmailQuery(email);
+  const [save] = useAddUsersMutation();
+  const [edit] = useEditUsersMutation();
+  //@ts-ignore
+  const out: OpenClientProp = { data, refetch, save, edit };
+  return out;
+};
+

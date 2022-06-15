@@ -4,167 +4,135 @@ import { XIcon } from "@heroicons/react/solid";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { ROLE, URL_API_SEC } from "tools/consts";
 import { useForm } from "react-hook-form";
-import { Input } from "widgets";
+import { Field, Form, Input } from "widgets";
 import { useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { User, user0, Users } from "tools/types";
+import Bsave from "widgets/Bsave";
+import Bcancel from "widgets/Bcancel";
+import Bcyan from "widgets/Bcyan";
+import { openUsers } from "config/rtk/RtkUser";
 type NouvelUtilisateurProps = {
   setEstAjt: (b: boolean) => void;
+  refetchUser:()=>void
 };
-function NouvelUtilisateur({ setEstAjt }: NouvelUtilisateurProps) {
+function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
   const [savenew, setSaveNew] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const router = useRouter();
-  const onSubmit = (data: any) => {
-    console.log(data);
-    const newUser = {
-      id: "" + Date.now() + data.nom[0] + data.prenom[0],
-      email: data.email,
-      username: data.nom + "." + data.prenom + Math.floor(Math.random() * 101),
-      email_constraint: data.email,
-      first_name: data.prenom,
-      last_name: data.nom,
-      tele: data.phone,
-      genre: data.genre,
-      image: "",
-      realm_id: "bd6b823c-bb89-4417-8d0b-5b377a08a2d4",
-      created_timestamp: "" + Date.now(),
-      role: data.role,
-    };
-    console.log(newUser);
-    axios
-      .post(URL_API_SEC + "/user/creer", newUser)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const openToUser = openUsers()
+  const saveUser = openToUser.save;
+
+  // for(let i=0;i<3;i++)refetchUser()
+  const onSubmit = (data: Users) => {
+    console.log(data)
+    saveUser(data)
     setEstAjt(false);
     if (savenew) {
       setEstAjt(true);
       setSaveNew(false);
     }
+    setTimeout(() => {
+      refetchUser();
+    }, 500);
+    // for(let i=0;i<30;i++){
+    //   // console.log("Refetch")
+    //   refetchUser()
+    // }
+
     //@ts-ignore
-    router.reload(window.location.pathname);
   };
 
   return (
     <Section>
-      <form onSubmit={handleSubmit(onSubmit)}>
+     
+      <Form defaultValues={user0} onSubmit={onSubmit}>
         <div className="grid grid-rows-6">
           <div className="row-span-1">
-            <p className="float-left">Nouvel Utilisateur</p>
+            <h1 className="float-left">Nouvelle utilisateur</h1>
             <XIcon
               className="w-6 h-6 float-right cursor-pointer"
-              onClick={() => setEstAjt(false)}
+              onClick={() => {setEstAjt(false);refetchUser();}}
             />
           </div>
           <div className="grid grid-cols-6 row-span-4">
             <div className="col-span-5">
-              <div className="my-5">
-                <div className="w-1/2  grid grid-cols-3">
-                  <label className=" ">Genre</label>
-                  <div className="  ">
-                    <label {...register("genre")}>
-                      <input
-                        name="genre"
-                        value="h"
-                        type="radio"
-                        className="mr-1"
-                      />
-                      Homme
-                    </label>
-                  </div>
-                  <div className=" ">
-                    <label {...register("genre")}>
-                      <input
-                        name="genre"
-                        value="f"
-                        type="radio"
-                        className="mr-1"
-                      />
-                      Femme
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="flex my-5 ">
+
+              <div className="flex my-7 ">
                 <div className="flex items-center">
-                  <label className="w-56">Nom</label>
-                  <div className=" ">
-                    <input type="text" className="" {...register("nom")} />
-                  </div>
+
+                  <Field 
+                    label="nom"  
+                    name="nom" 
+                    type="text"  
+                    className="w-96"  />
                 </div>
+                 
                 <div className="flex items-center ml-5">
-                  <label className="w-44">Prénom</label>
-                  <div className=" ">
-                    <input type="text" className="" {...register("prenom")} />
-                  </div>
-                </div>
-              </div>
-              <div className="flex my-5">
-                <div className="flex items-center ">
-                  <label className="w-56">Mot de passe</label>
-                  <div className=" ">
-                    <input type="text" className="" {...register("password")} />
-                  </div>
-                </div>
-                <div className="flex items-center ml-5">
-                  <label className="w-44">Email</label>
-                  <div className=" ">
-                    <input type="text" className="" {...register("email")} />
-                  </div>
-                </div>
-              </div>
-              <div className="flex my-5">
-                <div className="flex items-center">
-                  <label className="w-56">Confirmation de mot de passe</label>
-                  <div className=" ">
-                    <input type="text" className="" />
-                  </div>
-                </div>
-                <div className="flex items-center ml-5 ">
-                  <label className="w-44">Téléphone</label>
-                  <div className=" ">
-                    <input type="text" className="" {...register("phone")} />
-                  </div>
+                  <Field 
+                    label="prénom"  
+                    name="prenom" 
+                    type="text"  
+                    className="w-96"  />
                 </div>
               </div>
 
-              <div className="flex items-center my-5">
-                <label className="formbuilder-select-label w-56">Rôle</label>
-                <select className="w-52" {...register("role")}>
-                  {ROLE.map((val) => (
-                    <option value={val}>{val}</option>
-                  ))}
-                </select>
+              <div className="flex my-7 ">
+                <div className="flex items-center">
+
+                  <Field 
+                    label="password"  
+                    name="password" 
+                    type="password"  
+                    className="w-96"  />
+                </div>
+                 
+                <div className="flex items-center ml-5">
+                  <Field 
+                    label="confirmer"  
+                    name="copassword" 
+                    type="password"  
+                    className="w-96"  />
+                </div>
               </div>
-              <div className="">
-                <label className=""></label>
-                <div className="">
-                  <div className="my-5">
-                    <label>
-                      <input
-                        value="add"
-                        type="checkbox"
-                        className="mr-5"
-                        {...register("lien")}
-                      />
-                      Créer un lien de du profile automatiquement
-                    </label>
-                  </div>
-                  <div className="my-5">
-                    <label>
-                      <input
-                        value="auto"
-                        type="checkbox"
-                        className="mr-5"
-                        {...register("auto")}
-                      />
-                      Automatise l'utilisateur d'acceder au systeme
-                    </label>
-                  </div>
+
+              <div className="flex my-7">
+                <div className="flex items-center">
+                  <Field 
+                    label="Rôle"
+                    name="role"
+                    as="select"
+                    // optionKeyName="id"
+                    optionLabelName="role"
+                    options={["","Admin","Utilisateur","Responsable de colisage", "Responsable de production"]}
+                    className="w-96"
+                            
+                />
+                </div>
+                <div className="flex items-center ml-5">
+                  <Field 
+                    label="email"  
+                    name="email" 
+                    type="text"  
+                    className="w-96"  />
+                </div>
+              </div>
+
+              <div className="flex my-7">
+                <div className="flex items-center">
+                  <Field 
+                      label="Genre"
+                      name="genre"
+                      as="select"
+                      options={["","Homme","Femme"]}
+                      className="w-96"
+                  />
+                </div>
+                <div className="flex items-center ml-5">
+                  <Field 
+                    label="Téléphone"  
+                    name="phone" 
+                    type="text"  
+                    className="w-96"  />
                 </div>
               </div>
             </div>
@@ -172,7 +140,7 @@ function NouvelUtilisateur({ setEstAjt }: NouvelUtilisateurProps) {
               <div className=" justify-center col-span-2">
                 <div className="grid justify-center">
                   <div className="w-40 h-40  block mt-10">
-                    <img src="/images/empty-avatar.png" />
+                  <img src="/images/empty-avatar.png" />
                   </div>
                   <div className="text-sm text-gray-600 ">
                     <label
@@ -187,6 +155,7 @@ function NouvelUtilisateur({ setEstAjt }: NouvelUtilisateurProps) {
                         name="file-upload"
                         type="file"
                         className="sr-only"
+                        
                       />
                     </label>
                   </div>
@@ -196,31 +165,17 @@ function NouvelUtilisateur({ setEstAjt }: NouvelUtilisateurProps) {
           </div>
           <div className="row-span-1">
             <div className="" onClick={() => setSaveNew(true)}>
-              <button
-                className="h-10 w-52  my-10 rounded-md bg-gray-800 text-white float-left mr-10 "
-                type="submit"
-              >
-                Sauvgarder et Nouveau
-              </button>
+              <Bcyan label="Sauvgarder et Nouveau" type="submit" className="float-left mr-10 h-10 w-52"  />
             </div>
             <div className="">
-              <button
-                className="h-10 w-40  my-10 rounded-md bg-gray-800 text-white float-right mr-10 "
-                type="button"
-                onClick={() => setEstAjt(false)}
-              >
-                Annuler
-              </button>
-              <button
-                className="h-10 w-40  my-10 rounded-md bg-gray-800 text-white float-right mr-10 "
-                type="submit"
-              >
-                Sauvgarder
-              </button>
+
+              <Bcancel label="Annuler" onClick={() => setEstAjt(false)} className="float-right mr-10" />
+
+              <Bsave type="submit" className=" float-right mr-10" />
             </div>
           </div>
         </div>
-      </form>
+      </Form>
     </Section>
   );
 }

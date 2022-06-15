@@ -36,6 +36,7 @@ import { crudTransporteur } from './rtk/rtkTransporteur';
 import { crudType } from './rtk/rtkType';
 import { crudUnitMeasure } from './rtk/rtkUnitMeasure';
 import { crudVille } from './rtk/rtkVille';
+import { crudUser } from './rtk/RtkUser';
 
 const {
 	middleware: offlineMiddleware,
@@ -92,6 +93,7 @@ export function makeStore() {
 		[crudCommande.reducerPath]: crudCommande.reducer,
 		[crudArticleCommande.reducerPath]: crudArticleCommande.reducer,
 		[crudCalculProduct.reducerPath]: crudCalculProduct.reducer,
+		[crudUser.reducerPath]: crudUser.reducer,
 	});
 	/*
 	 */
@@ -133,6 +135,7 @@ export function makeStore() {
 				.concat([crudColis.middleware, offlineMiddleware])
 				.concat([crudPalette.middleware, offlineMiddleware])
 				.concat([crudColisPalette.middleware, offlineMiddleware])
+				.concat([crudUser.middleware, offlineMiddleware])
 				.concat([crudGeneric.middleware, offlineMiddleware]),
 	});
 	return store;

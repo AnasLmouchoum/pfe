@@ -68,13 +68,13 @@ const menuVert = [
         route.pathname == "/manager/vendor/CommandeVendorManager",
       sous: [],
     },
-    /* {id:USER_MANAGER,
+    {id:30,
         icon: "user-circle",
         text: "Gestion Utilisateur",
         link: "/gestionutilisateur/GestionUtilisateur",
         active: route.pathname == "/gestionutilisateur/GestionUtilisateur",
         sous:[]
-      }, */
+    },
     // {
     //   id: PURCHASE_MANAGER,
     //   icon: "shopping-bag",
