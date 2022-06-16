@@ -28,13 +28,14 @@ function ConsulterUtilisateur({
   const editUsers = openToOneClient.edit
   const onSubmit = (data: any) => {
     setModifier(false)
-    editUsers(data)
+    editUsers({...data, img: img})
     setUser(data)
-    for(let i=0;i<20;i++){
-      console.log("Refetch 100")
-      
-    }
+    setTimeout(() => {
+      refetchUser();
+    }, 500);
   }
+
+  const [img, setImg] = useState('');
   
   return (
     <Section>
@@ -123,8 +124,8 @@ function ConsulterUtilisateur({
             <div className="col-span-1">
               <div className=" justify-center col-span-2">
                 <div className="grid justify-center">
-                  <div className="w-40 h-40  block mt-10">
-                  <img src="/images/empty-avatar.png" />
+                  <div className="w-28 h-28  block mt-10">
+                  <img src={user.img?.length > 0 ? "/profileImages/"+user.img : "/profileImages/empty-avatar.png"} />
                   </div>
                   <div className="text-sm text-gray-600 ">
                     <label
@@ -136,10 +137,11 @@ function ConsulterUtilisateur({
                       </span>
                       <input
                         id="file-upload"
-                        name="file-upload"
+                        name="img"
                         type="file"
                         className="sr-only"
                         disabled={!estModifier}
+                        onChange={(e) => {setImg(e.target.files[0].name)}}
                       />
                     </label>
                   </div>

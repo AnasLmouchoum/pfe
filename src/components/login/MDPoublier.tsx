@@ -1,6 +1,8 @@
+import Email from 'next-auth/providers/email'
 import { signIn } from 'next-auth/react'
 import React, { useState } from 'react'
 import { Field, Form } from 'widgets'
+import Bcyan from 'widgets/Bcyan'
 import Bsave from 'widgets/Bsave'
 
 type MDPoublierProps = {
@@ -13,6 +15,11 @@ function MDPoublier({setMDPOublier}:MDPoublierProps) {
     
     //     signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"})
     // }
+
+  const sendEmail = () => {
+    
+  }
+
   return (
     <div className=" col-span-1">
     <div className="grid justify-center grid-rows-2">
@@ -47,7 +54,7 @@ function MDPoublier({setMDPOublier}:MDPoublierProps) {
             {/* <p className="cursor-pointer   float-right text-yellow-700 " onClick={()=>{}}>Mot de passe oublié ?</p> */}
           </div>
           <div className="grid  justify-center ">
-            <Bsave  type="button" label='Recover mdp '    className="    " />
+            <Bcyan  type="button" className="" onClick={() => {sendEmail()}}>Send</Bcyan>
           </div>
           
           <p className="text-center mt-10 text-yellow-700 cursor-pointer " onClick={()=>setMDPOublier(false)}>Login</p>

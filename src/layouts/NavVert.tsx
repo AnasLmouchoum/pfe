@@ -1,3 +1,5 @@
+import { openOneUserByEmail } from 'config/rtk/RtkUser';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { forwardRef, Ref, useEffect, useRef, useState } from 'react';
@@ -32,11 +34,19 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 	const route = useRouter();
 	const [sous, setSous] = useState(-1);
 	const prev = useRef(-1);
+
+  const session2= getSession();
+  const [email,setEmail] = useState("")
+  session2.then((val)=> setEmail(val?.user?.email))
+
+  const openToOneClient = openOneUserByEmail(email)
+  const dataUser = openToOneClient.data
+
 	//  console.log("route = " + JSON.stringify(route));
 	useEffect(() => {
 		prev.current = sous;
 	}, []);
-const menuVert = [
+const menuVert =  [
     {
       id: 7,
       icon: "home",
@@ -241,7 +251,25 @@ const menuVert = [
       ],
     },
   ];
- 
+
+  // const menuVert = (dataUser.role == "Admin") ? [
+  //   {
+  //     id: 7,
+  //     icon: "home",
+  //     text: "Acceuil",
+  //     link: "/",
+  //     active: route.pathname == "/",
+  //     sous: [],
+  //   },
+  //   {
+  //     id: COLISAGE_MANAGER,
+  //     icon: "save",
+  //     text: "Gestion de colisage",
+  //     link: "/manager/colisage/GestionColisage",
+  //     active: route.pathname == "/manager/colisage/GestionColisage",
+  //     sous: []
+  //   },
+  // ] : undefined ;
 	
 	useEffect(() => {});
 	return (
@@ -250,7 +278,7 @@ const menuVert = [
 				<h2 className='bg-[#000] bg-opacity-10 text-[#fff] w-full float-left py-2.5'>
 					GESTION COMMERCIAL{" "}
 				</h2>
-				{menuVert.map((item) => (
+				{menuVert?.map((item) => (
 					<li
 						key={item.icon}
 						className={

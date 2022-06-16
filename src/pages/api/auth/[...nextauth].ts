@@ -1,5 +1,6 @@
 import nextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+// ​import EmailProvider from "next-auth/providers/email";
 
 export default nextAuth({
   providers: [
@@ -25,7 +26,8 @@ export default nextAuth({
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       }
-    })
+    }),
+
     // KeycloakProvider({
     //   clientId: process.env.KEYCLOAK_ID ?? "",
     //   clientSecret: process.env.KEYCLOAK_SECRET ?? "",

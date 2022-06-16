@@ -33,7 +33,7 @@ import {
 export const crudUser = createApi({
   reducerPath: "crud-user",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_URL,
+    baseUrl: "http://localhost:1000/api/v1",
     prepareHeaders(headers) {
       return headers;
     },
@@ -41,9 +41,9 @@ export const crudUser = createApi({
   tagTypes: ["User", "UNAUTHORIZED", "UNKNOWN_ERROR"],
   endpoints(builder) {
     return {
-      /*****************************************************************************/
-      /*********************************CLIENT**************************************/
-      /*****************************************************************************/
+      /***************************/
+      /************CLIENT*************/
+      /***************************/
       fetchUsers: builder.query<Users, void>({
         query: () => `/users`,
       }),
@@ -104,11 +104,11 @@ export const crudUser = createApi({
     };
   },
 });
-/***********useMaMethodAfficjageQuery********************************************/
-/***********useMaMethodeOperationMutaion*****************************************/
+/****useMaMethodAfficjageQuery***************/
+/****useMaMethodeOperationMutaion**************/
 export const {
-  /******************CLIENT********************************/
-  /*******************************************************/
+  /*******CLIENT***********/
+  /*******************/
   useFetchUsersQuery,
   usePaginationUsersQuery,
   useFetchOneUsersQuery,
@@ -159,4 +159,3 @@ export const openOneUserByEmail = (email: string): OpenClientProp => {
   const out: OpenClientProp = { data, refetch, save, edit };
   return out;
 };
-

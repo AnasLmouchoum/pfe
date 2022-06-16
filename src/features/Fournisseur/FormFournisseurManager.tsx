@@ -1,4 +1,5 @@
 // import { useAddFournisseurMutation, useEditFournisseurMutation } from 'config/rtk';
+import { DotsHorizontalIcon } from '@heroicons/react/solid';
 import { useAddFournisseurMutation, useEditFournisseurMutation } from 'components/gestionProduction/rtk/RtkFournisseur';
 import React, { useState } from 'react';
 import { REQUEST_EDIT, REQUEST_SAVE } from 'tools/consts';
@@ -39,9 +40,13 @@ const FormFournisseurManager = ({
 	// const tabPayementModes: PayementMode[] = openPayementModes().data.content;
 	// const payementModes = tabPayementModes?.map((d) => d.code);
 	const payementModes: string[] = ["","Par chèque", "Par carte bancaire", "Par espèces", "En ligne"];
-	const onSubmit =
-		request == REQUEST_SAVE ? save : request == REQUEST_EDIT ? edit : undefined;
+	const onSubmit = (data) => { 
+		request == REQUEST_SAVE ? save({...data, image: img}) : request == REQUEST_EDIT ? edit({...data, image: img}) : undefined;
+	}
 	const [disabled, setDisabled] = useState(disable);
+
+	const [img, setImg] = useState('');
+	
 	return (
 		<Section>
 			<Xclose close={closed} />
@@ -98,9 +103,34 @@ const FormFournisseurManager = ({
 							</ShowCheckedsField>
 						</div>
 					</div>
-					<div className='float-left w-1/6'>
-						<Avatar />
-					</div>
+					<div className="col-span-1">
+						<div className=" justify-center col-span-2">
+							<div className="grid justify-center">
+							<div className="w-28 h-28  block mt-10">
+							<img src={fournisseur.image?.length > 0 ? "/profileImages/"+fournisseur.image : "/profileImages/empty-avatar.png"} />
+							</div>
+							<div className="text-sm text-gray-600 ">
+								<label
+								htmlFor="file-upload"
+								className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+								>
+								<span>
+									<DotsHorizontalIcon className="w-8 h-8 text-gray-400 m-auto" />
+								</span>
+								<Field
+									id="file-upload"
+									name="file"
+									type="file"
+									className="sr-only"
+									disabled={disabled}
+									onChange={(e) => {setImg(e.target.files[0].name);}}
+								/>
+								
+								</label>
+							</div>
+							</div>
+						</div>
+            </div>
 					<div className='float-left w-full mt-1'>
 						{!disabled && (
 							<Bsave

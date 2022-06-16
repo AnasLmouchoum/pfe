@@ -22,6 +22,7 @@ import {
 } from "tools/types";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
+import { openOneUserByEmail } from "config/rtk/RtkUser";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -40,6 +41,12 @@ export default function Nav({ selected, loading }: NavProps) {
     //@ts-ignore
     else setUser(session?.user);
   });
+
+  const [email,setEmail] = useState("");
+  const session2= getSession()
+  session2?.then((val)=> setEmail(val?.user?.email))
+  const imgUser = openOneUserByEmail(email).data.img;
+
   //console.log("my user = " + JSON.stringify(user));
   //selected==CLIENT_MANAGER?navClient:selected==VENDOR_MANAGER?navVendor:selected==PURCHASE_MANAGER?navPurchase:
   const navigation: NavType[] = [
@@ -254,7 +261,7 @@ export default function Nav({ selected, loading }: NavProps) {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="/images/empty-contact.png"
+                        src={imgUser != "" ? "/profileImages/"+imgUser : "/profileImages/empty-contact.png"}
                         alt=""
                       />
                     </Menu.Button>

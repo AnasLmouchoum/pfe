@@ -6,7 +6,7 @@ import { Field, Form } from "widgets";
 import Bcyan from "widgets/Bcyan";
 import Bcancel from "widgets/Bcancel";
 import Bsave from "widgets/Bsave";
-import {  openOneUserByEmail } from "config/rtk/RtkUser";
+import {  openOneUserByEmail, openUsers } from "config/rtk/RtkUser";
 import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import ChangerMdp from "components/profile/ChangerMdp";
 type ConsulterUtilisateurProps = {
@@ -26,21 +26,20 @@ function ConsulterUtilisateur({user
   const [modifier,setModifier] = useState(false)
   
   session2.then((val)=> setEmail(val?.user?.email))
-  // console.log(email)
+
   const openToOneClient = openOneUserByEmail(email)
   const editUsers = openToOneClient.edit
   const dataUser = openToOneClient.data
   const refetechUser = openToOneClient.refetch
-  // console.log(dataUser)
+
   const onSubmit = (data: any) => {
     // console.log(data)
     setModifier(false)
-    editUsers(data)
+    editUsers({...data, img: img});
     // const myTimeout = setTimeout(myGreeting, 100);
-    
     setTimeout(() => {
-      refetechUser()
-    }, 500);
+      refetechUser();
+    }, 1000);
 
     // function myGreeting() {
     //   refetechUser()
@@ -48,6 +47,7 @@ function ConsulterUtilisateur({user
     // }
   }
 
+  const [img, setImg] = useState('');
   
   return (
     <Section>
@@ -58,19 +58,8 @@ function ConsulterUtilisateur({user
           </div>
           <div className="grid grid-cols-6 row-span-4">
             <div className="col-span-5">
-              <div className="my-5">
-                <Field 
-                    label="Genre"
-                    name="genre"
-                    as="select"
-                    // optionKeyName="id"
-                    optionLabelName="genre"
-                    options={["","Homme","Femme"]}
-                    className="w-96"
-                    disabled={!modifier}       
-                />
-              </div>
-              <div className="flex my-5 ">
+
+              <div className="flex my-7 ">
                 <div className="flex items-center">
                   <Field 
                     label="nom"  
@@ -91,8 +80,8 @@ function ConsulterUtilisateur({user
                     />
                 </div>
               </div>
-              <div className="flex my-5">
-                <div className="flex items-center my-5">
+              <div className="flex my-7">
+                <div className="flex items-center">
                   <Field 
                     label="Rôle"
                     name="role"
@@ -115,8 +104,20 @@ function ConsulterUtilisateur({user
                     />
                 </div>
               </div>
-              <div className="flex my-5">
-                <div className="flex items-center  ">
+              <div className="flex my-7">
+              <div className="flex items-center">
+                <Field 
+                    label="Genre"
+                    name="genre"
+                    as="select"
+                    // optionKeyName="id"
+                    optionLabelName="genre"
+                    options={["","Homme","Femme"]}
+                    className="w-96"
+                    disabled={!modifier}       
+                />
+              </div>
+                <div className="flex items-center ml-5 ">
 
                   <Field 
                     label="Téléphone"  
@@ -131,8 +132,8 @@ function ConsulterUtilisateur({user
             <div className="col-span-1">
               <div className=" justify-center col-span-2">
                 <div className="grid justify-center">
-                  <div className="w-40 h-40  block mt-10">
-                  <img src="/images/empty-avatar.png" />
+                  <div className="w-28 h-28  block mt-10">
+                  <img src={dataUser.img?.length > 0 ? "/profileImages/"+dataUser.img : "/profileImages/empty-avatar.png"} />
                   </div>
                   <div className="text-sm text-gray-600 ">
                     <label
@@ -144,10 +145,11 @@ function ConsulterUtilisateur({user
                       </span>
                       <input
                         id="file-upload"
-                        name="file-upload"
+                        name="img"
                         type="file"
                         className="sr-only"
                         disabled={!modifier}
+                        onChange={(e) => {setImg(e.target.files[0].name);}}
                       />
                     </label>
                   </div>

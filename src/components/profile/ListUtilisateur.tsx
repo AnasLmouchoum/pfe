@@ -53,9 +53,11 @@ function ListUtilisateur({
     refetchUser();
     // refetch();
   };
+  
 
   const openToUsers = openUsers()
   const DataUsers = openToUsers.data.content;
+  console.log(DataUsers)
 
   const [recherche, setRecherche] = useState('');
   const [isRecherche, setIsRecherch] = useState(false);
@@ -180,7 +182,7 @@ const update = useRef(null);
                 <Table.td onDoubleClick={()=>FromDetails(p)}>
                   <figure>
                     <img
-                      src={p.image ? p.image : "/images/empty-avatar.png"}
+                      src={p.img?.length > 0 ? "/profileImages/"+p.img : "/profileImages/empty-avatar.png"}
                       alt=""
                     />
                     <figcaption>
@@ -223,7 +225,7 @@ const update = useRef(null);
             );
           })}
           {isRecherche &&
-          listUser?.map((p: any) => {
+          DataUsers?.map((p: any) => {
           if(recherche.toLocaleLowerCase() == p.nom.toLocaleLowerCase() ||
             recherche.toLocaleLowerCase() == p.prenom.toLocaleLowerCase() ||
             recherche.toLocaleLowerCase() == p.role.toLocaleLowerCase() || 
