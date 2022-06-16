@@ -24,8 +24,8 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
 
   // for(let i=0;i<3;i++)refetchUser()
   const onSubmit = (data: Users) => {
-    console.log(data)
-    saveUser(data)
+
+    saveUser({...data, img: img})
     setEstAjt(false);
     if (savenew) {
       setEstAjt(true);
@@ -41,6 +41,8 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
 
     //@ts-ignore
   };
+
+  const [img, setImg] = useState('');
 
   return (
     <Section>
@@ -139,10 +141,10 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
             <div className="col-span-1">
               <div className=" justify-center col-span-2">
                 <div className="grid justify-center">
-                  <div className="w-40 h-40  block mt-10">
-                  <img src="/images/empty-avatar.png" />
+                  <div className="w-28 h-28 ml-10  block mt-10">
+                  <img src="/profileImages/empty-avatar.png" />
                   </div>
-                  <div className="text-sm text-gray-600 ">
+                  <div className="text-sm ml-10 text-gray-600 ">
                     <label
                       htmlFor="file-upload"
                       className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -154,6 +156,7 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
                         id="file-upload"
                         name="file-upload"
                         type="file"
+                        onChange={(e) => {setImg(e.target.files[0].name);}}
                         className="sr-only"
                         
                       />

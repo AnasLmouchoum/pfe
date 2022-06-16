@@ -45,7 +45,7 @@ export default function Nav({ selected, loading }: NavProps) {
   const [email,setEmail] = useState("");
   const session2= getSession()
   session2?.then((val)=> setEmail(val?.user?.email))
-  const imgUser = openOneUserByEmail(email).data.img;
+  const imgUser = openOneUserByEmail(email).data?.img;
 
   //console.log("my user = " + JSON.stringify(user));
   //selected==CLIENT_MANAGER?navClient:selected==VENDOR_MANAGER?navVendor:selected==PURCHASE_MANAGER?navPurchase:
@@ -261,7 +261,7 @@ export default function Nav({ selected, loading }: NavProps) {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={imgUser != "" ? "/profileImages/"+imgUser : "/profileImages/empty-contact.png"}
+                        src={imgUser?.length > 0 ? "/profileImages/"+imgUser : "/profileImages/empty-avatar.png"}
                         alt=""
                       />
                     </Menu.Button>

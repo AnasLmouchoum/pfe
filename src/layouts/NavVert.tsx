@@ -1,5 +1,5 @@
 import { openOneUserByEmail } from 'config/rtk/RtkUser';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { forwardRef, Ref, useEffect, useRef, useState } from 'react';
@@ -30,6 +30,8 @@ import Icon from 'widgets/Icon';
 type NavVertProps = {
 	updateSel: (s: number) => void;
 };
+
+
 const NavVert = ({ updateSel }: NavVertProps) => {
 	const route = useRouter();
 	const [sous, setSous] = useState(-1);
@@ -46,7 +48,8 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 	useEffect(() => {
 		prev.current = sous;
 	}, []);
-const menuVert =  [
+
+  const menuVert = (dataUser?.role == "Admin") ? [
     {
       id: 7,
       icon: "home",
@@ -55,17 +58,6 @@ const menuVert =  [
       active: route.pathname == "/",
       sous: [],
     },
-    // {
-    //   id: CLIENT_MANAGER,
-    //   icon: "user-circle",
-    //   text: "Gestion Clients",
-    //   link: "/manager/client/ClientManager",
-    //   active:
-    //     route.pathname == "/manager/client/ClientManager" ||
-    //     route.pathname == "/manager/client/CommandeClientManager" ||
-    //     route.pathname == "/manager/client/SoldeCommandeClientManager",
-    //   sous: [],
-    // },
     {
       id: VENDOR_MANAGER,
       icon: "truck",
@@ -85,19 +77,6 @@ const menuVert =  [
         active: route.pathname == "/gestionutilisateur/GestionUtilisateur",
         sous:[]
     },
-    // {
-    //   id: PURCHASE_MANAGER,
-    //   icon: "shopping-bag",
-    //   text: "Gestion Achats",
-    //   link: "/manager/purchase/Reception",
-    //   active:
-    //     route.pathname == "/manager/purchase/Reception" ||
-    //     route.pathname == "/manager/purchase/RightOfReturn" ||
-    //     route.pathname == "/manager/purchase/StockStatus" ||
-    //     route.pathname == "/manager/purchase/InputOutputHistory",
-    //   sous: [],
-    // },
-
     {
       id: GEST_PRODUCTION,
       icon: "shopping-bag",
@@ -117,23 +96,6 @@ const menuVert =  [
       active: route.pathname == "/manager/colisage/GestionColisage",
       sous: []
     },
-
-    /* {
-        id: 11,
-        icon: "home",
-        text: "test",
-        link: "/Test",
-        active: route.pathname == "/Test",
-        sous: []
-      },
-      {
-        id: 12,
-        icon: "home",
-        text: "liste des icons",
-        link: "/documentation/ListIcons",
-        active: route.pathname == "/ee",
-        sous: []
-      }, */
     {
       id: 13,
       icon: "table",
@@ -141,28 +103,9 @@ const menuVert =  [
       // link: "/reference/unitMeasure/NewUnitMeasure",
       link: "/reference/article/NewArticle",
       active:
-        // route.pathname == "/reference/unitMeasure/NewUnitMeasure" ||
         route.pathname == "/reference/article/NewArticle" ||
-        route.pathname == "/reference/rawMaterial/NewRawMaterial" ||
-        // route.pathname == "/reference/bureauDouane/NewBureauDouane" ||
-        // route.pathname == "/reference/regimeDouanier/NewRegimeDouanier" ||
-        // route.pathname == "/reference/payementMode/NewPayementMode" ||
-        // route.pathname == "/reference/incoterm/NewIncoterm" ||
-        // route.pathname == "/reference/declarant/NewDeclarant" ||
-        // route.pathname == "/reference2/Transporteur" ||
-        // route.pathname == "/reference2/Document" ||
-        // route.pathname == "/reference2/Devise" ||
-        // route.pathname == "/reference2/Pays" ||
-        // route.pathname == "/reference2/Ville" ||
-        // route.pathname == "/reference2/Type" ||
-        route.pathname == "/reference2/Role",
+        route.pathname == "/reference/rawMaterial/NewRawMaterial",
       sous: [
-        // {
-        //   id: UNIT_MEASURE,
-        //   text: "Unités de Mesure",
-        //   link: "/reference/unitMeasure/NewUnitMeasure",
-        //   active: route.pathname == "/reference/unitMeasure/NewUnitMeasure",
-        // },
         {
           id: FAMILLE_ARTICLE,
           text: "Familles Article",
@@ -175,101 +118,68 @@ const menuVert =  [
           link: "/reference/rawMaterial/NewRawMaterial",
           active: route.pathname == "/reference/rawMaterial/NewRawMaterial",
         },
-        // {
-        //   id: BUREAU_DOUANE,
-        //   text: "Bureaux de Douane",
-        //   link: "/reference/bureauDouane/NewBureauDouane",
-        //   active: route.pathname == "/reference/bureauDouane/NewBureauDouane",
-        // },
-        // {
-        //   id: REGIME_DOUANIER,
-        //   text: "Régimes Douaniers",
-        //   link: "/reference/regimeDouanier/NewRegimeDouanier",
-        //   active:
-        //     route.pathname == "/reference/regimeDouanier/NewRegimeDouanier",
-        // },
-        // {
-        //   id: MODE_PAYEMENT,
-        //   text: "Mode De Réglement",
-        //   link: "/reference/payementMode/NewPayementMode",
-        //   active: route.pathname == "/reference/payementMode/NewPayementMode",
-        // },
-        // {
-        //   id: INCOTERM_GES,
-        //   text: "Incoterms",
-        //   link: "/reference/incoterm/NewIncoterm",
-        //   active: route.pathname == "/reference/incoterm/NewIncoterm",
-        // },
-        // {
-        //   id: DECLARANT_GES,
-        //   text: "Déclarants",
-        //   link: "/reference/declarant/NewDeclarant",
-        //   active: route.pathname == "/reference/declarant/NewDeclarant",
-        // },
-        // {
-        //   id: TRANSPORTEUR_MANAGER,
-        //   text: "Transporteurs",
-        //   link: "/reference2/Transporteur",
-        //   active: route.pathname == "/reference2/Transporteur",
-        // },
-        // {
-        //   id: DOCUMENT_MANAGER,
-        //   text: "Documents",
-        //   link: "/reference2/Document",
-        //   active: route.pathname == "/reference2/Document",
-        // },
-        // {
-        //   id: DEVISE_MANAGER,
-        //   text: "Devises",
-        //   link: "/reference2/Devise",
-        //   active: route.pathname == "/reference2/Devise",
-        // },
-        // {
-        //   id: PAYS_MANAGER,
-        //   text: "Pays",
-        //   link: "/reference2/Pays",
-        //   active: route.pathname == "/reference2/Pays",
-        // },
-        // {
-        //   id: VILLE_MANAGER,
-        //   text: "Villes",
-        //   link: "/reference2/Ville",
-        //   active: route.pathname == "/reference2/Ville",
-        // },
-        // {
-        //   id: TYPE_MANAGER,
-        //   text: "Types En-Têtes",
-        //   link: "/reference2/Type",
-        //   active: route.pathname == "/reference2/Type",
-        // },
-        // {
-        //   id: ROLE_MANAGER,
-        //   text: "Rôles",
-        //   link: "/reference2/Role",
-        //   active: route.pathname == "/reference2/Role",
-        // },
       ],
     },
-  ];
+  ] :  (dataUser?.role == "Responsable de colisage") ? [
+    {
+      id: 7,
+      icon: "home",
+      text: "Acceuil",
+      link: "/",
+      active: route.pathname == "/",
+      sous: [],
+    },
+    {
+      id: COLISAGE_MANAGER,
+      icon: "save",
+      text: "Gestion de colisage",
+      link: "/manager/colisage/GestionColisage",
+      active: route.pathname == "/manager/colisage/GestionColisage",
+      sous: []
+    },
+  ] : (dataUser?.role == "Responsable de production") ? [
+    {
+      id: 7,
+      icon: "home",
+      text: "Acceuil",
+      link: "/",
+      active: route.pathname == "/",
+      sous: [],
+    },
+    {
+      id: GEST_PRODUCTION,
+      icon: "shopping-bag",
+      text: "Gestion Productions",
+      link: "/manager/production/FicheProduction",
+      active:
+        route.pathname == "/manager/production/FicheProduction" ||
+        route.pathname == "/manager/production/Articles" ||
+        route.pathname == "/manager/production/HistoriqueProduction",
+      sous: [],
+    },
+  ] : (dataUser?.role == "Utilisateur") ? [
+    {
+      id: 7,
+      icon: "home",
+      text: "Acceuil",
+      link: "/",
+      active: route.pathname == "/",
+      sous: [],
+    },
+  ] : [] ;
 
-  // const menuVert = (dataUser.role == "Admin") ? [
-  //   {
-  //     id: 7,
-  //     icon: "home",
-  //     text: "Acceuil",
-  //     link: "/",
-  //     active: route.pathname == "/",
-  //     sous: [],
-  //   },
-  //   {
-  //     id: COLISAGE_MANAGER,
-  //     icon: "save",
-  //     text: "Gestion de colisage",
-  //     link: "/manager/colisage/GestionColisage",
-  //     active: route.pathname == "/manager/colisage/GestionColisage",
-  //     sous: []
-  //   },
-  // ] : undefined ;
+  const router = useRouter();
+
+  onload = () => {
+    setTimeout(() => {
+      if(menuVert.length == 0){
+        router.push({
+          pathname: '/login',
+          query: { returnUrl: router.asPath }
+        });
+      }
+    }, 2000);
+  }
 	
 	useEffect(() => {});
 	return (

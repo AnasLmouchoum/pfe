@@ -22,7 +22,7 @@ import { URL_API_SEC } from "tools/consts";
 import { usePaginationArticleClientsQuery } from "config/rtk/RtkArticleClient";
 import Bcyan from "widgets/Bcyan";
 import Action from "widgets/Action";
-import { openUsers } from "config/rtk/RtkUser";
+import { openPaginationUsers, openUsers } from "config/rtk/RtkUser";
 
 type ListUtilisateurProps = {
   setEstAjt: (b: boolean) => void;
@@ -45,18 +45,20 @@ function ListUtilisateur({
   // const [users, setUsers] = useState([]);
   const router = useRouter();
   const [page, setPage] = useState(0);
-  // const openToUsers = openUsers()
-  // const DataUsers = openToUsers.data.content;
+  const openPaginUsers = openPaginationUsers(page)
+  const paginUsers = openPaginUsers.data.content;
   // console.log(DataUsers)
   const loadPage = (p: number) => {
     setPage(p);
     refetchUser();
+    refetchDataUser();
     // refetch();
   };
   
 
   const openToUsers = openUsers()
   const DataUsers = openToUsers.data.content;
+  const refetchDataUser = openToUsers.refetch;
   console.log(DataUsers)
 
   const [recherche, setRecherche] = useState('');
@@ -176,7 +178,7 @@ const update = useRef(null);
           }
         >
           {!isRecherche &&
-          listUser?.map((p: any) => {
+          paginUsers?.map((p: any) => {
             return (
               <Table.tr key={p.id} className="cursor-pointer">
                 <Table.td onDoubleClick={()=>FromDetails(p)}>
@@ -237,7 +239,7 @@ const update = useRef(null);
                 <Table.td onDoubleClick={()=>FromDetails(p)}>
                   <figure>
                     <img
-                      src={p.image ? p.image : "/images/empty-avatar.png"}
+                      src={p.img?.length > 0 ? "/profileImages/"+p.img : "/profileImages/empty-avatar.png"}
                       alt=""
                     />
                     <figcaption>
@@ -271,7 +273,6 @@ const update = useRef(null);
                                     obj={p}
                                     update={() => {
                                       FormAsUpdate(p)
-                                      
                                     }}
                                       
                                   />

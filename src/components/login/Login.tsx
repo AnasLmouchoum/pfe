@@ -12,9 +12,15 @@ type LoginProps = {
 function Login({setMDPOublier}:LoginProps) {
     const [myEmail,setEmail] = useState("")
     const [myPassword,setPassword] = useState("")
-    const submit = () =>{
-    
-        signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"})
+    const [hide, setHide] = useState('hidden');
+    const submit = (e) =>{
+
+      if(myEmail.length == 0 || myPassword.length == 0){
+        e.preventDefault();
+        setHide('block');
+      }else{
+        signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"});
+      }
     }
   return (
     <div className="col-span-1">
@@ -28,13 +34,16 @@ function Login({setMDPOublier}:LoginProps) {
         </div>
         <div className="shadow-md">
         <form onSubmit={submit}>
+        <div className="grid justify-center w-full ">
+            <div className={hide}><p className="cursor-pointer float-left text-red-700 ">Il faut remplir saisir login et mot de passe</p></div>
+          </div>
         <div className="grid  justify-center mt-14 w-full  ">
         <input 
-            type="text"
+            type="email"
             name="email"
             placeholder="Votre adresse e-mail"
             className=" my-5 w-96"
-            onChange={(e:any)=>setEmail(e.target.value)}
+            onChange={(e:any)=>{setEmail(e.target.value); setHide('hidden')}}
           />
           </div>
           <div className="grid  justify-center  mb-14 w-full ">
@@ -43,7 +52,7 @@ function Login({setMDPOublier}:LoginProps) {
             name="email"
             placeholder="Mot de passe"
             className=" w-96"
-            onChange={(e:any)=> setPassword(e.target.value)}
+            onChange={(e:any)=> {setPassword(e.target.value); setHide('hidden')}}
           />
           </div>
           <div className="grid justify-center w-full ">

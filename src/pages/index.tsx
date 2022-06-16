@@ -26,8 +26,6 @@ const IndexPage: NextPage = () => {
         }else{
           console.log(session)
         }
-
-        
     }
    securePage() 
 })

@@ -88,7 +88,7 @@ function ConsulterUtilisateur({user
                     as="select"
                     // optionKeyName="id"
                     // optionLabelName="design"
-                    options={["","Admin","User","Manager"]}
+                    options={["","Admin","Utilisateur","Responsable de colisage", "Responsable de production"]}
                     className="w-96"
                     disabled={!modifier}
                             
