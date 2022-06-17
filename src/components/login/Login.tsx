@@ -1,3 +1,4 @@
+import { openOneUserByEmail } from 'config/rtk/RtkUser'
 import { signIn } from 'next-auth/react'
 import React, { useState } from 'react'
 import { Field, Form } from 'widgets'
@@ -12,14 +13,22 @@ type LoginProps = {
 function Login({setMDPOublier}:LoginProps) {
     const [myEmail,setEmail] = useState("")
     const [myPassword,setPassword] = useState("")
-    const [hide, setHide] = useState('hidden');
+    const [hide1, setHide1] = useState('hidden');
+    const [hide2, setHide2] = useState('hidden');
+    const user = openOneUserByEmail(myEmail).data;
     const submit = (e) =>{
 
       if(myEmail.length == 0 || myPassword.length == 0){
         e.preventDefault();
-        setHide('block');
+        setHide1('block');
       }else{
-        signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"});
+        if(user?.password == myPassword){
+          signIn("credentials",{email:myEmail,password:myPassword,callbackUrl:"/"});
+        }else{
+          e.preventDefault();
+          setHide2('block');
+        }
+        
       }
     }
   return (
@@ -35,7 +44,10 @@ function Login({setMDPOublier}:LoginProps) {
         <div className="shadow-md">
         <form onSubmit={submit}>
         <div className="grid justify-center w-full ">
-            <div className={hide}><p className="cursor-pointer float-left text-red-700 ">Il faut remplir saisir login et mot de passe</p></div>
+            <div className={hide1}><p className="cursor-pointer float-left text-red-700 ">Il faut remplir saisir login et mot de passe</p></div>
+          </div>
+          <div className="grid justify-center w-full ">
+            <div className={hide2}><p className="cursor-pointer float-left text-red-700 ">Email ou mot de passe incorrect</p></div>
           </div>
         <div className="grid  justify-center mt-14 w-full  ">
         <input 
@@ -43,7 +55,7 @@ function Login({setMDPOublier}:LoginProps) {
             name="email"
             placeholder="Votre adresse e-mail"
             className=" my-5 w-96"
-            onChange={(e:any)=>{setEmail(e.target.value); setHide('hidden')}}
+            onChange={(e:any)=>{setEmail(e.target.value); setHide1('hidden'); setHide2('hidden')}}
           />
           </div>
           <div className="grid  justify-center  mb-14 w-full ">
@@ -52,7 +64,7 @@ function Login({setMDPOublier}:LoginProps) {
             name="email"
             placeholder="Mot de passe"
             className=" w-96"
-            onChange={(e:any)=> {setPassword(e.target.value); setHide('hidden')}}
+            onChange={(e:any)=> {setPassword(e.target.value); setHide1('hidden'); setHide2('hidden')}}
           />
           </div>
           <div className="grid justify-center w-full ">

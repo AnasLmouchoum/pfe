@@ -172,13 +172,13 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 
   onload = () => {
     setTimeout(() => {
-      if(menuVert.length == 0){
+      if(menuVert == []){
         router.push({
           pathname: '/login',
           query: { returnUrl: router.asPath }
         });
       }
-    }, 2000);
+    }, 3000);
   }
 	
 	useEffect(() => {});

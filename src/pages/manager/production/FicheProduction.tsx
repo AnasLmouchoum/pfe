@@ -82,7 +82,7 @@ useEffect(() => {
     setCommandes(Commandes.concat(resp.data.content));
   })
 }, [])
-
+console.log(Commandes)
 //************COMMANDE BY ID CLIENT***********//
 // const CommandesByIdClientToOpen: OpenCommandeProp = openCommandesByIdClient(idClient);
 // const CommandesByIdClientJson: CommandeJson = CommandesByIdClientToOpen.data
@@ -209,7 +209,7 @@ const [isRecherche, setIsRecherch] = useState(false);
                           name="idCommande"
                           optionKeyName="id"
                           optionLabelName="nbc"
-                          options={Commandes.filter(c => c.idClient == idClient || c.idClient == '')}
+                          options={Commandes.filter(c => c.idClient == idClient).length != 0 ? Commandes.filter(c => c.idClient == idClient || c.idClient == '') : ["Pas de commandes"]}
                           as="select"
                           disabled={disabled}
                           // required={true}
@@ -222,7 +222,7 @@ const [isRecherche, setIsRecherch] = useState(false);
                           name="idArticle"
                           optionKeyName="idArticlee"
                           optionLabelName="design"
-                          options={ArticleCommandes.filter(ac => ac.idCommande === commandeSelected || ac.idCommande == '').filter(el => {const dup = uniqueIds.has(el.idArticlee);uniqueIds.add(el.idArticlee); return !dup})}
+                          options={ArticleCommandes.filter(ac => ac.idCommande === commandeSelected).length != 0 ? ArticleCommandes.filter(ac => ac.idCommande === commandeSelected || ac.idCommande == '').filter(el => {const dup = uniqueIds.has(el.idArticlee);uniqueIds.add(el.idArticlee); return !dup}) : ["Pas d'articles"]}
                           as="select"
                           onClick={(e: any) => {setIdArticle(e.target.value)}}
                           disabled={disabled}

@@ -17,6 +17,7 @@ import Bedit from "widgets/Bedit";
 import Bsave from "widgets/Bsave";
 import Bupdate from "widgets/Bupdate";
 import Modal from "widgets/Modal";
+import Required from "widgets/Required";
 
 type MatierePremiereProps = {
   Matierep: MatierePremiere;
@@ -79,7 +80,7 @@ useEffect(() => {
     >
       <Form defaultValues={matiere0} onSubmit={save}>
         <div className="mt-1">
-        <Field label="Code *" name="codeMat" disabled={disabled} />
+        <Field label={<Required msg='Code' />} name="codeMat" disabled={disabled} required />
           {/* {matiere0.id != "" ? (
             <>
               <Field label="Fournisseur" value={fournisseur0?.design} disabled={disabled} />
@@ -95,17 +96,19 @@ useEffect(() => {
               disabled={disabled}
             />
           {/* )} */}
-          <Field label="Désignation *" name="designation" disabled={disabled} />
+          <Field label={<Required msg='Designation' />} name="designation" disabled={disabled} required />
           <Field
-            label="Famille matière première *"
+            label= {<Required msg='Famille matière première' />}
             name="familleMatierePremiere"
             as="select"
             options={FamilleMatiere}
             optionLabelName="design"
             optionKeyName="design"
             disabled={disabled}
+            required
           />
-          <Field label="Prix *" name="prixUnit" disabled={disabled} />
+          <Field label={<Required msg='Prix' />} placeholder="Dirham" name="prixUnit" disabled={disabled} required />
+          <Field label='Stock' name="stock" disabled={disabled} />
           <Field label="Origine" name="origine" disabled={disabled} /> {/*as="select" options={ORIGINE}*/}
           {/* <DatePicker className="border-[#f00]" selected={stsartDate} onChange={(date:any) => setStartDate(date)} /> */}
         </div>
@@ -116,7 +119,7 @@ useEffect(() => {
             setTimeout(() => {
               refetch();
               close();
-            }, 600);
+            }, 1000);
           }}
         />}
       </Form>

@@ -487,6 +487,7 @@ export interface MatierePremiere extends IdsObject {
 	origine: string;
 	fournisseur: Fournisseur;
 	idFournisseur: string;
+	stock: number;
 }
 export const matierepremiere0: MatierePremiere = {
 	id: "",
@@ -497,6 +498,8 @@ export const matierepremiere0: MatierePremiere = {
 	origine: "",
 	fournisseur: f0,
 	idFournisseur: "",
+	//@ts-ignore
+	stock: "",
 };
 export const mp0 = matierepremiere0;
 export const getMp0 = (f: Fournisseur): MatierePremiere => {

@@ -42,6 +42,10 @@ const FormFournisseurManager = ({
 	const payementModes: string[] = ["","Par chèque", "Par carte bancaire", "Par espèces", "En ligne"];
 	const onSubmit = (data) => { 
 		request == REQUEST_SAVE ? save({...data, image: img}) : request == REQUEST_EDIT ? edit({...data, image: img}) : undefined;
+
+		setTimeout(() => {
+			closed();
+		}, 500);
 	}
 	const [disabled, setDisabled] = useState(disable);
 
@@ -60,6 +64,7 @@ const FormFournisseurManager = ({
 								label={<Required msg='Nom du Fournisseur' />}
 								name='design'
 								disabled={disabled}
+								required
 							/>
 							<Field label='Contact' name='contact' disabled={disabled} />
 							<Field label='Téléphone' name='tel' disabled={disabled} />
@@ -69,6 +74,7 @@ const FormFournisseurManager = ({
 								name='adressse'
 								as='textarea'
 								disabled={disabled}
+								required
 							/>
 						</div>
 						<div className='float-left w-1/2'>
@@ -78,6 +84,7 @@ const FormFournisseurManager = ({
 								as='select'
 								options={payementModes}
 								disabled={disabled}
+								required
 							/>
 							<Field
 								label={<Required msg='Incoterm' />}
@@ -85,6 +92,7 @@ const FormFournisseurManager = ({
 								as='select'
 								options={incoterms}
 								disabled={disabled}
+								required
 							/>
 							<Field
 								label={<Required msg='Devise' />}
@@ -92,6 +100,7 @@ const FormFournisseurManager = ({
 								as='select'
 								options={devises}
 								disabled={disabled}
+								required
 							/>
 
 							<ShowCheckedsField
@@ -135,11 +144,11 @@ const FormFournisseurManager = ({
 						{!disabled && (
 							<Bsave
 								className='float-right b-ajust-r'
-								onClick={() => {
-									setTimeout(() => {
-										closed();
-									}, 500);
-								}}
+								// onClick={() => {
+								// 	setTimeout(() => {
+								// 		closed();
+								// 	}, 500);
+								// }}
 							/>
 						)}
 					</div>
