@@ -260,19 +260,23 @@ const FormArticle = ({ article }: FormArticleProps, ref: Ref<void>) => {
         <div className="float-left w-full text-sm">
           <Form
             defaultValues={article1}
-            onSubmit={
+            onSubmit={(data) => {
               request == REQUEST_SAVE
-                ? saveArticle
+                ? saveArticle(data)
                 : request == REQUEST_EDIT
-                ? editArticle
-                : void_
-            }
+                ? editArticle(data)
+                : void_;
+                setTimeout(() => {
+                  refetchArticle();
+                  closed();
+                }, 500);
+            }}
           >
             <div className=" float-left w-1/2">
               <Field
                 label={<Required msg="Désignation" />}
                 name="design"
-                disabled={disabled} //required={true}
+                disabled={disabled} required
               />
             </div>
             <div className="float-left w-full">
@@ -280,14 +284,14 @@ const FormArticle = ({ article }: FormArticleProps, ref: Ref<void>) => {
                 <Field
                   label={<Required msg="Nomenclature" />}
                   name="nomenclature"
-                  disabled={disabled} //required={true}
+                  disabled={disabled} required
                 />
               </div>
               <div className="float-right w-1/2">
                 <Field
                   label={<Required msg="Taux de perte" />}
                   name="tauxPertes"
-                  disabled={disabled} //required={true}
+                  disabled={disabled} required
                 />
               </div>
             </div>
@@ -296,10 +300,10 @@ const FormArticle = ({ article }: FormArticleProps, ref: Ref<void>) => {
               <Bsave
                 className="float-right"
                 onClick={() => {
-                  setTimeout(() => {
-                    refetchArticle();
-                    closed();
-                  }, 500);
+                  // setTimeout(() => {
+                  //   refetchArticle();
+                  //   closed();
+                  // }, 500);
                 }}
               />
               {article1.id == "" && (

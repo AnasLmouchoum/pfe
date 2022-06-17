@@ -21,6 +21,7 @@ import { OpenCalculProductProp, openCalculProducts } from 'components/gestionPro
 import { indexOf } from 'lodash';
 import Action from 'widgets/Action';
 import { articleCommande0 } from 'tools/types';
+import Required from 'widgets/Required';
 
 type Props = {}
 
@@ -187,11 +188,28 @@ const [isRecherche, setIsRecherch] = useState(false);
     <>
       <div className="float-left w-full text-xs">
           {/*@ts-ignore*/}
-          <Form defaultValues={pro} onSubmit={request == REQUEST_SAVE ? saveProduct : request == REQUEST_EDIT ? editProduct : void _}>
+          <Form defaultValues={pro} onSubmit={(data, e) => { request == REQUEST_SAVE ? saveProduct(data) : request == REQUEST_EDIT ? editProduct(data) : void _ ;refetchProduct();//@ts-ignore
+                    if(ArticleCommandes.map(ac => {if(ac.idCommande === commandeSelected && ac.idArticlee === idArticle && ac.portion === portion)return ac.qte}).filter(e => e)?.reduce((acc, cur) => parseFloat(acc)+parseFloat(cur) , 0) - 
+                      AllProducts?.map(p => {if(p.idCommande === commandeSelected && p.idArticle === idArticle && p.portion === portion && p.commeFait === false)return p.quantite}).filter(e => e)?.reduce((acc, cur) => parseFloat(acc)+parseFloat(cur), 0) - parseFloat(quantiteState) - 
+                      CalculProducts?.map(cp => {if(cp.idCommande === commandeSelected && cp.idArticlee === idArticle && cp.portion === portion)return cp.qteProduit}).filter(e => e)?.reduce((acc, cur) => parseFloat(acc)+parseFloat(cur), 0) < parseFloat(quantiteState)){
+                        const rep = confirm("la quntité à fabriquer est supérieure à la quantité restante, voulez-vous continuer quant même");
+                        if(rep == true){
+                          setTimeout(() => {//@ts-ignore
+                            closed();
+                            setRequest(REQUEST_SAVE);
+                            setQuantiteState("");
+                            refetchProduct();
+                            refetchCalcPro();
+                          }, 500);
+                    
+                        }else{
+                          e.preventDefault()
+                        }
+                    }}}>
               <div className="float-left w-full">
                   <div className="float-left w-1/2 pt-2">
                       <Field
-                          label="Client *"
+                          label={<Required msg='Client' />}
                           name="idClient"
                           optionKeyName="id"
                           optionLabelName="design"
@@ -199,12 +217,12 @@ const [isRecherche, setIsRecherch] = useState(false);
                           onClick={(e: any) => {setIdClient(e.target.value);}}
                           as="select"
                           disabled={disabled}
-                          required={true}
+                          required
                       />
                   </div>
                   <div className="float-left w-1/2 pt-2">
                       <Field
-                          label="Commande *"
+                          label={<Required msg='Commande' />}
                           id="qte"
                           name="idCommande"
                           optionKeyName="id"
@@ -212,13 +230,13 @@ const [isRecherche, setIsRecherch] = useState(false);
                           options={Commandes.filter(c => c.idClient == idClient).length != 0 ? Commandes.filter(c => c.idClient == idClient || c.idClient == '') : ["Pas de commandes"]}
                           as="select"
                           disabled={disabled}
-                          // required={true}
+                          required
                           onClick={(e: any) => {setCommandeSelected(e.target.value)}}
                       />
                   </div>
                   <div className="float-left w-1/2 pt-2">
                       <Field
-                          label="Article *"
+                          label={<Required msg='Article' />}
                           name="idArticle"
                           optionKeyName="idArticlee"
                           optionLabelName="design"
@@ -226,12 +244,12 @@ const [isRecherche, setIsRecherch] = useState(false);
                           as="select"
                           onClick={(e: any) => {setIdArticle(e.target.value)}}
                           disabled={disabled}
-                          required={true}
+                          required
                       />
                   </div>
                   <div className="float-right w-1/2 pt-2">
                       <Field
-                          label="Portion *"
+                          label={<Required msg='Portion' />}
                           name="portion"
                           optionKeyName="portion"
                           optionLabelName="portion"
@@ -239,7 +257,7 @@ const [isRecherche, setIsRecherch] = useState(false);
                           as="select"
                           onClick={(e: any) => {setPortion(e.target.value)}}
                           disabled={disabled}
-                          required={true}
+                          required
                       />
                   </div>
                   {/* <Field name="idArticleCommande" value={ArticleCommandes.map(ac => {if(ac.idCommande === commandeSelected && ac.idArticlee === idArticle && ac.portion === portion)return ac.id}).filter(e => e)[0]} /> */}
@@ -272,7 +290,7 @@ const [isRecherche, setIsRecherch] = useState(false);
                           <div className="pt-4 w-full">
                               <Field
                                   id="quantite"
-                                  label="Quantité *"
+                                  label={<Required msg='Quantité' />}
                                   name="quantite"
                                   disabled={disabled}
                                   required={true}
@@ -281,11 +299,11 @@ const [isRecherche, setIsRecherch] = useState(false);
                           </div>
                           <div className="pt-4 w-full">
                               <Field
-                                  label="Date Production *"
+                                  label={<Required msg='Date Production' />}
                                   name="dateProd"
                                   type="date"
                                   disabled={disabled}
-                                  required={true}
+                                  required
                               />
                           </div>
                       </div>

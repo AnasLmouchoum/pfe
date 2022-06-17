@@ -1,4 +1,6 @@
 import axios from "axios";
+import { OpenMatiereProp, openMatieres } from "components/gestionProduction/rtk/RtkMatiere";
+import { Matiere } from "components/gestionProduction/types";
 import {
   useAddMatierePremiereMutation,
   useFetchMatierePremiereQuery,
@@ -58,6 +60,9 @@ const FormMatierePremiere = (
     setShowModal(false);
     setDisabled(false);
   };
+
+  const AllmatierePremieresOpen: OpenMatiereProp = openMatieres();
+	const refetchAll = AllmatierePremieresOpen.refetch;
   
 /***************************************************************************************/
 const [FamilleMatiere, setFamilleMatiere] = useState<RawMaterial[]>([rawMaterial0])
@@ -65,7 +70,7 @@ useEffect(() => {
   axios.get('http://localhost:1000/api/v1/rawMaterials').then(resp => {
     setFamilleMatiere(FamilleMatiere.concat(resp.data.content));
   })
-}, [])
+}, []);
 /***************************************************************************************/
   useEffect(() => {
     //@ts-ignore
@@ -77,8 +82,8 @@ useEffect(() => {
       show={showModal}
       format={5}
       close={close}
-    >
-      <Form defaultValues={matiere0} onSubmit={save}>
+    >{/*@ts-ignore*/}
+      <Form defaultValues={matiere0} onSubmit={(data) => {save(data); setTimeout(() => { refetch(); refetchAll(); close();}, 1500);}}>
         <div className="mt-1">
         <Field label={<Required msg='Code' />} name="codeMat" disabled={disabled} required />
           {/* {matiere0.id != "" ? (
@@ -116,10 +121,11 @@ useEffect(() => {
         <Bsave
           className="float-right mt-5 b-ajust-r"
           onClick={() => {
-            setTimeout(() => {
-              refetch();
-              close();
-            }, 1000);
+            // setTimeout(() => {
+            //   refetch();
+            //   refetchAll();
+            //   close();
+            // }, 1500);
           }}
         />}
       </Form>

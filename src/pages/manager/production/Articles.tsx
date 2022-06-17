@@ -21,6 +21,7 @@ import { OpenFamilleArticleProp, openFamilleArticles } from 'components/gestionP
 import Section from 'widgets/Section';
 import Action from 'widgets/Action';
 import { XIcon } from '@heroicons/react/solid';
+import Required from 'widgets/Required';
 
 const color="text-[#2B5173]"
 const style_icon="mr-3 h-8 w-8 group-hover:text-gray-500 float-left "+color
@@ -141,27 +142,34 @@ useEffect(() => {
     const addArticle = 
         <div className="float-left w-full text-xs">
           {/*@ts-ignore*/}
-            <Form defaultValues={art} onSubmit={request == REQUEST_SAVE ? addArticleMatiere : request == REQUEST_EDIT ? addArticleMatiere : void _}>
+            <Form defaultValues={art} onSubmit={(data) => {request == REQUEST_SAVE ? addArticleMatiere : request == REQUEST_EDIT ? addArticleMatiere : void _;setTimeout(() => {
+                        closed();
+                        setRequest(REQUEST_SAVE);
+                        refetchArticle();
+                    }, 500);}}>
                 <div className="float-left w-full">
                     <div className="float-left w-1/2 pt-1">
                         <Field
-                            label="Code"
+                            label={<Required msg='Code' />}
                             name="codeArt"
                             disabled={disabled}
+                            required
                         />
                     </div>
                     <div className="float-right w-1/2 pt-1">
                         <Field
-                            label="Désignation"
+                            label={<Required msg='Désignation' />}
                             name="designation"
                             disabled={disabled}
+                            required
                         />
                     </div>
                     <div className="float-left w-1/2 pt-1">
                         <Field
-                            label="Prix unitaire"
+                            label={<Required msg='Prix unitaire' />}
                             name="prixUnit"
                             disabled={disabled}
+                            required
                         />
                     </div>
                     <div className="float-right w-1/2 pt-1">
@@ -188,22 +196,24 @@ useEffect(() => {
                     </div>
                     <div className="float-right w-1/2 pt-1">
                         <Field
-                            label="Poids"
+                            label={<Required msg='Poids' />}
                             name="poids"
                             options={POIDS}
                             as="select"
                             disabled={disabled}
+                            required
                         />
                     </div>
                     <div className="float-left w-1/2 pt-1">
                         <Field
-                            label="Famille article"
+                            label={<Required msg='Famille article' />}
                             name="idFamilleArticle"
                             optionKeyName="id"
                             optionLabelName="design"
                             options={FamilleArticles}
                             as="select"
                             disabled={disabled}
+                            required
                         />
                     </div>
                     <div className="float-right w-1/2 pt-1">
@@ -233,11 +243,11 @@ useEffect(() => {
                     className="float-right m-4 mt-8 px-4 w-32"
                     type="submit"
                     onClick={() => {
-                    setTimeout(() => {
-                        closed();
-                        setRequest(REQUEST_SAVE);
-                        refetchArticle();
-                    }, 500);
+                    // setTimeout(() => {
+                    //     closed();
+                    //     setRequest(REQUEST_SAVE);
+                    //     refetchArticle();
+                    // }, 500);
                     }}
                 >
                     Sauvgarder

@@ -255,44 +255,32 @@ const FormRawMaterial = (
 				<div className='float-left w-full text-sm'>
 					<Form
 						defaultValues={rawMaterial1}
-						onSubmit={
+						onSubmit={(data) => {
 							request == REQUEST_SAVE
-								? saveRawMaterial
+								? saveRawMaterial(data)
 								: request == REQUEST_EDIT
-								? editRawMaterial
-								: void_
-						}>
-						{/* <div className=' float-left w-1/2'>
-							<Field
-								label={<Required msg='Désignation' />}
-								name='design'
-								disabled={disabled} //required={true}
-							/>
-						</div> */}
+								? editRawMaterial(data)
+								: void_;
+							setTimeout(() => {
+								refetchRawMaterial();
+								closed();
+							}, 500);
+						}}>
 						<div className='float-left w-full'>
 							<div className=' float-left w-1/2'>
 								<Field
 									label={<Required msg='Désignation' />}
 									name='design'
-									disabled={disabled} //required={true}
+									disabled={disabled} required
 								/>
 							</div>
 							<div className='float-left w-1/2'>
 								<Field
 									label={<Required msg='Nomenclature' />}
 									name='nomenclature'
-									disabled={disabled} //required={true}
+									disabled={disabled} required
 								/>
 							</div>
-							{/* <div className='float-right w-1/2'>
-								<Field
-									label='Famille Mère'
-									name='family'
-									options={["", ...(Famille || [])]}
-									as='select'
-									disabled={disabled}
-								/>
-							</div> */}
 						</div>
 						<div className='float-left w-full'>
 							<div className='float-left w-1/2'>
@@ -301,14 +289,14 @@ const FormRawMaterial = (
 									name='measureUnit'
 									options={["", ...(Unit || [])]}
 									as='select'
-									disabled={disabled} //required={true}
+									disabled={disabled} required
 								/>
 							</div>
 							<div className='float-right w-1/2'>
 								<Field
 									label={<Required msg='Taux de perte' />}
 									name='tauxPertes'
-									disabled={disabled} //required={true}
+									disabled={disabled} required
 								/>
 							</div>
 						</div>
@@ -316,10 +304,10 @@ const FormRawMaterial = (
 							<Bsave
 								className='float-right'
 								onClick={() => {
-									setTimeout(() => {
-										refetchRawMaterial();
-										closed();
-									}, 500);
+									// setTimeout(() => {
+									// 	refetchRawMaterial();
+									// 	closed();
+									// }, 500);
 								}}
 							/>
 							{rawMaterial1.id == "" && (

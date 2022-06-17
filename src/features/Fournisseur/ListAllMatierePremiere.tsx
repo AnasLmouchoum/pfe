@@ -31,6 +31,7 @@ const ListAllMatierePremiere = () => {
 	const loadPage = (p: number) => {
 		setPage(p);
 		refetch();
+		refetchAll();
 	};
 	// const matierePremieresOpen: OpenMatierePremiereProp =
 	// 	openMatierePremieresPagination(page);
