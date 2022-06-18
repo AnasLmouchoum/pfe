@@ -25,6 +25,8 @@ function GestionUtilisateur(): JSX.Element {
   const listUser = openToUser.data.content;
   console.log(listUser)
   const refetchUser = openToUser.refetch;
+  const openToUsers = openUsers()
+  const refetchDataUser = openToUsers.refetch;
 
   return (
     <>
@@ -47,6 +49,7 @@ function GestionUtilisateur(): JSX.Element {
           user={user}
           setUser={setUser}
           refetchUser={refetchUser}
+          refetchDataUser={refetchDataUser}
         />
       )}
     </>

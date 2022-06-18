@@ -198,8 +198,7 @@ useEffect(() => {
                         <Field
                             label={<Required msg='Poids' />}
                             name="poids"
-                            options={POIDS}
-                            as="select"
+                            placeholder="en kg"
                             disabled={disabled}
                             required
                         />

@@ -26,8 +26,9 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
   // for(let i=0;i<3;i++)refetchUser()
   const onSubmit = (data: Users) => {
 
+
     if(password == confPassword){
-      saveUser({...data, img: img})
+      saveUser({...data, img: img, password: password});
       setEstAjt(false);
       if (savenew) {
         setEstAjt(true);
@@ -123,7 +124,7 @@ function NouvelUtilisateur({ setEstAjt,refetchUser}: NouvelUtilisateurProps) {
                   <Field 
                     label={<Required msg='Email' />}  
                     name="email" 
-                    type="text"  
+                    type="email"  
                     className="w-96" required />
                 </div>
               </div>

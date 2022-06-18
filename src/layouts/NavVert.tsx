@@ -185,8 +185,10 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 	return (
 		<div>
 			<ul className='nav-horiz bg-[#2d2e2e] h-full object-fill'>
-				<h2 className='bg-[#000] bg-opacity-10 text-[#fff] w-full float-left py-2.5'>
-					GESTION COMMERCIAL{" "}
+				<h2 className='float-left bg-[#000] bg-opacity-10 text-[#fff] w-full  py-2.5'>
+        <div className='w-full flex justify-center float-left'>
+            <img src='/images/swing.png' alt='' />
+        </div>
 				</h2>
 				{menuVert?.map((item) => (
 					<li
@@ -233,10 +235,8 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 						)}
 					</li>
 				))}
-				<div className='w-full flex justify-center py-5 float-left mt-44'>
-					<img src='/images/logo.png' alt='' />
-				</div>
 			</ul>
+      
 		</div>
 	);
 };

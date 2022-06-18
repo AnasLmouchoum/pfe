@@ -72,13 +72,13 @@ const App: FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
 
               <link rel="manifest" href="/manifest.json" />
               <link
-                href="/images/logo-5.png"
+                href="/images/swinga.png"
                 rel="icon"
                 type="image/png"
                 sizes="16x16"
               />
               <link
-                href="/images/logo-5.png"
+                href="/images/swinga.png"
                 rel="icon"
                 type="image/png"
                 sizes="32x32"

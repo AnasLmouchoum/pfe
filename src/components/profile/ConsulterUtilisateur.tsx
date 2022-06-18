@@ -7,6 +7,7 @@ import Bcyan from "widgets/Bcyan";
 import Bcancel from "widgets/Bcancel";
 import Bsave from "widgets/Bsave";
 import { openOneUser } from "config/rtk/RtkUser";
+import Required from "widgets/Required";
 type ConsulterUtilisateurProps = {
   setShowUser: (b: boolean) => void;
   estModifier: boolean;
@@ -14,6 +15,7 @@ type ConsulterUtilisateurProps = {
   user: any;
   refetchUser:()=>void
   setUser:(b:boolean)=>void
+  refetchDataUser: ()=>void
 };
 
 function ConsulterUtilisateur({
@@ -22,16 +24,26 @@ function ConsulterUtilisateur({
   setModifier,
   user,
   setUser,
-  refetchUser
+  refetchUser,
+  refetchDataUser,
 }: ConsulterUtilisateurProps) {
   const openToOneClient = openOneUser(user?.id)
   const editUsers = openToOneClient.edit
+  const refetchOne = openToOneClient.refetch;
   const onSubmit = (data: any) => {
     setModifier(false)
-    editUsers({...data, img: img})
-    setUser(data)
+    if(img.length > 0){
+      editUsers({...data, img: img})
+      setUser({...data, img: img})
+    }
+    else{
+      editUsers(data)
+      setUser(data)
+    }
     setTimeout(() => {
       refetchUser();
+      refetchOne();
+      refetchDataUser();
     }, 500);
   }
 
@@ -54,45 +66,45 @@ function ConsulterUtilisateur({
               <div className="flex my-7 ">
                 <div className="flex items-center">
                   <Field 
-                    label="nom"  
+                    label={<Required msg='Nom' />}
                     name="nom" 
                     type="text"  
                     className="w-96"
-                    disabled={!estModifier}
+                    disabled={!estModifier} rquired
                     />
                 </div>
                  
                 <div className="flex items-center ml-5">
                   <Field 
-                    label="prénom"  
+                    label={<Required msg='Prénom' />}
                     name="prenom" 
                     type="text"  
                     className="w-96"
-                    disabled={!estModifier}
+                    disabled={!estModifier} required
                     />
                 </div>
               </div>
               <div className="flex my-7">
                 <div className="flex items-center my-5">
                   <Field 
-                    label="Rôle"
+                    label={<Required msg='Rôle' />}
                     name="role"
                     as="select"
                     // optionKeyName="id"
                     // optionLabelName="design"
-                    options={["","Admin","User","Manager"]}
+                    options={["","Admin","Utilisateur","Responsable de colisage", "Responsable de production"]}
                     className="w-96"
                     disabled={!estModifier}
-                            
+                    required  
                 />
                 </div>
                 <div className="flex items-center ml-5">
                   <Field 
-                    label="email"  
+                    label={<Required msg='Email' />}
                     name="email" 
                     type="text"  
                     className="w-96" 
-                    disabled={!estModifier}
+                    disabled={!estModifier} required
                     />
                 </div>
               </div>

@@ -13,6 +13,7 @@ import ListeColis from './ListeColis';
 import ListeDesCommandesPrete from './ListeDesCommandesPrete';
 import { ClientJson, Colisage, colisage0 } from 'tools/types';
 import { Client } from 'components/gestionProduction/types';
+import Required from 'widgets/Required';
 
 type ConsulterUtilisateurProps={
     setShowColis:(b:boolean)=>void
@@ -58,7 +59,7 @@ function FicheDeColisage({setShowColis,estModifier,setModifier,colis,setColis,Cl
                         <div className="flex my-5 w-full ">
                             <div className="flex items-center">
                                 <Field 
-                                    label="Client"
+                                    label={<Required msg='Client' />}
                                     name="client"
                                     as="select"
                                     optionKeyName="id"
@@ -68,18 +69,19 @@ function FicheDeColisage({setShowColis,estModifier,setModifier,colis,setColis,Cl
                                     disabled={!estModifier}
                                     value={colis.idClient}
                                     onChange={(e:any)=> change("idClient",e.target.value)}
-                                    
+                                    required
                                     />
                             </div>
                             <div className="flex items-center ml-5">
                                 <Field 
-                                    label="Date de Colisage"  
+                                    label={<Required msg='Date de Colisage' />} 
                                     name="date_colisage" 
                                     type="date"  
                                     className="w-96" 
                                     disabled={!estModifier}
                                     value={colis.date_colisage}
                                     onChange={(e:any)=> change("date_colisage",e.target.value)}
+                                    required
                                  />
                             </div>
                         </div>

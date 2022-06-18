@@ -24,14 +24,14 @@ export default function ThemeForm() {
         <div className=" relative col-span-1 h-full object-fill">
           <div className="absolute left-0 right-0 top-20 flex justify-center">
             <img 
-              src="/images/logo-4.png"
+              src="/images/swing.png"
               alt=""
               className="object-none object-center "
             />
           </div>
           
           <img
-            src="/images/login.png"
+            src="/images/homeImg.jpg"
             alt=""
             className=" object-cover h-full w-full  "
             // style={styling}

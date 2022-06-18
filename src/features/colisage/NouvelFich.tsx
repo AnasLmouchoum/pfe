@@ -7,6 +7,7 @@ import Bcancel from 'widgets/Bcancel';
 import { ClientJson, Colis, colis0, ColisJson } from 'tools/types';
 import { openColisage } from 'config/rtk/rtkColisage';
 import { Client } from 'components/gestionProduction/types';
+import Required from 'widgets/Required';
 // import { Client, ClientJson, Colis, colis0, ColisJson } from '../tools/types';
 // import { openClients } from '../rtk/rtk_client';
 // import { openColisage } from '../rtk/rtk_colisage';
@@ -44,18 +45,18 @@ function NouvelFich({setEstAjt,Client,refetchColis}:NouvelUtilisateurProps) {
                 <div className="flex my-5 w-full ">
                     <div className="flex items-center">
                         <Field 
-                            label="Client"
+                            label={<Required msg='Client' />} 
                             name="idClient"
                             as="select"
                             optionKeyName="id"
                             optionLabelName="design"
                             options={["",...(Client || [])]}
                             className="w-96"
-                            
+                            required
                              />
                     </div>
                     <div className="flex items-center ml-5">
-                        <Field label="Date de Colisage"  name="date_colisage" type="date"  className="w-96"  />
+                        <Field label={<Required msg='Date de Colisage' />}   name="date_colisage" type="date"  className="w-96" required />
                     </div>
                 </div>
                 <div className="flex my-5">

@@ -83,7 +83,7 @@ useEffect(() => {
     setCommandes(Commandes.concat(resp.data.content));
   })
 }, [])
-console.log(Commandes)
+
 //************COMMANDE BY ID CLIENT***********//
 // const CommandesByIdClientToOpen: OpenCommandeProp = openCommandesByIdClient(idClient);
 // const CommandesByIdClientJson: CommandeJson = CommandesByIdClientToOpen.data
@@ -290,6 +290,7 @@ const [isRecherche, setIsRecherch] = useState(false);
                           <div className="pt-4 w-full">
                               <Field
                                   id="quantite"
+                                  type="number"
                                   label={<Required msg='Quantité' />}
                                   name="quantite"
                                   disabled={disabled}

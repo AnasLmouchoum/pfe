@@ -47,11 +47,15 @@ function ListUtilisateur({
   const [page, setPage] = useState(0);
   const openPaginUsers = openPaginationUsers(page)
   const paginUsers = openPaginUsers.data.content;
+  const refetchPaginUser = openPaginUsers.refetch;
   // console.log(DataUsers)
   const loadPage = (p: number) => {
-    setPage(p);
-    refetchUser();
-    refetchDataUser();
+    setTimeout(() => {
+      setPage(p);
+      refetchUser();
+      refetchDataUser();
+      refetchPaginUser();
+    }, 200);
     // refetch();
   };
   

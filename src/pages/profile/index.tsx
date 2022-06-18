@@ -30,6 +30,7 @@ function ConsulterUtilisateur({user
   const openToOneClient = openOneUserByEmail(email)
   const editUsers = openToOneClient.edit
   const dataUser = openToOneClient.data
+  const save = openToOneClient.save
   const refetechUser = openToOneClient.refetch
 
   const onSubmit = (data: any) => {
@@ -83,16 +84,15 @@ function ConsulterUtilisateur({user
               <div className="flex my-7">
                 <div className="flex items-center">
                   <Field 
-                    label="Rôle"
-                    name="role"
-                    as="select"
-                    // optionKeyName="id"
-                    // optionLabelName="design"
-                    options={["","Admin","Utilisateur","Responsable de colisage", "Responsable de production"]}
-                    className="w-96"
-                    disabled={!modifier}
-                            
-                />
+                      label="Genre"
+                      name="genre"
+                      as="select"
+                      // optionKeyName="id"
+                      optionLabelName="genre"
+                      options={["","Homme","Femme"]}
+                      className="w-96"
+                      disabled={!modifier}       
+                  />
                 </div>
                 <div className="flex items-center ml-5">
                   <Field 
@@ -105,19 +105,7 @@ function ConsulterUtilisateur({user
                 </div>
               </div>
               <div className="flex my-7">
-              <div className="flex items-center">
-                <Field 
-                    label="Genre"
-                    name="genre"
-                    as="select"
-                    // optionKeyName="id"
-                    optionLabelName="genre"
-                    options={["","Homme","Femme"]}
-                    className="w-96"
-                    disabled={!modifier}       
-                />
-              </div>
-                <div className="flex items-center ml-5 ">
+                <div className="flex items-center ">
 
                   <Field 
                     label="Téléphone"  
@@ -159,7 +147,7 @@ function ConsulterUtilisateur({user
           </div>
           <div className="">
               <p onClick={()=>setVisibilite(true)} className={"text-yellow-700 text-xl ml-14 hover:underline cursor-pointer "+(modifier?"visible":"hidden")} >Changer le  mot de passe</p>
-              <ChangerMdp visibilite={visibilite} setVisibilite={setVisibilite} dataUser={dataUser} />
+              <ChangerMdp visibilite={visibilite} setVisibilite={setVisibilite} dataUser={dataUser} save={save} refetch={refetechUser} />
           </div>
           <div className="row-span-1">
             { !modifier && (

@@ -60,7 +60,7 @@ const ListeMatiers = ({matieres, setMatiers, detail}: Props) => {
                 // code: <Field className="sm:grid-cols-1 sm:gap-1" name="code" disabled={false} />,
                 designation: <Field className="sm:grid-cols-1 sm:gap-1" as="select" optionKeyName="id" optionLabelName="designation" options={mats} name="designation" disabled={false} />,
                 // uniteDeMesure: <Field className="sm:grid-cols-1 sm:gap-1" name="uniteDeMesure" disabled={false} />,
-                quantite: <Field className="sm:grid-cols-1 sm:gap-1" name="quantite" disabled={false} />,
+                quantite: <Field className="sm:grid-cols-1 sm:gap-1" type="number" name="quantite" disabled={false} />,
                 // prixUnitaire: <Field className="sm:grid-cols-1 sm:gap-1" name="prixUnitaire" disabled={false} />,
                 action: <><Bcyan className="px-4 w-20" type="submit">Ajouter</Bcyan> <Bcyan className="px-4 w-20" onClick={()=>setAddMat(startFields)}>Annuler</Bcyan></>
             });

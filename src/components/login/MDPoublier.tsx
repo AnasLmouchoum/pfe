@@ -24,10 +24,10 @@ function MDPoublier({setMDPOublier}:MDPoublierProps) {
     <div className=" col-span-1">
     <div className="grid justify-center grid-rows-2">
         <div className="mt-32 mb-1 text-center w-full">
-          <h1 className="text-blue-900 text-5xl font-bold">GESTION COMMERCIAL</h1>
+          <h1 className="black text-5xl font-bold">GESTION COMMERCIAL</h1>
 
           <p className="text-gray-500 text-xl w-96 my-11 m-auto">
-            Entrez votre adresse e-mail et votre mot de passe pour accéder à votre espace
+            Entrez votre adresse e-mail pour récupérer le mot de passe
           </p>
         </div>
         <div className="shadow-md">
@@ -54,7 +54,7 @@ function MDPoublier({setMDPOublier}:MDPoublierProps) {
             {/* <p className="cursor-pointer   float-right text-yellow-700 " onClick={()=>{}}>Mot de passe oublié ?</p> */}
           </div>
           <div className="grid  justify-center ">
-            <Bcyan  type="button" className="" onClick={() => {sendEmail()}}>Send</Bcyan>
+            <Bcyan  type="button" className="w-96" onClick={() => {sendEmail()}}>Envoyer le code par e-mail</Bcyan>
           </div>
           
           <p className="text-center mt-10 text-yellow-700 cursor-pointer " onClick={()=>setMDPOublier(false)}>Login</p>
