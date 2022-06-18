@@ -8,6 +8,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.6.2",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@hookform/resolvers": "^2.8.8",
@@ -16,6 +17,7 @@
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
     "dateformat": "^5.0.3",
+    "emailjs-com": "^3.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "next": "latest",

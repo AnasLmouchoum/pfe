@@ -1129,6 +1129,11 @@
   "resolved" "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.6.tgz"
   "version" "0.5.6"
 
+"@emailjs/browser@^3.6.2":
+  "integrity" "sha512-Swc8w+vwDX4XPy6tPegOFGSwHqNiEmEsIKbtAkqHo2WqnS0ORZUnnuZats2R3XqwfxNQD0F6RwnlVWHIMf6sCQ=="
+  "resolved" "https://registry.npmjs.org/@emailjs/browser/-/browser-3.6.2.tgz"
+  "version" "3.6.2"
+
 "@emotion/cache@^10.0.27":
   "integrity" "sha512-fU2VtSVlHiF27empSbxi1O2JFdNWZO+2NFHfwO0pxgTep6Xa3uGb+3pVKfLww2l/IBGLNEZl5Xf/++A4wAYDYQ=="
   "resolved" "https://registry.npmjs.org/@emotion/cache/-/cache-10.0.29.tgz"
@@ -4503,6 +4508,11 @@
     "inherits" "^2.0.4"
     "minimalistic-assert" "^1.0.1"
     "minimalistic-crypto-utils" "^1.0.1"
+
+"emailjs-com@^3.2.0":
+  "integrity" "sha512-Prbz3E1usiAwGjMNYRv6EsJ5c373cX7/AGnZQwOfrpNJrygQJ15+E9OOq4pU8yC977Z5xMetRfc3WmDX6RcjAA=="
+  "resolved" "https://registry.npmjs.org/emailjs-com/-/emailjs-com-3.2.0.tgz"
+  "version" "3.2.0"
 
 "emoji-regex@^8.0.0":
   "version" "8.0.0"
