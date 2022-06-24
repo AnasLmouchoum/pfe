@@ -285,7 +285,7 @@ export default function Nav({ selected, loading }: NavProps) {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Your Profile
+                            Mon profil
                           </a>
                         )}
                       </Menu.Item>
@@ -329,7 +329,7 @@ export default function Nav({ selected, loading }: NavProps) {
                                 signOut({ callbackUrl: "/login", redirect: true });
                               }}
                             >
-                              Sign out
+                              Déconnexion
                             </a>
                           )}
                         </Menu.Item>

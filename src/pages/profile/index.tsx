@@ -55,7 +55,7 @@ function ConsulterUtilisateur({user
       <Form  defaultValues={dataUser} onSubmit={onSubmit}>
         <div className="grid grid-rows-6">
           <div className="row-span-1">
-            <p className="float-left">Profile</p>
+            <p className="float-left">Profil</p>
           </div>
           <div className="grid grid-cols-6 row-span-4">
             <div className="col-span-5">

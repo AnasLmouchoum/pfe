@@ -125,7 +125,7 @@ const update = useRef(null);
 						type="l'utilisateur"
 						ref={archive}
 						action={ARCHIVE}
-            refetch={refetchUser}
+            refetch={refetchPaginUser}
 					/>
           <Action
 						id=''
@@ -134,7 +134,7 @@ const update = useRef(null);
 						type="l'utilisateur"
 						ref={edit}
 						action={REQUEST_EDIT}
-            refetch={refetchUser}
+            refetch={refetchPaginUser}
 					/>
           {/* <Action
 						id=''

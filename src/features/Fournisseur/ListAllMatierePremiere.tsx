@@ -134,6 +134,7 @@ const ListAllMatierePremiere = () => {
 						<Table.th>Prix</Table.th>
 						<Table.th>Fournisseur</Table.th>
 						<Table.th>Famille</Table.th>
+						<Table.th>Stock</Table.th>
 						<Table.th>Origine</Table.th>
 						<Table.th></Table.th>
 					</tr>
@@ -149,6 +150,7 @@ const ListAllMatierePremiere = () => {
 							{fournisseurs?.map(f => {if(f.id == matiere.idFournisseur)return f.design})}
 						</Table.td>
 						<Table.td>{matiere.familleMatierePremiere}</Table.td>
+						<Table.td>{matiere.stock}</Table.td>
 						<Table.td>{matiere.origine}</Table.td>
 						<Table.td>
 							{/* <Mitems

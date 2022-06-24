@@ -63,7 +63,7 @@ function Login({setMDPOublier}:LoginProps) {
             name="email"
             placeholder="Votre adresse e-mail"
             className=" my-5 w-96"
-            onChange={(e:any)=>{setEmail(e.target.value); setHide1('hidden'); setHide2('hidden')}}
+            onChange={(e:any)=>{setEmail(e.target.value); setHide1('hidden'); setHide2('hidden'); refetchUser()}}
           />
           </div>
           <div className="grid  justify-center  mb-14 w-full ">
@@ -72,7 +72,7 @@ function Login({setMDPOublier}:LoginProps) {
             name="email"
             placeholder="Mot de passe"
             className=" w-96"
-            onChange={(e:any)=> {setPassword(e.target.value); setHide1('hidden'); setHide2('hidden')}}
+            onChange={(e:any)=> {setPassword(e.target.value); setHide1('hidden'); setHide2('hidden'); refetchUser()}}
           />
           </div>
           <div className="grid justify-center w-full ">

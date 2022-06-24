@@ -12,6 +12,8 @@ import Table from "widgets/Table";
 import { ArticleCommande, CalculProduct, Client, Commande } from "components/gestionProduction/types";
 import axios from "axios";
 import { OpenCalculProductProp, openCalculProducts } from "components/gestionProduction/rtk/RtkCalculProduct";
+import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import { openAllProducts } from "components/gestionProduction/rtk/RtkProduct";
 
 const IndexPage: NextPage = () => {
   const { data: session, status } = useSession();
@@ -58,15 +60,79 @@ const IndexPage: NextPage = () => {
       setArticleCommandes(ArticleCommandes.concat(resp.data.content));
     })
   }, [])
+
+  const Products = openAllProducts().data.content?.map((p) => p.quantite);
+
+const data = [{}];
+
+  for(let i=0; i<Products?.length; i++){
+    data.push({"name":"Page"+(i+1), "Quantité":Products[i]});
+  }
   
+  const dataa = [
+    {
+      "name": "Page 1",
+      "Commandes": 400,
+      // "pv": 2400
+    },
+    {
+      "name": "Page B",
+      "Commandes": 300,
+      // "pv": 1398
+    },
+    {
+      "name": "Page C",
+      "Commandes": 200,
+      // "pv": 9800
+    },
+    {
+      "name": "Page D",
+      "Commandes": 278,
+      // "pv": 3908
+    },
+    {
+      "name": "Page E",
+      "Commandes": 180,
+      // "pv": 4800
+    },
+    {
+      "name": "Page F",
+      "Commandes": 230,
+      // "pv": 3800
+    },
+    {
+      "name": "Page G",
+      "Commandes": 340,
+      // "pv": 4300
+    }
+  ]
+
   return (
     <Col>
       <Head title={t("GESTION COMMERCIALE")} />
       <View as="main">
-        <div className="absolute top-48">
-          <h1></h1>
+        {/* <img className="float w-full h-72" src="/images/homeImg.jpg" alt="" /> */}
+        <h1 className="flex justify-center">Productions et Commandes</h1>
+        <div className="center mt-4 flex justify-around">
+        <BarChart width={420} height={220} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {/* <Bar dataKey="pv" fill="#8884d8" /> */}
+          <Bar dataKey="Quantité" fill="#4A4445" />
+        </BarChart>
+        <BarChart width={420} height={220} data={dataa}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {/* <Bar dataKey="pv" fill="#8884d8" /> */}
+          <Bar dataKey="Commandes" fill="#764A17" />
+        </BarChart>
         </div>
-        <img className="float w-full h-96" src="/images/homeImg.jpg" alt="" />
         <Table className='tab-list float-left w-full mt-8 tab-list'
                 thead = 
                     {<tr>
